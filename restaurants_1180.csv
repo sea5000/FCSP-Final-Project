@@ -1,0 +1,134 @@
+﻿name,geometry,addr:street,addr:housenumber,addr:city,addr:postcode,cuisine_or_amenity,opening_hours
+Centimeter VII,POINT (16.3415571 48.2174462),Währinger Gürtel,1,Wien,1180,restaurant,"Mo-Th 09:00-24:00; Fr,Sa 09:00-01:00; Su,PH 09:00-24:00"
+Centimeter VI,POINT (16.328458 48.230999),Gersthofer Straße,51,Wien,1180,restaurant,"Mo-Th 09:00-24:00; Fr,Sa 09:00-01:00; Su,PH 09:00-24:00"
+Adam's Kebab,POINT (16.3290178 48.2314688),Gentzgasse,,Wien,1180,fast_food,"Mo-Fr 09:00-22:00; PH,Sa,Su 10:00-22:00"
+Diglas am Markt,POINT (16.3289347 48.2314924),Gersthofer Markt,7-11,Wien,1180,restaurant,Mo-Fr 18:00-18:00; Sa 08:00-12:00
+Pizza Mann,POINT (16.3288166 48.2310657),Gersthofer Straße,2a,Wien,1180,fast_food,Mo-Su 11:00-00:00
+Edelmann,POINT (16.3271549 48.2277883),Gersthofer Straße,21,Wien,1180,restaurant,
+Nordsee,POINT (16.3443194 48.2264315),Währinger Straße,112,Wien,1180,fast_food,"Sa 09:00-15:00; Su,PH off; Mo-We 09:00-19:00; Th,Fr 08:00-19:00"
+BioFrische,POINT (16.337033 48.228427),Lazaristengasse,2,Wien,1180,indian,Mo-Su 11:00-22:00
+Wen's Nudeln,POINT (16.3427745 48.226475),Währinger Straße,105,Wien,1180,fast_food,"PH,Su-Fr 10:30-22:00"
+Pasta e Basta,POINT (16.3310962 48.2301421),Gentzgasse,127,Wien,1180,restaurant,
+Zum gemütlichen Weinhauser,POINT (16.3313954 48.2300056),Gentzgasse,125,Wien,1180,restaurant,"Mo 10:00-22:00, Th-Fr 10:00-22:00, Sa-Su 09:00-22:00"
+Noodle King,POINT (16.3287882 48.2315387),Gentzgasse,,Wien,1180,fast_food,Mo-Fr 10:00-21:00; Sa 10:00-18:00
+Cafe Stadtbahn,POINT (16.3285222 48.2304602),Gersthofer Straße,47,Wien,1180,pub,Mo-Su 19:00-02:00
+Tandoori Junction,POINT (16.3407119 48.2212614),Antonigasse,9,Wien,1180,indian,"Tu-Fr 11:00-14:00, Mo-Fr 18:00-22:00, PH,Sa,Su 12:00-22:00"
+TacoLand,POINT (16.3384442 48.2231092),Kreuzgasse,,Wien,1180,restaurant,Mo-Su 10:30-21:30
+Kutschker 44,POINT (16.3448727 48.2267385),Kutschkergasse,44,Wien,1180,restaurant,Tu-Sa 16:00-24:00
+Ristorante Roma,POINT (16.3446263 48.2265954),Kutschkergasse,39,Wien,1180,italian,Mo-Su 11:30-23:00
+Oberlaa,POINT (16.3449489 48.2262324),Währinger Straße,108,Wien,1180,cafe,Mo-Su 08:30-19:00
+Hoskar,POINT (16.3437619 48.2231652),Kutschkergasse,9,Wien,1180,syrian,Mo-Su 11:00-23:00
+Trześniewski,POINT (16.3449832 48.226192),Währinger Straße,108,Wien,1180,fast_food,Mo-Fr 08:30-19:00; Sa 08:30-17:00; Jul-Aug Sa 08:30-14:00
+Schopenhauer,POINT (16.3467208 48.2235831),Staudgasse,1,Wien,1180,cafe,Mo-Sa 08:00-00:00; Su 08:00-22:00
+Wilde Ehe,POINT (16.3444371 48.2242345),Kutschkergasse,22,Wien,1180,pub,Mo-Th 16:00-24:00; Fr-Sa 16:00-02:00
+Bao panda,POINT (16.3418217 48.2223506),Kreuzgasse,12,Wien,1180,asian,Su-Fr 10:30-22:00; Sa off
+Cafe Mocca,POINT (16.3288835 48.2308783),Gersthofer Straße,2,Wien,1180,cafe,Mo-Su 08:00-01:00
+Radatz,POINT (16.3456131 48.2258258),Währinger Straße,104,Wien,1180,fast_food,Mo-Fr 08:30-18:30; Sa 08:00-13:00
+mikado - sushi style,POINT (16.3438958 48.2292511),Gymnasiumstraße,27,Wien,1180,japanese,"Su-Fr 11:30-15:00,17:30-22:30"
+Anton Frank - cafe bar,POINT (16.3437056 48.2290642),Gymnasiumstraße,25,Wien,1180,pub,
+Edelhof,POINT (16.3449277 48.2282579),Edelhofgasse,13,Wien,1180,regional,"Mo,We-Su 17:00-24:00, Tu off"
+Bollyfood,POINT (16.3459566 48.2265267),Gentzgasse,23,Wien,1180,restaurant,
+Wilder Mann,POINT (16.3465361 48.225465),Währinger Straße,85,Wien,1180,restaurant,Mo-Su 11:00-23:00
+Piroschka,POINT (16.3218812 48.2376695),Gersthofer Straße,140/1,Wien,1180,hungarian,We-Sa 11:00-22:00;Su 11:00-16:00
+Hanil Sushi,POINT (16.3443056 48.2293331),Gymnasiumstraße,25,Wien,1180,japanese,"Tu-Su, PH 11:00-15:00, 17:30-22:00"
+Eissalon am Gürtel,POINT (16.341637 48.2176565),Währinger Gürtel,3,Wien,1180,cafe,
+Herbeck,POINT (16.3173421 48.2326808),Scheibenbergstraße,11,Wien,1180,regional,Tu-Sa 11:30-23:00
+Monte Rosa,POINT (16.3197237 48.232519),Herbeckstraße,78,Wien,1180,italian,"We-Su,PH 11:00-15:00; Tu-Su,PH 17:00-23:00"
+Meister Xiao,POINT (16.3269911 48.2356125),Gersthofer Straße,70,Wien,1180,chinese,"Tu-Su 11:30-14:30,17:30-22:00"
+Martins-Schlössl,POINT (16.3399485 48.2192176),Martinstraße,18,Wien,1180,restaurant,12:00-23:00
+Himmelblau,POINT (16.3448062 48.2253802),Kutschkergasse,36,Wien,1180,cafe,
+Eckmeck Feinkost Kebap,POINT (16.3423476 48.2212381),Antonigasse,,Wien,1180,fast_food,Mo-Su 09:00-22:00
+Heurigen Restaurant Pötzleinsdorf,POINT (16.3072637 48.2433123),Pötzleinsdorfer Straße,97,Wien,1180,heuriger,"Mo-Fr 17:00-18:00+; Sa,Su,PH 12:00-18:00+"
+Buffet Pötzleinsdorf,POINT (16.3092179 48.2412642),Geymüllergasse,,Wien,1180,fast_food,
+Eis Cafe Brontolone,POINT (16.3394462 48.2254872),Schulgasse,,Wien,1180,cafe,"PH,Mo-Su 12:00-19:00"
+Vin Restaurant,POINT (16.3369391 48.2278092),Währinger Straße,137,Wien,1180,vietnamese,Tu-Su 11:30-20:00
+Blumencafé,POINT (16.3277453 48.2345019),Gersthofer Straße,30,Wien,1180,cafe,Mo-Fr 08:00-20:00; Sa-Su 09:00-19:00
+Ur-knall,POINT (16.3305137 48.2257362),Antonigasse,,Wien,1170,bar,Mo-Fr 09:00-18:00; Sa 10:00-14:00
+Tandoori Mirch Masala,POINT (16.3314861 48.2257155),Sommarugagasse,6,Wien,1180,indian,10:30-22:00
+De Rocco,POINT (16.3448952 48.2263285),Kutschkergasse,40,Wien,1180,ice_cream,"Mar-Oct PH,Mo-Su 12:00-20:00"
+Tao Mini Bar,POINT (16.3488881 48.2252743),Währinger Straße,80-82,Wien,1180,asian,Mo-Su 11:00-22:00
+Spumante,POINT (16.3275271 48.2339464),Höhnegasse,,Wien,1180,italian,
+Tchibo & Eduscho,POINT (16.3287117 48.2320825),Gersthofer Straße,2,Wien,1180,cafe,Mo-Fr 08:30-18:30; Sa 08:30-17:00
+Hollerkoch,POINT (16.3282714 48.2330784),Gersthofer Straße,14,Wien,1180,restaurant,Mo-We 16:30-24:00; Th-Sa 09:00-24:00; Su 09:00-15:00
+Gelateria Buon Gelato,POINT (16.3282971 48.2329645),Gersthofer Straße,12,Wien,1180,ice_cream,
+Koinonia,POINT (16.3348172 48.2282715),Währinger Straße,,Wien,1180,japanese,"PH,Mo-Su 11:30-15:00,18:00-22:30"
+Pizzeria Bello,POINT (16.334404 48.2285196),Währinger Straße,,Wien,1180,pizza,
+Santa Maria,POINT (16.3379339 48.2282028),Gentzgasse,86-88,Wien,1180,pizza,Mo-Su 11:30-22:30
+Bastille-Pub,POINT (16.3232806 48.2342786),Bastiengasse,20,Wien,1180,pub,Mo-Sa 18:00-25:00
+Konzertcafe Schmid Hansl,POINT (16.3432348 48.2249559),Schulgasse,31,Wien,1180,cafe,
+Pizzeria La Passione,POINT (16.341536 48.2224246),Kreuzgasse,,Wien,1180,pizza,
+Café Lalibela,POINT (16.3476468 48.2246135),Schulgasse,7,Wien,1180,ethiopian,"Mo-Th, Su 17:00-22:00; Fr, Sa 17:00-23:00"
+Takans's Fischrestaurant,POINT (16.3433684 48.2284111),Haizingergasse,13,Wien,1180,fish,Tu-Fr 17:00-24:00; Sa11:30-24:00
+d.e.r. Location,POINT (16.3435697 48.2285539),Gymnasiumstraße,16,Wien,1180,bar,Mo-Su 18:00-02:00
+Frisch,POINT (16.3432627 48.2221289),Kreuzgasse,2,Wien,1180,cafe,"Mo-Su,PH 06:00-22:00"
+"Bio-Pizzeria & Ristorante ""VERO #2""",POINT (16.3097503 48.2417185),Pötzleinsdorfer Straße,67,Wien,1180,italian;pizza,
+Atlantis,POINT (16.3445187 48.225508),Gertrudplatz,,Wien,1180,fish,"PH,Mo-Su 11:00-22:00"
+Liu Liu,POINT (16.3420793 48.2242034),Schopenhauerstraße,40,Wien,1180,chinese,"Mo,We-Fr 11:30-15:00, Mo,We-Sa 17:30-22:45, PH,Su 11:30-22:45; Tu off"
+Na-nÓg – Irish Pub,POINT (16.3491882 48.2300822),Anastasius-Grün-Gasse,6,Wien,1180,pub,Mo-Sa 18:00-01:00
+Belli Delikatessen,POINT (16.3364548 48.2236151),Johann-Nepomuk-Vogl-Platz,,Wien,1180,italian,"Mo-Fr 10:00-20:00; Sa 08:00-20:00; PH,Su off"
+Housgemacht,POINT (16.3368643 48.2236835),Johann-Nepomuk-Vogl-Platz,11-12,Wien,1180,fast_food,Mo-Fr 09:00-18:00; Sa 09:00-14:00
+Bon Giorno,POINT (16.3287462 48.2271937),Kreuzgasse,,Wien,1180,cafe,
+aumann,POINT (16.3368176 48.228128),Aumannplatz,1,Wien,1180,regional,Mo-Su 07:30-24:00
+Kutsch,POINT (16.3439543 48.2238226),Schopenhauerstraße,19,Wien,1180,regional,"We-Fr,PH 12:00-15:00,17:30-22:30; Sa,PH 09:00-15:00,17:30-22:30; Su,PH 09:00-15:00"
+Cafe Happy,POINT (16.3421418 48.2269447),Martinstraße,95,Wien,1180,cafe,"PH,Mo-Su 11:00-23:00"
+Sampresso,POINT (16.3478105 48.2261897),Gentzgasse,9,Wien,1180,cafe,Mo-Fr 07:00-18:30; Sa 08:00-17:00
+Edo Nudeln,POINT (16.3414067 48.2266341),Währinger Straße,113,Wien,1180,fast_food,Mo-Su 11:00-22:00
+NANA ROLL,POINT (16.338216 48.22769),Währinger Straße,150,Wien,1180,restaurant,
+Mach Ma Curry !!,POINT (16.3366768 48.2257537),Schopenhauerstraße,,Wien,1180,indian,"Tu-Fr,Su 11:30-21:30; Sa 17:30-21:30; Mo off"
+Honu Tiki Bowls,POINT (16.3452041 48.2260755),Währinger Straße,108,Wien,1180,hawaiian,
+B and me,POINT (16.3288282 48.2311478),Gersthofer Straße,2h,Wien,1180,cafe,Mo-Su 07:00-22:00
+Milons Restaurant,POINT (16.3489743 48.2292043),Semperstraße,47,Wien,1180,restaurant,Mo-Su 11:00-22:00
+aïda,POINT (16.3288168 48.2312511),Gersthofer Straße,2a,Wien,1180,cafe,Mo-Su 08:00-17:00
+Franze,POINT (16.3443213 48.2248659),Schulgasse,25/2-3,Wien,1180,cafe,Mo-Fr 08:00-18:00; Sa 08:00-14:00
+Kalimera,POINT (16.3496518 48.2284298),Währinger Gürtel,107,Wien,1180,greek,
+Mr. Miao,POINT (16.3287735 48.2313981),Gersthofer Straße,,Wien,1180,fast_food,
+Gersthofer Würstelstand,POINT (16.3288299 48.2313178),Gersthofer Straße,,Wien,1180,fast_food,
+Café Trabant,POINT (16.3382302 48.2284272),Dittesgasse,3,Wien,1180,pub,"Tu-Th 16:00-23:45; Fr,Sa 16:00-01:00"
+Einfach So,POINT (16.3525104 48.2318015),Währinger Gürtel,135,Wien,1180,pub,
+Gasthaus Manu,POINT (16.3480379 48.2303078),Anastasius-Grün-Gasse,12,Wien,1180,pub,"Mo-Fr 10:00-20:00; PH,Sa,Su 15:00-20:00"
+Gefrorenes - Eis wie damals,POINT (16.3380348 48.2277342),Währinger Straße,152,Wien,1180,ice_cream,Mo-Su 13:00-17:00
+Frank Stuben,POINT (16.3277714 48.2333332),Bastiengasse,,Wien,1180,restaurant,
+Gersthofer Blattdöner,POINT (16.3287712 48.2314452),Gersthofer Straße,,Wien,1180,fast_food,
+Ariston,POINT (16.3400981 48.2259832),Abt-Karl-Gasse,25,Wien,1180,greek,"Mo 17:00-23:00; We-Fr 17:00-23:00; Sa 12:00-23:00; Su,PH 12:00-22:00"
+das weinberg,POINT (16.3277357 48.2304011),Thimiggasse,11,Wien,1180,restaurant,
+Pizzeria Dolce Picante,POINT (16.3479294 48.2252028),Semperstraße,15,Wien,1180,fast_food,
+Cafe Captain Alex,POINT (16.3327172 48.2257573),Kreuzgasse,67,Wien,1180,cafe,Tu-Th 12:00-22:00; Fr-Su 14:00-00:00
+Kurkonditorei Oberlaa,POINT (16.3278104 48.2342337),Gersthofer Straße,28,Wien,1180,cafe,Mo-Su 08:00-20:00
+Schlemmer Café & Kunst,POINT (16.3337847 48.228409),Währinger Straße,,Wien,1180,cafe,
+Romantico,POINT (16.3328709 48.228544),Währinger Straße,163,Wien,1180,pizza,Tu-Su 11:00-22:40
+Quattro Café-Bar,POINT (16.3323299 48.228621),Währinger Straße,,Wien,1180,bar,
+Restaurant Orientable,POINT (16.3377729 48.2277829),Währinger Straße,154/2,Wien,1180,oriental,Tu-Su 11:30-21:30
+W.A.Sanchez,POINT (16.3485237 48.2250613),Währinger Straße,73,Wien,1180,mexican,Mo-Sa 11:00-22:00
+Affenschaukel,POINT (16.3423219 48.2263206),Martinstraße,98,Wien,1180,cafe,
+Fresh Box,POINT (16.3491355 48.228489),Michaelerstraße,,Wien,1180,fast_food,"PH,Mo-Fr 11:00-22:00; Sa 11:00-16:00; Su 16:00-22:00"
+Die Galerie,POINT (16.344221 48.2235776),Kutschkergasse,16,Wien,1180,ice_cream,We-Fr 16:00-20:00; Sa 06:00-20:00
+Tanis,POINT (16.3445175 48.2251035),,Stand 53+7,Wien,1180,fast_food,
+oan,POINT (16.3445739 48.2250304),,Stand 52,Wien,1180,restaurant,
+Domino's,POINT (16.3487453 48.224546),Schulgasse,1,Wien,1180,fast_food,
+Oskar,POINT (16.3448279 48.2255281),Gertrudplatz,2,Wien,1180,pub,Mo-Sa 16:00-24:00
+Espresso Babsi,POINT (16.3328741 48.2258731),Kreuzgasse,,Wien,1180,cafe,
+Zuckerkringel,POINT (16.3309476 48.2302807),Gentzgasse,127,Wien,1180,cafe,
+Aloha bowl,POINT (16.3365712 48.2279366),Währinger Straße,141,Wien,1180,fast_food,Mo-Fr 07:30-19:00
+Habe,POINT (16.3362819 48.2234862),Johann-Nepomuk-Vogl-Platz,6,Wien,1180,cafe,
+Bio Natur Land,POINT (16.3326229 48.2287523),Währinger Straße,180,Wien,1180,indian,Tu-Su 10:00-23:00
+Ghost Cooking,POINT (16.343908 48.2255241),Maynollogasse,5,Wien,1180,restaurant,
+Asiagarten,POINT (16.3410482 48.2225299),Kreuzgasse,18,Wien,1180,chinese,10:30-22:30
+Almaz,POINT (16.3414324 48.2222298),Kreuzgasse,,Wien,1180,bar,
+Taste Njoy,POINT (16.3491306 48.2274724),Währinger Gürtel,97,Wien,1180,fast_food,Mo-Fr 08:00-16:00
+Mamacita - California Burritos,POINT (16.3489881 48.2291908),Semperstraße,47,Wien,1180,restaurant,
+Good Roots,POINT (16.349 48.2291692),Semperstraße,47,Wien,1180,restaurant,
+Philomena,POINT (16.3482446 48.2300712),Anastasius-Grün-Gasse,11,Wien,1180,fast_food,
+La Signorina,POINT (16.3370373 48.2234254),Johann-Nepomuk-Vogl-Platz,20,Wien,1180,italian,
+Vitavien,POINT (16.3399983 48.2271798),Währinger Straße,,Wien,1180,cafe,
+Nest,"POLYGON ((16.336963 48.2236217, 16.3371504 48.2235459, 16.3371815 48.22358, 16.3369941 48.2236558, 16.336963 48.2236217))",Johann-Nepomuk-Vogl-Markt Stand,13-17,Wien,1180,restaurant,"Mo-Sa 08:00-22:00; PH,Su 09:00-19:00"
+La Cocotte Italian Bistro,"POLYGON ((16.3370229 48.2234675, 16.3369737 48.2234179, 16.337047 48.2233857, 16.3370961 48.2234352, 16.3370229 48.2234675))",Johann-Nepomuk-Vogl-Markt Stand,20,Wien,1180,italian,Tu-Sa 10:00-21:00
+Kreuzgassenstüberl,"POLYGON ((16.3371009 48.2235403, 16.3370474 48.2234862, 16.3371147 48.2234567, 16.3371719 48.2235165, 16.3371395 48.2235318, 16.3371336 48.2235259, 16.3371009 48.2235403))",Johann-Nepomuk-Vogl-Markt Stand,19,Wien,1180,pub,
+Meierei Diglas,"POLYGON ((16.3314676 48.2343893, 16.3315535 48.234347, 16.3315467 48.2343401, 16.331591 48.234319, 16.3316685 48.2343064, 16.3317248 48.2343134, 16.3317204 48.2343302, 16.3318335 48.2343466, 16.331869 48.2342459, 16.3316316 48.2342096, 16.331636 48.2341258, 16.3315527 48.2341245, 16.3315474 48.2341873, 16.3315211 48.2341633, 16.3314477 48.2341989, 16.3314931 48.2342404, 16.3314576 48.2342585, 16.3314753 48.2342747, 16.3313879 48.2343188, 16.3314676 48.2343893))",Hasenauerstraße,56,Wien,1180,restaurant,Tu-Su 09:00-22:00
+Wirtshaus Steirerstöckl,"POLYGON ((16.2940356 48.2422518, 16.2940368 48.2423022, 16.2939645 48.2423023, 16.2939646 48.2423577, 16.2941379 48.2423575, 16.2941389 48.2423737, 16.2942252 48.2423715, 16.2942257 48.2423426, 16.2942455 48.2423436, 16.2942441 48.242298, 16.2941487 48.2422971, 16.2941479 48.242242, 16.2940353 48.2422421, 16.2940365 48.2422348, 16.2941017 48.2422293, 16.2940837 48.2421347, 16.2939244 48.2421481, 16.2939454 48.2422591, 16.2940356 48.2422518))",Pötzleinsdorfer Straße,127,Wien,1180,restaurant,"We-Su, PH 11:30-24:00"
+Laus & Maus,"POLYGON ((16.3498711 48.2321599, 16.3498605 48.2320933, 16.3499664 48.2320858, 16.3499725 48.2321239, 16.34994 48.2321262, 16.3499445 48.2321547, 16.3498711 48.2321599))",Semperstraße,64a,Wien,1180,cafe,Mo-Su 11:00-18:00
+Mahya Imbiss,"POLYGON ((16.3389564 48.2177589, 16.3389794 48.2177559, 16.3389737 48.2177361, 16.3389507 48.2177391, 16.3389564 48.2177589))",,,,,fast_food,
+Währinger Schnitzel Corner mit Burger,"POLYGON ((16.3536779 48.2319692, 16.3536594 48.2319844, 16.3536943 48.2320032, 16.3537128 48.2319879, 16.3536779 48.2319692))",Währinger Gürtel,ggü 141,Wien,1180,fast_food,"Mo-Sa 20:00-04:00; note = ""May open or close earlier or be closed entirely on random days."""
+M-Café Mendel,"POLYGON ((16.3373212 48.2366479, 16.3373636 48.2366482, 16.3374525 48.2366491, 16.3374533 48.2367475, 16.3373206 48.2367471, 16.3373206 48.2366975, 16.3373212 48.2366479))",Gregor-Mendel-Straße,33,Wien,1180,restaurant,
+Zur Bosnarei,"POLYGON ((16.3492427 48.2252751, 16.3492372 48.2252479, 16.349264 48.2252454, 16.3492695 48.2252727, 16.3492427 48.2252751))",Währinger Gürtel,89,,,fast_food,10:00-05:00
+Börgerei,"POLYGON ((16.3492621 48.2253572, 16.3492566 48.22533, 16.3492834 48.2253276, 16.349289 48.2253548, 16.3492621 48.2253572))",Währinger Gürtel,89,,1180,fast_food,Mo-Fr 11:30-21:30; Sa 11:00-21:30
+Zur Dönerei,"POLYGON ((16.3491599 48.2248759, 16.3491544 48.2248486, 16.3491812 48.2248462, 16.3491868 48.2248735, 16.3491599 48.2248759))",Währinger Gürtel,87,,,fast_food,"Mo-Fr,Su 10:00-05:00; Sa 10:00-06:00"
