@@ -3,7 +3,7 @@ import pandas as pd
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
 from shapely.geometry import Point
-from datetime import time
+import datetime as dt
 import re
 
 class DataObject:
@@ -85,6 +85,7 @@ class Location:
         return f"{self.street} {self.house}, {self.district}"
 def ParseHours(inputString):
     dayMap = ["Mo","Tu","We","Th","Fr","Sa","Su","PH"]
+    NormalDayMap = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun","PH"]
     patternA = re.compile(r'(?P<days>(?:PH|Mo|Tu|We|Th|Fr|Sa|Su)(?:[-,](?:PH|Mo|Tu|We|Th|Fr|Sa|Su))*)\s+(?P<hours>(?:\d{2}:\d{2}-\d{2}:\d{2})(?:,\d{2}:\d{2}-\d{2}:\d{2})*)')
     patternB = re.compile(r'(?P<days>(?:PH|Mo|Tu|We|Th|Fr|Sa|Su))')
     schedule = {}
@@ -104,15 +105,15 @@ def ParseHours(inputString):
                     daysPart = daysPart.split(",")
                     soloDays = [day for day in daysPart if "-" not in day]
                     for i in soloDays:
-                        schedule[i] = hoursPart
+                        schedule[NormalDayMap[dayMap.index(i)]] = hoursPart
                     daysPart = str([day for day in daysPart if day not in soloDays]).replace("[","").replace("]","").replace("'","")
                 start, end = daysPart.split('-')
                 for i in range(dayMap.index(start), dayMap.index(end)+1):
-                    schedule[dayMap[i]] = hoursPart
+                    schedule[NormalDayMap[i]] = hoursPart
             else:
                 subDays = patternB.findall(daysPart)
                 for i in subDays:
-                    schedule[i] = hoursPart
+                    schedule[NormalDayMap[dayMap.index(i)]] = hoursPart
     return schedule
 class OpenHours:
     def __init__(self, hours:str=None):
@@ -143,15 +144,42 @@ class Restaurant:
     def __str__(self):
         return f"{self.id} {self.name} ({self.cuisine}) - {self.location}"
     def isCurrentlyOpen(self):
-        # Placeholder for actual implementation
-        return True
+        #dt.datetime.now()
+        day = dt.datetime.now().strftime("%a")
+        currentTime = dt.datetime.now().strftime("%H:%M")
+        currentTime = dt.datetime.strptime(currentTime, "%H:%M").time()
+        if self.hours is None:
+            return False
+        hours = self.hours.hours[day]
+        if ',' in hours:
+            hours = hours.split(',')
+            for i in hours:
+                start, end = i.split("-")
+                start_time = dt.datetime.strptime(start, "%H:%M").time()
+                end_time = dt.datetime.strptime(end, "%H:%M").time()
+                current_time = dt.datetime.strptime(time, "%H:%M").time()
+                if start_time <= current_time <= end_time:
+                    return True
+            return False
+        else:
+            start, end = hours.split("-")
+            if start == "24:00":
+                start = "23:59"
+            if end == "24:00":
+                end = "23:59"
+            startTime = dt.datetime.strptime(start, "%H:%M").time()
+            endTime = dt.datetime.strptime(end, "%H:%M").time()
+            if startTime <= currentTime <= endTime:
+                return True
+            else:
+                return False
 class DataBase(DataObject):
     def __init__(self, city:str="Währing, Wien, Austria", name:str=None, dataBrought:bool=False):
         self.city = city
         self.restaurants = []
         self.dataBrought = dataBrought
         self.dataPull = DataObject(dataBrought=self.dataBrought, city=self.city, name=name)
-        #self.restaurants = self.dataPull.data
+        self.restaurants = self.dataPull.data
         self.restaurants = [Restaurant(row['id'], row['name'], row['cuisine_or_amenity'], Location(row['lat'],row['long'], row['addr:city'], row['addr:street'], row['addr:housenumber']), OpenHours(row['opening_hours'])) for index, row in self.restaurants.iterrows()]
     def __getitem__(self, key):
         if hasattr(self, key):
