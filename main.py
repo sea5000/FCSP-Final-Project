@@ -5,6 +5,7 @@ from geopy.extra.rate_limiter import RateLimiter
 from shapely.geometry import Point
 import datetime as dt
 import re
+from geopy.distance import geodesic
 
 class DataObject:
     def dataPull(self, city:str="Währing, Wien, Austria",name:str=None):
@@ -91,7 +92,7 @@ def ParseHours(inputString):
     schedule = {}
     matches = patternA.finditer(inputString)
     if [i for i in matches] == []:
-        for i in dayMap:
+        for i in NormalDayMap:
             schedule[i] = inputString
     else:
         matches = patternA.finditer(inputString)
@@ -142,7 +143,12 @@ class Restaurant:
             return self.hours.hours.get(key)
         raise KeyError(f"{key} not found in Restaurant or DataBase")
     def __str__(self):
-        return f"{self.id} {self.name} ({self.cuisine}) - {self.location}"
+        return f"{self.id} {self.name} ({self.cuisine}) - {self.location} - {self.distanceFrom} km"
+    def distanceFromCrow(self, address):
+        userPoint = ox.geocoder.geocode(address)
+        resPoint = Point(float(self.location.lat), float(self.location.long))
+        self.distanceFrom = geodesic((userPoint[0], userPoint[1]), (resPoint.y, resPoint.x)).kilometers
+        return self.distanceFrom
     def isCurrentlyOpen(self):
         #dt.datetime.now()
         day = dt.datetime.now().strftime("%a")
@@ -188,7 +194,15 @@ class DataBase(DataObject):
         return [str(x) for x in self.restaurants]
     
     def getRestaurantByName(self, name:str):
-        return [x for x in self.restaurants if x.name == name]
-    
-    def getRestaurantByLocation(self, lat:float, long:float):
-        return [x for x in self.restaurants if x.location.lat == lat and x.location.long == long]
+        answer = [x for x in self.restaurants if x.name == name]
+        if len(answer) == 1:
+            return answer[0]
+        else:
+            return answer    
+    # def getRestaurantByLocation(self, lat:float, long:float):
+    #     return [x for x in self.restaurants if x.location.lat == lat and x.location.long == long]
+    def getClosestList(self, address:str, n:int=5):
+        for i in self.restaurants:
+            i.distanceFromCrow(address)
+        self.restaurants.sort(key=lambda x: x.distanceFrom)
+        return [str(x) for x in self.restaurants[:n]]
