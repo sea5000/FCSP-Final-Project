@@ -3,6 +3,7 @@ import pandas as pd
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
 from shapely.geometry import Point
+from datetime import time
 import re
 
 class DataObject:
@@ -82,17 +83,63 @@ class Location:
         self.house = house
     def __str__(self):
         return f"{self.street} {self.house}, {self.district}"
+def ParseHours(inputString):
+    dayMap = ["Mo","Tu","We","Th","Fr","Sa","Su","PH"]
+    patternA = re.compile(r'(?P<days>(?:PH|Mo|Tu|We|Th|Fr|Sa|Su)(?:[-,](?:PH|Mo|Tu|We|Th|Fr|Sa|Su))*)\s+(?P<hours>(?:\d{2}:\d{2}-\d{2}:\d{2})(?:,\d{2}:\d{2}-\d{2}:\d{2})*)')
+    patternB = re.compile(r'(?P<days>(?:PH|Mo|Tu|We|Th|Fr|Sa|Su))')
+    schedule = {}
+    matches = patternA.finditer(inputString)
+    if [i for i in matches] == []:
+        for i in dayMap:
+            schedule[i] = inputString
+    else:
+        matches = patternA.finditer(inputString)
+        for match in matches:
+            daysPart = match.group('days')
+            hoursPart = match.group('hours')
+            if "," in hoursPart:
+                hoursPart = hoursPart.split(",")
+            if "-" in daysPart:
+                if "," in daysPart:
+                    daysPart = daysPart.split(",")
+                    soloDays = [day for day in daysPart if "-" not in day]
+                    for i in soloDays:
+                        schedule[i] = hoursPart
+                    daysPart = str([day for day in daysPart if day not in soloDays]).replace("[","").replace("]","").replace("'","")
+                start, end = daysPart.split('-')
+                for i in range(dayMap.index(start), dayMap.index(end)+1):
+                    schedule[dayMap[i]] = hoursPart
+            else:
+                subDays = patternB.findall(daysPart)
+                for i in subDays:
+                    schedule[i] = hoursPart
+    return schedule
 class OpenHours:
-    def __init__(self, open, close):
-        self.open = open
-        self.close = close
-        
+    def __init__(self, hours:str=None):
+        if hours is None:
+            raise ValueError("hours cannot be None")
+        if str(hours) != 'nan':
+            self.hours = ParseHours(hours)
+        else:
+            self.hours = None
+    def __str__(self):
+        return str(self.hours)
+    def __getitem__(self, key):
+        return self.hours.get(key) if self.hours else None
+    
 class Restaurant:
-    def __init__(self, id, name, cuisine, location):
+    def __init__(self, id, name, cuisine, location:Location, hours:OpenHours):
         self.id = id
         self.name = name
         self.cuisine = cuisine
+        self.hours = hours
         self.location = location
+    def __getitem__(self, key):
+        if hasattr(self, key):
+            return getattr(self, key)
+        if self.hours and self.hours.hours:
+            return self.hours.hours.get(key)
+        raise KeyError(f"{key} not found in Restaurant or DataBase")
     def __str__(self):
         return f"{self.id} {self.name} ({self.cuisine}) - {self.location}"
     def isCurrentlyOpen(self):
@@ -104,9 +151,11 @@ class DataBase(DataObject):
         self.restaurants = []
         self.dataBrought = dataBrought
         self.dataPull = DataObject(dataBrought=self.dataBrought, city=self.city, name=name)
-        self.restaurants = self.dataPull.data
-        self.restaurants = [Restaurant(row['id'], row['name'], row['cuisine_or_amenity'], Location(row['lat'],row['long'], row['addr:city'], row['addr:street'], row['addr:housenumber'])) for index, row in self.restaurants.iterrows()]
-    
+        #self.restaurants = self.dataPull.data
+        self.restaurants = [Restaurant(row['id'], row['name'], row['cuisine_or_amenity'], Location(row['lat'],row['long'], row['addr:city'], row['addr:street'], row['addr:housenumber']), OpenHours(row['opening_hours'])) for index, row in self.restaurants.iterrows()]
+    def __getitem__(self, key):
+        if hasattr(self, key):
+            return getattr(self, key)
     def getRestaurants(self):
         return [str(x) for x in self.restaurants]
     
