@@ -1,0 +1,345 @@
+﻿id,name,lat,long,addr:street,addr:housenumber,addr:city,addr:postcode,cuisine_or_amenity,opening_hours
+266281901,Lobauer Löwe,16.518698,48.2013601,Eßlinger Furt,4,Wien,1220,regional,
+294285276,Himmel und Wasser,16.464868,48.1913852,Stromkilometer,6R,Wien,1220,restaurant,May-Sep We-Su 11:00-20:30
+298620530,Wok House,16.4651282,48.225736,Salbeigasse,2,Wien,1220,asian,
+323058537,Falk,16.4428967,48.2496444,Wagramer Straße,137,Wien,1220,cafe,"Su-Th 08:00-01:00, Fr-Sa 08:00-03:00"
+332254536,Pizzeria Campanile,16.4718952,48.2453305,Pastinakweg,3,Wien,1220,pizza,Mo-Su 11:00-23:00
+353022689,Le Burger,16.4329207,48.2420689,Siebeckstraße,16,Wien,1220,fast_food,"PH,Su-We 11:00-22:00; Th-Sa 11:00-23:00"
+370653407,Langobarden Stuben,16.4711165,48.2182859,Sandefjordgasse,2,Wien,1220,restaurant,
+376480856,Eissalon Trento,16.423472,48.2266435,Schüttauplatz,2,Wien,1220,ice_cream,Mo-Su 09:00-22:00
+415357334,Kleines Strandcafe,16.47675,48.2058531,Biberhaufenweg,73A,Wien,1220,cafe,
+415361732,Noodles King,16.463955,48.261677,Rautenweg,44,Wien,1220,fast_food,Mo-Su 10:30-22:00
+418185343,La Mare,16.4738729,48.2150785,Bergengasse,5,Wien,1220,pizza,
+418261682,Pizza Kaiser,16.4225618,48.2266705,Schüttaustraße,60,Wien,1220,fast_food,"Mo-Fr 11:00-15:00,17:00-23:00; PH,Sa,Su 11:00-23:00"
+426869281,Pizzeria Fantastica,16.4445136,48.2507738,Am langen Felde,2A,Wien,1220,pizza,"Mo-Sa 11:00-22:30; PH,Su 11:00-22:00"
+426869282,Med Pizza Döner Dürüm,16.4444065,48.2506206,Wagramer Straße,154,Wien,1220,fast_food,
+457352899,Restaurant Schloß Eßling,16.5228328,48.2147793,Eßlinger Hauptstraße,81,Wien,1220,regional,"We-Sa 11:30-23:00; PH,Su 11:30-20:00; Mo,Tu off"
+457352904,Kaffeemühle,16.5297307,48.2131929,Eßlinger Hauptstraße,125,Wien,1220,pub,
+457352905,Pozi's,16.5107348,48.2144568,Eßlinger Hauptstraße,2,Wien,1220,regional,
+460606049,KFC,16.4333124,48.2422887,Siebeckstraße,16,Wien,1220,fast_food,
+476068463,Baran Kebap-Haus,16.4805837,48.2199228,Erzherzog-Karl-Straße,252,Wien,1220,fast_food,
+483195713,Elfinger,16.4840217,48.2928583,Elfingerweg,12,Wien,1220,fast_food,"Tu-Su 09:00-23:00 ""Lieferungszeiten""; Mo off"
+600938801,Timeout,16.4742782,48.2152798,Bergengasse,3,Wien,1220,cafe,
+685160110,Schönes China,16.458307,48.2196934,Wulzendorfstraße,2,Wien,1220,chinese,
+710536919,Hummel,16.4873967,48.2169759,Siegesplatz,15,Wien,1220,cafe,"Mo,Tu 07:00-19:00; We-Fr 07:00-24:00; Sa 07:00-13:00; Su,PH off"
+710536920,Pizza Milano,16.4855514,48.2174373,Siegesplatz,22,Wien,1220,pizza,
+710537015,AKUT,16.4858715,48.2176824,Siegesplatz,6,Wien,1220,fast_food,
+772126266,Pizzeria Angelo,16.4674477,48.192791,Stromkilometer,6L,Wien,1220,italian,
+873879797,Türkis (To Go),16.4334628,48.24323,U-Bahn Station Zentrum Kagran,U,Wien,1220,fast_food,Mo-Su 08:00-24:00
+941388867,aïda,16.4621498,48.2458503,Gewerbeparkstraße,10,Wien,1220,cafe,
+944529379,Fabelhaft zum Seeblick,16.482198,48.2713634,Campingplatzweg,34,Wien,1220,restaurant,"Tu,We,Sa,Su 10:00-16:00; Th,Fr 10:00-21:00"
+967784700,Peter's Reiterstüberl,16.4970517,48.2825366,Weingartenallee,2E,Wien,1220,restaurant,
+970182177,L'Angelo Bello Pizzeria,16.4502639,48.2220265,Stadlauer Straße,4,Wien,1220,pizza,
+1086064568,Inseltreff Barbados,16.4389444,48.2117448,Effenbergplatz,4,Wien,1220,restaurant,
+1205073869,Dammhütte Griechisches Restaurant,16.4941289,48.1754024,Stromkilometer,4L,Wien,1220,greek;regional,
+1207358918,Jamaica Beach (FKK),16.5052991,48.1686353,Finsterbuschstraße,26,Wien,1220,regional,
+1244340110,Ufertaverne,16.426355,48.2408194,An der oberen Alten Donau,186,Wien,1220,restaurant,Apr 12:00-21:00; May-Aug 09:00-24:00; Sep 09:00-21:00
+1253252236,Saturn Lounge,16.4131386,48.2362998,Leonard-Bernstein-Straße,10,Wien,1220,restaurant,closed
+1307591888,Pizzakeller,16.4202635,48.2261032,Am Kaisermühlendamm,53,Wien,1220,italian,
+1319197250,Cafe/Restaurant Cameo Lounge,16.4543533,48.2457554,Hirschstettner Straße,19,Wien,1220,austrian;barbecue;burger;chicken;friture;german;italian,Mo-Fr 10:00-21:00
+1328817418,Mosquito,16.4747832,48.1878045,Stromkilometer,6L,Wien,1220,restaurant,"Mar-Oct: Mo-Su,PH 09:00-21:00"
+1336944983,Tinas Beisl,16.4895226,48.2160978,Zachgasse,18,Wien,1220,pub,
+1336955413,Aspern Pizza,16.4829546,48.2189091,Eisenhutgasse,1,Wien,1220,fast_food,"Mo-Fr 11:00-15:00, 17:00-23:00;Sa-Su 11:00-23:00"
+1363651570,Denito,16.4110558,48.2351863,Donau-City-Straße,14,Wien,1220,coffee_shop;restaurant;burger,Mo-Sa 08:00-22:00
+1365685409,Mian,16.411077,48.234764,Donau-City-Straße,14,Wien,1220,asian,11:00-22:00
+1365701429,E-Wok,16.4150951,48.2327081,Donau-City-Straße,4,Wien,1220,asian,Mo-Fr 11:00-19:00
+1365701433,Campus Suite,16.4141791,48.2330204,Donau-City-Straße,6,Wien,1220,cafe,Mo-Fr 07:00-16:00
+1382825037,Burger King,16.4335651,48.2420961,Siebeckstraße,16,Wien,1220,fast_food,"Fr-Sa 10:00-00:00;Mo-Th,Su 10:00-23:00"
+1382825049,McDonald's,16.4354671,48.2427557,Wagramer Straße,83,Wien,1220,fast_food,Mo-Fr 07:00-20:30; Sa 08:00-18:30
+1411814679,tarragona,16.4218042,48.2352507,Wagramer Straße,21,Wien,1220,restaurant,
+1443475427,Saloon,16.4334814,48.2415802,Wagramer Straße,71,Wien,1220,steak_house,"Su-Th 11:00-24:00; Fr, Sa 11:00-01:00"
+1444705270,Kukis Kombüse,16.4278123,48.2376831,Wagramer Straße,48D,Wien,1220,restaurant,
+1501971038,Cafe Pony,16.4363141,48.2432014,Prandaugasse,62,Wien,1220,cafe,
+1501971050,Piccolo,16.4360818,48.2433149,Prandaugasse,60,Wien,1220,pizza,
+1539804821,Flow,16.4552968,48.2436141,Pogrelzstraße,69,Wien,1220,pub,
+1540316378,Cafe Konditorei Wiener Mehlspeiskuchl,16.44089,48.2470184,Wagramer Straße,120,Wien,1220,cafe,
+1540642339,Curry Vibes,16.4216565,48.2255662,Moissigasse,3,Wien,1220,indian,We-Mo 11:00-23:00
+1602085279,Peters Treff,16.4192977,48.2392064,Arbeiterstrandbadstraße,122,Wien,1220,fast_food,
+1644772793,Pizzeria Cara Mia,16.4564807,48.2156287,Hardeggasse,69-71,Wien,1220,pizza,
+1645992984,Hua Qiang,16.4637865,48.2245183,Hartlebengasse,21,Wien,1220,chinese,"Mo 11:00-15:00; Tu-Su 11:00-15:00,17:00-22:30"
+1660019809,Imbiss-Stube Piszecsny,16.4695766,48.1928347,Dechantweg,8C,Wien,1220,restaurant,"Th-Tu,PH 14:00-20:00"
+1672116144,Uno Kitchen,16.4151101,48.2327518,Donau-City-Straße,4,Wien,1220,fast_food,
+1713578015,Vorstadtbeisl Selitsch,16.4528006,48.2225439,Konstanziagasse,17,Wien,1220,regional,
+1747954641,Vital Lounge,16.4112505,48.2334338,Donau-City-Straße,11,Wien,1220,restaurant,
+1791342377,Tokyo House,16.4305576,48.2511069,Tokiostraße,16,Wien,1220,restaurant,Mo-Su 11:00-23:00
+1802230478,Feng Shui,16.4298966,48.2500977,Dückegasse,7,Wien,1220,asian,
+1802230491,Eissalon-Mehlspeisparadies Harrich,16.4304263,48.2501449,Tokiostraße,14,Wien,1220,cafe,
+1852942198,Schnitzlland,16.4230723,48.2266035,Schüttauplatz,1,Wien,1220,fast_food,Mo-Su 11:00-22:00
+1852952105,Vorstadtwirt,16.4229761,48.2263521,Moissigasse,13,Wien,1220,regional,"Mo-Sa 10:00-23:00; Su, PH 10:00-16:00"
+1852952316,Kaimü,16.4231387,48.2262225,Schüttauplatz,23,Wien,1220,cafe,Mo-Su 08:00-02:00
+1852954796,Bäckerei Martini,16.4212099,48.2276769,Schüttaustraße,46,Wien,1220,fast_food,Mo-Su 06:00-22:00
+1873911446,Das Bootshaus,16.4342471,48.2319948,Meisenweg,41,Wien,1220,toast;baguette;salad;fish_and_chips;antipasti,"Mo-Fr 10:00-22:00; Sa-Su,PH 10:00-22:00"
+1874254578,Sternberg,16.4404966,48.2271243,Industriestraße,65,Wien,1220,restaurant,Mo-Sa 11:30-23:00; Su 11:30-22:00
+1907422485,Eisgreißler,16.4302582,48.2290306,Moissigasse,21,Wien,1220,cafe,
+2052777619,Strandcafe,16.4316217,48.2359535,An der unteren Alten Donau,19,Wien,1220,restaurant,Mo-Su 11:00-24:00
+2062018766,Cafeteria Segafredo,16.4748582,48.2230429,Lavaterstraße,6,Wien,1220,cafe,
+2183223494,A. Klampfer,16.4312382,48.2272505,Moissigasse,21,Wien,1220,fast_food,
+2288356925,Dorfheuriger Breitenlee,16.4991796,48.2515426,Breitenleer Straße,257,Wien,1220,heuriger,Mo-Sa 11:00-23:00; Su 11:00-21:00
+2351224846,Gelateria Confetti,16.4560888,48.2156527,Hardeggasse,69-71,Wien,1220,ice_cream,
+2391161680,Flokal,16.4967574,48.2769299,Alte Straße,31,Wien,1220,pub,We-Fr 16:00-23:00; Sa 10:30-23:00; Su 10:30-22:00
+2421949361,Eisstanitzel,16.452209,48.2253726,Stadlauer Straße,9,Wien,1220,ice_cream,Mo-Su 10:00-21:00
+2446549028,Siebenbürgerstüberl,16.447771,48.23376,Siebenbürgerstraße,2-12,Wien,1220,pub,
+2447812191,Only Noodle,16.5094072,48.2234353,Christine-Touaillon-Straße,13,Wien,1220,chinese;sushi,Mo-So 11:00-22:00
+2450295914,Grill-Schnitzel-Fisch,16.4432933,48.2336767,Erzherzog-Karl-Straße,68,Wien,1220,fast_food,Mo-Fr 08:00-20:00; Sa 08:00-18:00
+2450295917,Alt Wiener Stuben,16.4430977,48.2337373,Erzherzog-Karl-Straße,66,Wien,1220,restaurant,
+2450295921,konya sofrasi,16.4423624,48.2340232,Erzherzog-Karl-Straße,60,Wien,1220,turkish,
+2450486746,Inge's Backwaren und,16.4533699,48.2293721,Vernholzgasse,20,Wien,1220,fast_food,
+2450545676,Fischer,16.4397959,48.2464437,Wagramer Straße,111,Wien,1220,restaurant,
+2450560273,Albatros,16.4422829,48.2499743,Donaufelder Straße,250,Wien,1220,pub,"Mo-Sa 12:00-15:00,17:00-21:00; Su,PH 10:00-14:00"
+2451762209,DonauStadtwirt,16.4501418,48.2334736,Rugierstraße,6,Wien,1220,austrian,Tu-Su 11:00-23:00
+2451813828,Schnitzelland,16.4461131,48.2302291,Viktor-Kaplan-Straße,13,Wien,1220,fast_food,
+2453709466,Happy Bär,16.4394778,48.2378237,Arminenstraße,28A,Wien,1220,chinese,
+2473121642,Valley Rose,16.44821,48.2316605,Erzherzog-Karl-Straße,98A,Wien,1220,italian;regional,
+2478537583,Inferno,16.457427,48.2292925,Adelheid-Popp-Gasse,22,Wien,1220,pizza;regional;burger,Mo-Su 11:00-21:30
+2480032892,Lucky Star,16.4451924,48.2493764,Kagraner Platz,47,Wien,1220,chinese,
+2480036338,Indisches Restaurant,16.4473215,48.2492192,Kagraner Platz,13,Wien,1220,restaurant,
+2480053764,City Pizza,16.444613,48.2498656,Kagraner Platz,5,Wien,1220,fast_food,"Mo-Su,PH 11:00-22:00"
+2480053766,Gnan,16.447241,48.2492263,Kagraner Platz,13,Wien,1220,fast_food,
+2493279563,Imbiss-Stube E. Seiler,16.4865484,48.2368644,Am Heidjöchl,14,Wien,1220,restaurant,
+2500617771,Döner Zentrum,16.4339228,48.2435586,U-Bahn Station Zentrum Kagran,U,Wien,1220,fast_food,
+2500617774,Bobby's,16.4339845,48.2435997,U-Bahn Station Zentrum Kagran,U,Wien,1220,fast_food,
+2500806638,Interspar Restaurant,16.4387595,48.2414915,Curiegasse,5,Wien,1220,restaurant,Mo-Fr 09:00-20:00; Sa 09:00-18:00
+2500806640,Happy Noodles,16.4351694,48.2428952,Wagramer Straße,83,Wien,1220,fast_food,Mo-Fr 09:00-20:00; Sa 09:00-18:00
+2500823773,Nordsee Restaurant,16.4387078,48.2420783,Curiegasse,5,Wien,1220,fish,Mo-Fr 09:00-20:00; Sa 09:00-18:00
+2500863847,Subway,16.4338056,48.2418046,Siebeckstraße,16,Wien,1220,fast_food,Mo-Su 10:00-23:00
+2501892274,Pera Kebab,16.4549349,48.2280231,Genochplatz,8,Wien,1220,fast_food,"Mo-Sa 09:00-22:00; Su,PH 11:00-22:00"
+2502503704,Inder,16.4645545,48.2471227,Gewerbeparkstraße,2,Wien,1220,fast_food,
+2502503709,Klaus,16.4626766,48.2464368,Gewerbeparkstraße,8,Wien,1220,restaurant,Mo-Fr 08:00-19:00; Sa 08:00-18:00
+2502503710,Der Stark'e Imbiss,16.4635564,48.2461548,Gewerbeparkstraße,8,Wien,1220,fast_food,
+2503721946,Selam Restaurant,16.4384157,48.2504974,Donaufelder Straße,229,Wien,1220,oriental,Tu-Su 06:30-18:30; Mo off
+2504018973,Mian Noodle&Rice,16.468468,48.2508695,Zwerchäckerweg,10,Wien,1220,fast_food,
+2504018977,Jasmin,16.4677161,48.2512926,Breitenleer Straße,102A,Wien,1220,asian,"Mo-Th 11:00-15:00,17:00-22:30; Fr-Su 11:00-22:30"
+2504018989,Euro Kebab,16.4665152,48.2485402,Zwerchäckerweg,23,Wien,1220,fast_food,
+2504078035,Su Thai,16.4559697,48.2507014,Breitenleer Straße,19B,Wien,1220,asian,
+2505241203,Imbiss Flamingo,16.4742557,48.2514694,Breitenleer Straße,136,Wien,1220,fast_food,
+2507513431,Afoch Gmiatlich,16.4648056,48.263016,Percostraße,5,Wien,1220,fast_food,
+2507513452,Michi's Imbiss,16.4660377,48.2683191,Percostraße,20A,Wien,1220,fast_food,
+2508401979,Ponticello,16.4502308,48.2567777,Rennbahnweg,42,Wien,1220,ice_cream,Mar-Sep
+2513233962,Ken's Noodles,16.4495181,48.257331,Wagramer Straße,224,Wien,1220,fast_food,
+2531168064,Dolce Eissalon,16.4433514,48.2508401,Doningasse,12,Wien,1220,ice_cream,
+2568626442,Trabrenn Stüberl,16.4521339,48.257943,Lieblgasse,2,Wien,1220,cafe,
+2568626450,Wezir Sofrasi,16.4519672,48.2583858,Lieblgasse,2,Wien,1220,arab;turkish,Mo-Su 09:00-23:00
+2570326668,Profi Kebab & Pizza,16.4561664,48.2274486,Hausgrundweg,8,Wien,1220,kebab;pizza,
+2570326672,Eso Cafe,16.457223,48.2270787,Konstanziagasse,52,Wien,1220,cafe,
+2571249351,Jedermann,16.4547314,48.2246505,Konstanziagasse,39,Wien,1220,cafe,"Mo-Fr 09:00-02:00, Sa,PH 16:00-02:00"
+2571415936,Hühner Paradies,16.4522563,48.225435,Stadlauer Straße,9,Wien,1220,fast_food,Mo-Th 08:00-19:00; Fr 08:00-20:00
+2577118842,Einkehr Weisser Esel,16.4520435,48.2467239,Hirschstettner Straße,11,Wien,1220,restaurant,Mo-Fr 11:00-23:00; Su 11:00-16:00
+2612471523,Cafe Teddy,16.4185772,48.2295598,Schüttaustraße,16-18,Wien,1220,cafe,Mo-Fr 08:00-21:00; Sa 08:00-14:00
+2702604922,Zanoni & Zanoni,16.4439239,48.2501997,Wagramer Straße,152,Wien,1220,cafe,
+2710845517,57 Restaurant & Lounge,16.4127035,48.2318625,Donau-City-Straße,7,Wien,1220,bar,
+2725861975,Pizza Adam,16.4425657,48.2339839,Erzherzog-Karl-Straße,60,Wien,1220,fast_food,Mo-Su 11:00-22:30
+2808577901,Seestadt Kantine,16.5118037,48.2266707,Sonnenallee,137,Wien,1220,restaurant,
+2945488067,Grillhühner,16.4638696,48.2464488,Gewerbeparkstraße,6,Wien,1220,fast_food,
+2945488068,Quick Imbiss,16.4641539,48.2467132,Gewerbeparkstraße,4,Wien,1220,fast_food,
+3426987924,Gasthaus Binder,16.5021279,48.1705845,Finsterbuschstraße,26,Wien,1220,regional,
+3467568523,Leo der Seestadtbäcker,16.5003679,48.2245171,Maria-Tusch-Straße,13,Wien,1220,cafe,Mo-Sa 06:00-19:00; Su 07:30-18:00; PH off
+3467568525,Portobello,16.501337,48.2244243,Maria-Tusch-Straße,14,Wien,1220,pizza;italian,Tu-Su 11:30-22:00
+3467568529,See22,16.5014487,48.2242746,Hannah-Arendt-Platz,1,Wien,1220,regional,
+3512205710,Porto Pollo,16.4063056,48.2303154,Stromkilometer,1928L,Wien,1220,bar,
+3522432552,Sushi Aspern,16.4881654,48.2170648,Zachgasse,1,Wien,1220,japanese,11:00-23:00
+3524113982,Imbiss am Motorikpark,16.4776643,48.2547374,Rautenweg,120,Wien,1220,cafe,Fr-Su 12:00-16:00
+3735688141,Paracelsus,16.4639741,48.2182604,Langobardenstraße,122,Wien,1220,restaurant,
+3740466244,Schutzhaus Seerosenteich,16.4741516,48.2386722,Ziegelhofstraße,22,Wien,1220,restaurant,Tu-Su 09:30-18:00
+3804193264,Trento Gourmet,16.4229766,48.2266789,Schüttaustraße,61,Wien,1220,italian,Mo-Sa 16:00-23:00
+3822359258,donaubräu,16.4100185,48.240531,Donauturmplatz,1,Wien,1220,regional,Fr-Su 11:30-22:00
+3900574401,My Kebapizza,16.5211728,48.2146916,Eßlinger Hauptstraße,73,Wien,1220,fast_food,
+3957772185,Mömax-Restaurant,16.4594879,48.2657854,Wagramer Straße,248,Wien,1220,fast_food,
+3975798457,Lunchtime,16.4137713,48.2323974,Donau-City-Straße,1,Wien,1220,restaurant,
+4251882613,Zum StraBa,16.4323431,48.2220471,KLG Gänsehäufel,,Wien,1220,regional,Apr-Oct Mo-Su 09:00-21:00; Nov-Mar Tu-Su 09:00-21:00
+4264226302,Livin'Room27,16.5296122,48.2162242,Gartenheimstraße,27,Wien,1220,bar,
+4356815063,Schanzinger,16.4913515,48.2262698,An den alten Schanzen,51,Wien,1220,restaurant,Mo-Th 11:30-22:00; Fr-Sa 11:30-23:00; Su 11:30-22:00
+4396476852,Kesselbar,16.454269,48.231751,Dr.-Otto-Neurath-Gasse,3,Wien,1220,bar,
+4730218390,Capriole,16.4422382,48.2534566,Anton-Sattler-Gasse,115A,Wien,1220,cafe,
+4730218391,Kagraner Kistl,16.4411915,48.2477953,Meißauergasse,17,Wien,1220,bar,
+4897223900,Galata Konaği,16.4679003,48.1924513,Stromkilometer,6L,Wien,1220,restaurant,"Mo-Th, Su 08:00-00:00; Fr, Sa 08:00-02:00"
+4910258673,Taverne Sokrates,16.4084182,48.2300694,Pier 22,,Wien,1220,greek,Apr-Sep: Mo-Su 11:30-23:00
+4980027278,Wistl's Cafe,16.4724299,48.2345283,Emichgasse,4,Wien,1220,pub,
+4980027280,Pizza Deal,16.4725023,48.2342943,Emichgasse,4,Wien,1220,pizza,
+5302930416,Speiseamt Seestadt,16.5032334,48.2237177,Frenkel-Brunswik-Gasse,2,Wien,1220,regional,Mo-Th 11:30-13:30; Fr 11:30-13:00
+5360982614,Die Schankerlwirtschaft,16.421527,48.2418337,Arbeiterstrandbadstraße,93,Wien,1220,restaurant,
+5564983620,Lenas Parkcafe,16.4299699,48.2386327,Florian-Berndl-Gasse,1A,Wien,1220,restaurant,
+5766350209,Eissalon am Schwedenplatz Manifattura,16.5046031,48.2230276,Christine-Touaillon-Straße,2,Wien,1220,ice_cream,Mo-Su 12:00-20:00
+5928345033,Schnitzlland,16.4420066,48.2535886,Anton-Sattler-Gasse,115A,Wien,1220,fast_food,Mo-Su 11:00-22:00
+6060588432,Café Stress,16.4340538,48.2531124,Ullreichgasse,13,Wien,1220,cafe,Mo-Fr 07:00-22:00; Sa 08:00-22:00; Su 08:00-15:00
+6126188880,Fredi's Cafe,16.5229326,48.2145153,Eßlinger Hauptstraße,76,Wien,1220,cafe,"We-Fr 08:30-17:30; PH,Sa,Su 09:30-16:30; Mo 13:00-17:30; Tu off"
+6238272979,Baco‘s Kebab & More,16.4460922,48.2303201,Tietzestraße,2,Wien,1220,fast_food,Mo-Sa 08:30-22:00; Su 09:00-22:00
+6308073846,Evershine Pizza,16.4420423,48.2535178,Anton-Sattler-Gasse,115A,Wien,1220,fast_food,"Mo-Fr 11:00-14:45,17:00-22:45; Sa-Su 11:00-22:45"
+6557473395,Buffet Christine,16.4211588,48.2397426,Arbeiterstrandbadstraße,93,Wien,1220,fast_food,
+6836446146,Ecklokal,16.4834585,48.2455412,Karl-Bednarik-Gasse,1,Wien,1220,restaurant,
+6919025061,Ping Pong,16.5057452,48.2248608,Simone-de-Beauvoir-Platz,7,Wien,1220,asian,Mo-Su 11:00-22:00; Tu off
+7039511846,Dönerista,16.5057017,48.2252011,Simone-de-Beauvoir-Platz,4,Wien,1220,turkish,Mo-Su 9:00-22:00
+7859009864,Handl,16.4784599,48.2100461,Mühlhäufelweg,59,Wien,1220,cafe,
+7988215429,Napoleons Schnitzelhaus,16.4852293,48.2175066,Siegesplatz,23,Wien,1220,fast_food,
+8118922690,Scherbetto,16.4222873,48.2274333,Bellegardegasse,22,Wien,1220,ice_cream,closed
+8173506964,Pizzeria Maddalena,16.4282322,48.2511332,Dückegasse,3,Wien,1220,pizza,"Tu-Th 16:00-24:00; Fr,Sa 11:00-24:00"
+8468074479,Café Schillwasser,16.4574713,48.2044239,Naufahrtweg,14,Wien,1220,cafe,"Fr,Sa 12:00-20:00; Su 10:00-19:00"
+8596035895,Café Maxi,16.4173961,48.2304501,Schüttaustraße,4-10,Wien,1220,cafe,
+8705086809,Admiral Sportsbar,16.4498697,48.2568483,Rennbahnweg,40,Wien,1220,bar,
+8755703066,Tschau Tschau Aspern,16.5078968,48.2261901,Jane-Jacobs-Weg,3,Wien,1220,bar,"""bei Schönwetter"""
+8781178547,Burgerista,16.4327489,48.2422068,Siebeckstraße,16,Wien,1220,fast_food,Mo-Su 11:00-22:00
+8781178548,Bombay Express,16.4336706,48.2420554,Siebeckstraße,16,Wien,1220,fast_food,Mo-Su 11:00-22:00
+8790203521,Krokodo,16.4093246,48.2322544,Copa Beach,C,Wien,1220,pub,
+8795942347,Kekko,16.4251919,48.2250413,Schüttaustraße,69,Wien,1220,sushi,Mo-Sa 11:00-21:00
+8850707718,Viva la Vita Pizzeria Trattoria,16.4726476,48.2018866,Biberhaufenweg,168,Wien,1220,italian;italian_pizza,
+8868838940,Solo Italiano,16.4446564,48.2331526,Erzherzog-Karl-Straße,76,Wien,1220,pizza,Mo-Su 10:00-22:00
+8888542081,Shelly's Ribs,16.5074021,48.2257035,Janis-Joplin-Promenade,26,Wien,1220,restaurant,Mo-Sa 08:00-12:00
+9038606259,Türkis (Restaurant),16.4338878,48.2430823,U-Bahn Station Zentrum Kagran,U,Wien,1220,fast_food,Mo-Sa 09:00-22:00
+9038606273,Asia Gourmet,16.4352376,48.2427374,Wagramer Straße,83,Wien,1220,asian,
+9038606274,Wienerwald,16.4356401,48.2428952,Wagramer Straße,83,Wien,1220,fast_food,
+9038606275,Zushimarket,16.4352253,48.2430208,Wagramer Straße,83,Wien,1220,fast_food,
+9038606277,Starbucks,16.434154,48.243188,U-Bahn Station Zentrum Kagran,U,Wien,1220,cafe,Mo-Fr 07:00-20:30; Sa 08:00-18:30
+9038606303,Castelletto,16.4355739,48.2421921,Donaustadtstraße,1,Wien,1220,ice_cream,
+9038606306,Twistcafe,16.4358764,48.242142,Donaustadtstraße,1,Wien,1220,fast_food,
+9038606311,Pizza Pizza,16.4355774,48.2421109,Donaustadtstraße,1,Wien,1220,fast_food,
+9094677037,donaucafè,16.4101069,48.2404938,Donauturmplatz,1,Wien,1220,cafe,
+9183621929,Radatz,16.4369813,48.2421702,Donaustadtstraße,1,Wien,1220,fast_food,
+9183621945,Kenny's,16.4383725,48.2421587,Curiegasse,5,Wien,1220,cafe,
+9183621950,Le Chá,16.4374196,48.2422811,Curiegasse,3,Wien,1220,cafe,
+9183621955,My Indigo,16.4374239,48.2419376,Curiegasse,3,Wien,1220,fast_food,
+9200970024,Safran,16.4387806,48.245549,Steigenteschgasse,6-12,Wien,1220,pizza;kebab,Mo-Su 08:00-22:00
+9230075843,Kaisermühlenparadies,16.4176809,48.2302242,Schüttaustraße,4-10,Wien,1220,cafe,
+9275211301,Koun Coffee,16.4316815,48.250928,Donaufelder Straße,164,Wien,1220,cafe,"Mo-Fr 06:30-18:00, Sa-Su 09:00-18:00"
+9552218608,Brunchhouse am Irissee,16.4168596,48.2385508,Arbeiterstrandbadstraße,122A,Wien,1220,restaurant,
+9645157393,Cafe & Restaurant Backofen,16.423144,48.2249715,Schiffmühlenstraße,80,Wien,1220,regional;pizza,Mo-Tu 07:30-20:00; We-Su 07:30-21:00
+9654104969,Ramien Go DC Tower,16.4126135,48.2316473,Donau-City-Straße,7,Wien,1220,asian,Mo-Fr 11:00-22:00
+9654104970,Fat Monk DC Tower,16.4135134,48.231909,Donau-City-Straße,7A,Wien,1220,hawaiian;asian,
+9690007021,Heuriger „am Bauernhof”,16.4736566,48.2404426,Spargelfeldstraße,75,Wien,1220,heuriger,
+9798347390,Tau Vegan Restaurant,16.4372247,48.2361644,Erzherzog-Karl-Straße,38,Wien,1220,chinese;asian;sushi,"11:00-14:30,17:30-22:00"
+9845903463,Niko's Cafe,16.4623248,48.2452994,Gewerbeparkstraße,12,Wien,1220,fast_food,
+9845956284,Park Hähnchengrill,16.4622094,48.2453118,Gewerbeparkstraße,12,Wien,1220,fast_food,
+9890648152,Jussi,16.4695439,48.2192483,Langobardenstraße,121,Wien,1220,restaurant,
+9961201853,Napoleon Wien,16.4495459,48.2482599,Kagraner Platz,33,Wien,1220,restaurant,"Mo-Th 11:30-22:00; Fr,Sa 11:30-23:00; Su 11:30-16:00"
+9969720837,Dr. Burger,16.4739231,48.2151643,Bergengasse,5,Wien,1220,fast_food,
+9981959914,Wow,16.4429465,48.2497042,Wagramer Straße,137,Wien,1220,fast_food,Mo-Fr 08:00-22:00
+9981959915,Safran,16.4386941,48.2455307,Steigenteschgasse,6-12,Wien,1220,fast_food,
+9982031819,Sadem,16.4396119,48.2457122,Wagramer Straße,108,Wien,1220,fast_food,Mo-Su 08:00-22:00
+10013023452,Dunkin',16.4352327,48.2424214,Siebeckstraße,7,Wien,1220,fast_food,Mo-Fr 09:00-20:00; Sa 09:00-18:00
+10072740624,Afiyet,16.474036,48.2228093,Erzherzog-Karl-Straße,203,Wien,1220,fast_food,Mo-Su 11:00-22:00
+10180479931,Am Seebogen,16.5080973,48.2301155,Sabine-Oberhauser-Straße,8,Wien,1220,cafe,Tu-Th 08:30-14:30; Fr 08:30-13:30
+10567670368,Domino's Pizza,16.4440171,48.2499937,Kagraner Platz,1,Wien,1220,fast_food,
+10701272909,Filiz,16.422385,48.2268023,Schüttaustraße,58,Wien,1220,cafe,
+10701278164,Kaisermühlen Kebab,16.4233142,48.2261051,Schüttauplatz,23,Wien,1220,fast_food,
+10712204859,Orientala,16.4506751,48.2230066,Stadlauer Straße,12,Wien,1220,restaurant,
+10712204860,Aangan,16.4451941,48.2493702,Kagraner Platz,47,Wien,1220,indian,"Mo-Sa 11:00-14:30,17:30-22:00; Su 11:00-22:00"
+10746513182,Noodle King,16.4739829,48.2227567,Erzherzog-Karl-Straße,203,Wien,1220,fast_food,Mo-Su 11:00-22:00
+10773151486,Thailanna,16.4754032,48.2237635,Wonkaplatz,4,Wien,1220,thai,Mo-Su 11:00-22:30
+11020177037,Philly,16.417077,48.2385281,Arbeiterstrandbadstraße,122A,Wien,1220,fast_food,
+11020684160,Kantine SV Donau,16.4209174,48.230961,Weissauweg,1,Wien,1220,fast_food,
+11073237178,Fratelli's,16.4884974,48.2173508,Groß-Enzersdorfer Straße,1A,Wien,1220,pizza,"Mo-Fr 10:00-21:30; Sa,Su 08:00-21:30"
+11172175409,Olive,16.433302,48.2417399,Wagramer Straße,71,Wien,1220,fast_food,
+11172175414,Running Sushi Restaurant,16.4332381,48.2417826,Wagramer Straße,71,Wien,1220,sushi,
+11172175415,Italien Bar & Restaurant,16.4334409,48.2422306,Siebeckstraße,16,Wien,1220,italian,
+11172175416,Akakiko,16.4332904,48.2423271,Siebeckstraße,16,Wien,1220,sushi,
+11172175417,Vapiano,16.4330286,48.2423815,Siebeckstraße,16,Wien,1220,italian,Mo-Sa 11:00-22:30; Su 12:00-22:30; PH 12:00-22:00
+11172175418,Ginza,16.4334379,48.2421848,Siebeckstraße,16,Wien,1220,asian,
+11172175419,Susi Bräu,16.4337969,48.2419033,Siebeckstraße,16,Wien,1220,restaurant,
+11172175420,Honu,16.4336517,48.2420131,Siebeckstraße,16,Wien,1220,fast_food,
+11172175421,Boba Bar,16.4333149,48.242045,Siebeckstraße,16,Wien,1220,cafe,
+11172175422,Mio - A Piece of Neapel,16.4330442,48.2419743,Siebeckstraße,16,Wien,1220,italian,
+11172175426,Donmono,16.4331667,48.241837,Wagramer Straße,71,Wien,1220,fast_food,
+11172175427,Pho Ever,16.4330812,48.2419212,Siebeckstraße,16,Wien,1220,vietnamese,
+11174949132,The rollin‘ cat - pizza & Billard,16.433024,48.2425094,U-Bahn Station Zentrum Kagran,U,Wien,1220,fast_food,
+11196222165,Zum Schankerl,16.4512789,48.2231836,Gemeindeaugasse,2,Wien,1220,bar,
+11196243782,Deluxe,16.4723367,48.2181522,Sandefjordgasse,2,Wien,1220,fast_food,Mo-Su 10:00-22:00
+11209807728,Café Biene,16.4784676,48.2188728,Eibengasse,59,Wien,1220,cafe,
+11218038942,Cigköftem,16.4395472,48.2462338,Wagramer Straße,109,Wien,1220,fast_food,Mo-Su 11:00-22:00
+11250785846,Fat Monk,16.4331622,48.2439966,Dr.-Adolf-Schärf-Platz,8,Wien,1220,fast_food,
+11250785851,Noodle King,16.4331891,48.244556,Straße der Menschenrechte,4,Wien,1220,fast_food,
+11298394089,San George,16.4334362,48.2529774,Finsterergasse,5,Wien,1220,pizza,
+11314452085,Pizzeria Rosito,16.4816466,48.2391398,Prinzgasse,6,Wien,1220,fast_food,
+11327603670,Wok House,16.4475435,48.2340252,Siebenbürgerstraße,16-26,Wien,1220,fast_food,
+11329290731,Noodle King,16.4439875,48.2501608,Wagramer Straße,152,Wien,1220,fast_food,
+11349337616,PSV Beisl,16.4285611,48.2247258,KLG Uferstreifen,,Wien,1220,regional,
+11358426164,Akropolis,16.4550822,48.2240365,Langobardenstraße,24,Wien,1220,greek,
+11429409551,Zum Ziegeleck,16.4887276,48.2510669,Ziegelhofstraße,114,Wien,1220,fast_food,Mo-Sa 11:00-19:00
+11439811269,Eismacherei,16.4466821,48.2430951,Straßmeyergasse,71,Wien,1220,ice_cream,
+11703715914,Peggy,16.5051038,48.2249621,Simone-de-Beauvoir-Platz,1,Wien,1220,cafe,
+11880670805,Eisbude,16.44045,48.2122887,Effenbergplatz,2,Wien,1220,ice_cream,
+11935424371,Fam. Orlando,16.4546709,48.2600115,Lieblgasse,3,Wien,1220,ice_cream,
+11985544782,desi Vibes,16.4982458,48.2162255,Groß-Enzersdorfer Straße,54,Wien,1220,indian;pasta;pizza,Mo-Su 11:00-22:00
+12020342353,Juice & Smoothies Bar,16.4379632,48.2427124,Wintzingerodestraße,8,Wien,1220,fast_food,
+12089310651,Bruno-e-Marrone,16.5073424,48.2247275,Sonnenallee,16,Wien,1220,cafe,
+12091338669,we love good food,16.4810925,48.242968,Ziegelhofstraße,64,Wien,1220,fast_food,
+12175011198,Trzesniewski,16.4346588,48.2427827,Siebeckstraße,7,Wien,1220,restaurant,Mo-Fr 09:00-19:30; Sa 09:00-18:00
+12184398144,Turm Restaurant,16.4100434,48.2402308,Donauturmplatz,1,Wien,1220,restaurant,
+12184398145,Turm Café,16.4100509,48.240231,Donauturmplatz,1,Wien,1220,cafe,
+12369193501,Miyama Hirschstetten,16.4882007,48.2406089,Robert-Parzer-Weg,2,Wien,1220,asian,
+12450609901,Ossi's Bowl & Streetfood,16.4817403,48.2437431,Ziegelhofstraße,70,Wien,1220,fast_food,
+12463489078,Aqui,16.4336419,48.2420833,Siebeckstraße,16,Wien,1220,fast_food,
+12475601309,Siege's Stüberl,16.4873095,48.2177139,Wimpffengasse,14,Wien,1220,pub,
+12507248797,Eismacherei,16.4419612,48.2535482,Anton-Sattler-Gasse,115A,Wien,1220,ice_cream,
+12732463812,Laguna am Ziegelhofteich,16.4809554,48.2434338,Ziegelhofstraße,68,Wien,1220,restaurant,
+5460322,Laguna am Ziegelteich,16.4809,48.2434032,Ziegelhofstraße,68,Wien,1220,regional,"May-Sep: Mo,We,Fr 11:00-21:00; Sa-Su,PH 09:30-21:00"
+7289798,Zum Schinakl,16.4247086,48.2294426,Laberlweg,23A,Wien,1220,biergarten,
+29417979,Roter Hiasl,16.4658865,48.1944378,Biberhaufenweg,228,Wien,1220,regional,Mo-Su 10:00-22:00
+29972434,McDonald's,16.444071,48.2198195,Donaustadtstraße,49,Wien,1220,fast_food,
+31472469,Donau City Treff,16.4221891,48.2383913,Arbeiterstrandbadstraße,128,Wien,1220,regional,"Mo-Fr 07:30-23:00; Sa,Su 08:00-23:00"
+32908441,McDonald's,16.4309638,48.2392424,Wagramer Straße,54,Wien,1220,fast_food,"Su-We 06:00-24:00, 00:00-02:00; Th 00:00-02:00, 06:00-24:00; Fr, Sa 00:00-05:00, 06:00-24:00"
+38891404,Yu Yu,16.5213096,48.2147589,Eßlinger Hauptstraße,73,Wien,1220,chinese,Tu-Su 11:00-22:00
+38891410,Queen Eßling,16.5196972,48.2148926,Telephonweg,4,Wien,1220,regional,
+45760203,Restaurant Zum Schinakl,16.4242679,48.2295389,Laberlweg,21,Wien,1220,regional;grill;fish;italian,We-Sa 11:00-21:00; Su 11:00-19:00
+48545728,Riegler’s Eis Salon,16.4824667,48.2161481,Biberhaufenweg,8,Wien,1220,cafe,Mo-Su 10:00-22:00
+89094508,Zur Alten Kaisermühle,16.426379,48.2348347,Fischerstrand,6,Wien,1220,char-grilled;fish;viennese,Mo-Su 11:30 - 23:00
+89535514,PSV Lounge - Polizeisportverein Wien,16.4297461,48.2228004,Dampfschiffhaufen,2,Wien,1220,regional;pizza;burger,08:00-23:00
+89593965,Trattoria Amici,16.4793011,48.2118964,Khuenweg,1,Wien,1220,italian,
+98230550,Zum 100er,16.4660943,48.2347383,Hirschstettner Straße,100,Wien,1220,regional,
+98230557,Goldener Hirsch,16.4639613,48.2353313,Hirschstettner Straße,83,Wien,1220,regional,Tu-Sa 09:00-23:00
+111290218,Sansigarden,16.4086609,48.2298382,Pier 22,,Wien,1220,bar,
+111351054,Walter's Mühle,16.4692063,48.2087478,Schilfweg,54,Wien,1220,restaurant,We-Su 11:00-21:00
+115385784,Fat George,16.5245737,48.2151661,Gartenheimstraße,1,Wien,1220,restaurant,
+116401483,Zum Knusperhaus,16.4752062,48.1944586,Luitpold-Stern-Gasse,54,Wien,1220,restaurant,
+128836889,Fuyang,16.4849499,48.2380463,Am Heidjöchl,8,Wien,1220,chinese,
+140560359,Lotus Event Center,16.4577796,48.2425193,Hirschstettner Straße,43,Wien,1220,restaurant,
+164941544,McDonald's,16.4708457,48.2502816,Breitenleer Straße,112,Wien,1220,fast_food,
+174269664,Restaurant am Weststrand,16.4286266,48.2330265,Fischerstrand,29,Wien,1220,restaurant,
+174269670,Donaubrise,16.4308979,48.228759,Moissigasse,21,Wien,1220,restaurant,
+174861947,Strand-Domizil,16.4581484,48.2129825,Strandbad Stadlau,,Wien,1220,regional,
+177656464,Platin,16.4580172,48.2332009,Stadlauer Straße,41A,Wien,1220,pub,Mo-Fr 14:00-02:00; Sa-Su 13:00-02:00
+184516507,U Snack,16.4155396,48.2325006,U-Bahn Station Kaisermühlen,,Wien,1220,fast_food,
+196973114,Buffet zur Babybucht,16.4796583,48.2467222,Badeteich Hirschstetten,W,Wien,1220,fast_food,
+197179425,Napoleon,16.4497731,48.2481439,Kagraner Platz,33,Wien,1220,restaurant,"Mo-Th 11:30-10:00, Fr,Sa 11:30-11:00, Su 11:30-04:00"
+200288648,Gasthaus Hansi,16.4899582,48.2404506,Quadenstraße,83A,Wien,1220,regional,
+202890378,Selbstverständlich Strandbeisl,16.4367459,48.222026,SDL Juvavia,,Wien,1220,regional,"Mo-Su,PH 11:30-23:00"
+204014378,China Sichuan Restaurant,16.4206884,48.2398301,Arbeiterstrandbadstraße,122,Wien,1220,chinese,
+223635003,wake_up,16.4365557,48.2136118,Effenbergplatz,5,Wien,1220,restaurant,"May-Aug Mo-Su 09:30-24:00; Apr, Sep Mo-Su 11:30-22:00; Oct Th-Su 11:30-22:00"
+226936341,Imbiss zum Seestern,16.438871,48.2132325,An der unteren Alten Donau,291,Wien,1220,fast_food,
+233593662,Otti's Würstel Bar,16.4481069,48.2534728,Goldemundweg,15,Wien,1220,pub,
+233594137,Yi,16.4426864,48.2534878,Aladar-Pecht-Gasse,1A,Wien,1220,chinese,
+233594513,Ying,16.4435726,48.2546673,Anton-Sattler-Gasse,106,Wien,1220,asian,
+233705732,drunter & drüber,16.4134261,48.2430469,Arbeiterstrandbadstraße,122C,Wien,1220,restaurant,Mo-Su 10:00-19:00
+235925490,McDonald's,16.4560767,48.2642521,Wagramer Straße,244,Wien,1220,fast_food,
+240886663,Imbiss Aspern,16.4698108,48.2295177,Aspernstraße,12,Wien,1220,cafe,
+242939779,Zur Kurv'n,16.4890714,48.1786098,Stromkilometer,4L,Wien,1220,fast_food,
+243448572,Big Mama,16.4651091,48.2614143,Rautenweg,50,Wien,1220,fast_food,
+278060493,klee wok,16.4768421,48.2374767,Quadenstraße,31,Wien,1220,asian,Mo-Su 11:00-23:00
+286965702,Toni's Inselgrill,16.4541244,48.201652,Steinspornbrücke,1,Wien,1220,restaurant,Mo-Su 09:00-22:30
+343510158,Lobauerhof,16.4539747,48.2026531,Kierischitzweg,8,Wien,1220,regional,
+343923538,Mediterrano,16.5338331,48.2287795,Kaschauerplatz,2A,Wien,1220,italian,"Mo-Th 11:00-14:30, 17:00-22:30; Fr-Su 11:00-22:30"
+344525550,Oriental Garden,16.4072402,48.2306106,Stromkilometer,1928L,Wien,1220,oriental,"Su-Th 11:00-23:00, Fr,Sa 11:00-24:00"
+344525932,Rumba-Mambo Wien,16.4079552,48.2304108,Pier 22,,Wien,1220,bar,
+344527492,DEUCES SUMMER MOMENTS,16.4087437,48.2301617,Pier 22,,Wien,1220,cafe,"12:00-02:00; Fr,Sa 12:00-03:00"
+344539897,It’s amore,16.4083367,48.2299155,Pier 22,,Wien,1220,italian,
+351451588,Fredi's Bar,16.5283958,48.2131546,Eßlinger Hauptstraße,122,Wien,1220,bar,
+351451773,Zum Hopfbär,16.5269456,48.2137829,Eßlinger Hauptstraße,104,Wien,1220,regional,Mo-Sa 11:30-23:00; Su 11:30-21:00
+405440708,Aspern Imbiss,16.475335,48.2232957,Lavaterstraße,6,Wien,1220,fast_food,
+405449279,Ginza Point,16.4747327,48.222534,Erzherzog-Karl-Straße,211,Wien,1220,fast_food,
+405449280,Nöbauer,16.4749682,48.2224526,U-Bahn Station Aspernstraße,U,Wien,1220,cafe,Mo-Fr 05:30-19:00; Sa 06:00-17:00; Su 07:30-15:00
+405458513,Imbiss Donau Treff,16.4652216,48.2196365,U-Bahn Station Donauspital,,Wien,1220,fast_food,Mo-Su 09:15-22:00
+468373854,Puzzle Pizza,16.4579728,48.2209605,Hardeggasse,55,Wien,1220,fast_food,Mo-Su 09:00-22:00
+486602235,Rad- und Wanderschenke,16.4966354,48.1689415,Stromkilometer,,Wien,1220,regional;buschenschank;austrian;sausage;local,Mo-Su 10:00-20:00
+486602236,Rad und Wanderschenke,16.4968051,48.1688988,Stromkilometer,,Wien,1220,biergarten,
+503119136,Burger King,16.4646943,48.2477851,Gewerbeparkstraße,2,Wien,1220,fast_food,Mo-Sa 09:00-00:00;Su 10:00-23:00
+519249156,Zum Knusperhäuschen,16.48798,48.1812584,Panozza Lacke,,Wien,1220,regional,May-Oct
+521309377,Beach-Point Hirschstetten,16.4790436,48.2413111,Ziegelhofstraße,33,Wien,1220,fast_food,
+529243162,Vienna City Beach Club,16.4288153,48.2177657,Am Kaisermühlendamm,106,Wien,1220,bar,
+548570038,Restaurant UNO,16.417452,48.2319704,Wagramer Straße,8,Wien,1220,restaurant,
+564156028,Mühlwasser Platz'l,16.4869378,48.2031993,Lobaugasse,101,Wien,1220,restaurant,Tu-Su 09:00-22:00
+623725143,Mar y Sol,16.4097803,48.2319897,Copa Beach,C,Wien,1220,mexican,
+623725144,Rembetiko,16.4097803,48.2319897,Copa Beach,C,Wien,1220,greek,
+629564977,McDonald's,16.5047969,48.2162497,Seestadtstraße,4,Wien,1220,fast_food,"PH,Mo-Su 07:00-01:00"
+766661510,Cafe Donau,16.467432,48.218635,Langobardenstraße,122A,Wien,1220,cafe,"Mo-Su,PH 09:30-18:00"
+823890127,Sansibeach,16.4091684,48.2297275,Pier 22,,Wien,1220,bar,
+823890128,CAFÉ DEL SOL,16.4079503,48.2302374,Pier 22,,Wien,1220,cafe,"Su-Th 11:00-24:00, Fr,Sa 11:00-02:00"
+824080580,GYROS to go,16.4082884,48.2301075,Pier 22,,Wien,1220,fast_food,
+1024976624,Imbiss Stube,16.5076795,48.2149639,Groß-Enzersdorfer Straße,92,Wien,1220,restaurant,
+1328725505,U2 Stadlau,16.4505875,48.2201258,Sekowitschweg,7,Wien,1220,fast_food,Mo-Fr 11:00-21:00; Su 14:30-21:00

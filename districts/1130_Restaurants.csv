@@ -1,0 +1,125 @@
+﻿id,name,lat,long,addr:street,addr:housenumber,addr:city,addr:postcode,cuisine_or_amenity,opening_hours
+265002408,Bäckerei Schwarz,16.2709478,48.1908244,Auhofstraße,138,Wien,1130,cafe,Mo-Sa 06:00-19:00; Su 08:00-19:00
+265002900,Felber,16.2670772,48.1881333,Firmiangasse,2,Wien,1130,cafe,
+288643493,Waldtzeile,16.2846459,48.1732175,Eduard-Jaeger-Gasse,1,Wien,1130,regional,Tu-Sa 11:30-21:30; Su 11:30-15:00
+290481672,Wambacher,16.2845368,48.1788853,Lainzer Straße,121,Wien,1130,austrian;local;regional,11:00-24:00
+334793287,Café Dommayer,16.2989586,48.1871017,Auhofstraße,2,Wien,1130,cafe,"Mo-Su,PH 07:30-20:30"
+334795583,Restaurant Plachutta Stammhaus Hietzing,16.2984707,48.1867355,Auhofstraße,1-3,Wien,1130,regional;international,"PH,Mo-Su 11:30-20:00+"
+334800902,Della Lucia,16.3026844,48.1870946,Hietzinger Hauptstraße,8,Wien,1130,cafe,11:00-23:00
+373550674,Brandauers Schlossbräu,16.300751,48.1858066,Am Platz,5,Wien,1130,regional,10:00-01:00
+430383191,Urban Brothers,16.267145,48.1872053,Einsiedeleigasse,7,Wien,1130,pizza,Mo-Su 11:00-22:45
+430384039,NARA Sushi,16.2672566,48.1872682,Einsiedeleigasse,7,Wien,1130,asian,"PH,Mo-Su 11:00-22:00"
+430384865,Delphi,16.2732066,48.1780113,Rotenberggasse,4,Wien,1130,greek,Tu-Sa 11:30-23:00; Su 11:30-22:00
+430388313,Kleine Ober St. Veiter Bierstube,16.2678988,48.1898635,Firmiangasse,23,Wien,1130,pub,
+430388832,Punto Rosso,16.2672127,48.1887665,Firmiangasse,5,Wien,1130,"italian,pizza,pasta",
+443221943,Café Gloriette,16.3085818,48.178268,Schloß Schönbrunn,S,Wien,1130,cafe,"Mo-Su,PH 09:00-20:00"
+449210154,Per Du,16.2918774,48.1712335,Wattmanngasse,111,Wien,1130,cafe,
+451731690,Akakiko,16.3014198,48.1856231,Am Platz,2,Wien,1130,japanese,"Mo-Su,PH 10:30-23:30"
+538383574,Da Ferdinando,16.2994549,48.1865619,Hietzinger Hauptstraße,26,Wien,1130,italian_pizza,Mo-Su 11:00-23:00
+543402668,Sang Sang Hietzing,16.3020655,48.1863401,Hietzinger Hauptstraße,neben 10-16,Wien,1130,restaurant,"Tu-Sa 12:00-22:00; Su,PH 12:00-21:00"
+611890965,Café am Platz,16.3010719,48.185979,Hietzinger Hauptstraße,1,Wien,1130,cafe,"Mo-Fr 07:00-20:00, Sa 08:00-20:00, Su 08:00-19:00"
+611890966,aïda,16.3010448,48.1854384,Am Platz,3,Wien,1130,cafe,"Mo-Fr 08:00-18:30, Sa 08:30-19:00, Su,PH 09:00-18:00"
+727633539,Cafe 1130,16.2794548,48.163427,Speisinger Straße,102,Wien,1130,cafe,10:00-22:00
+727641972,Café Gold Wettpunkt,16.2789749,48.1628576,Speisinger Straße,106,Wien,1130,pub,"Mo-Fr 07:00-22:00; Sa 08:00-21:00; Su,PH 09:00-21:00"
+766034545,Landtmann's Parkcafé,16.3092951,48.1818099,Maxingstraße,13B,Wien,1130,cafe,Mo-Su 09:00-18:00
+805972617,Mario,16.2982796,48.186391,Lainzer Straße,2,Wien,1130,restaurant,
+810608203,La Grappa,16.2979854,48.1872889,Auhofstraße,6B,Wien,1130,italian,Mo-Su 11:30-23:00
+836868334,Café Restaurant ORANG.ERIE,16.3003769,48.1835732,Maxingstraße,13A,Wien,1130,restaurant,
+861967279,Schoko & Fiocco,16.2838619,48.1871852,Hietzinger Hauptstraße,69,Wien,1130,ice_cream,Mo-Su 11:00-21:00
+899114348,Otto,16.3005867,48.1865482,Hietzinger Hauptstraße,20,Wien,1130,restaurant,"We-Sa 07:00-23:00; Su,PH 07:00-21:00"
+911164843,Seidel,16.2814736,48.1874758,Hietzinger Hauptstraße,90,Wien,1130,fast_food,
+1254416769,Split,16.2960702,48.1703444,Hetzendorfer Straße,165-173,Wien,1130,croatian,We-Sa 17:00-22:00; Su 12:00-17:00
+1262117387,Ristorante Francesco,16.2729718,48.1560914,Wittgensteinstraße,2,Wien,1130,italian,Mo-Su 11:30-23:30
+1437849602,Hongpingguo,16.2738073,48.1902126,Testarellogasse,18,Wien,1130,asian,"Mo-Su,PH 12:00-14:30,17:30-22:00"
+1437849747,San Giovanni,16.2737699,48.1921666,Hietzinger Kai,173,Wien,1130,pizza,
+1645554194,Hackinger,16.2624963,48.1947488,Auhofstraße,186A,Wien,1130,regional,We-Su 11:00-24:00
+1665276227,Schneider-Gössl Sektbar,16.2669517,48.1880272,Hietzinger Hauptstraße,153,Wien,1130,bar,
+2096231625,Fontana,16.2664586,48.1930828,Hietzinger Kai,207,Wien,1130,pizza,
+2096231629,What's New,16.2736794,48.1915563,Testarellogasse,31,Wien,1130,pub,Mo-Su 17:00-01:00
+2100480323,Cafe-Konditorei Peter Brey,16.2812943,48.1875363,Hietzinger Hauptstraße,92,Wien,1130,cafe,
+2103427100,Teenorissimo,16.2854521,48.1885142,Wittegasse,2,Wien,1130,cafe,Tu-Fr 09:00-18:00; Sa 09:00-14:00; Su-Mo off
+2458558761,Das Alt - Irish Pub Hietzing,16.2988667,48.1855229,Altgasse,18,Wien,1130,pub,Mo-Su 16:00-02:00
+2458558762,Honu,16.301229,48.1856531,Am Platz,3,Wien,1130,hawaiian,Mo-Fr 11:00-21:00; Sa-Su 11:30-21:30
+2458558766,Restaurant Sport-Union,16.3003332,48.1852898,Altgasse,6,Wien,1130,regional,"Mo-Fr 09:00-22:00; PH,Sa,Su 09:00-15:00"
+2458558769,Schaumweinhäuschen,16.2996592,48.1852274,Altgasse,9,Wien,1130,bar,"PH,Mo-Su 19:00+"
+2458558771,Schlosscafé,16.3021493,48.1864777,Hietzinger Hauptstraße,10-16,Wien,1130,cafe,08:00-22:30
+2537832053,Kutscher G'wölb,16.3099257,48.1865203,Schloß Schönbrunn,S,Wien,1130,restaurant,
+2631754846,Trześniewski,16.2984954,48.1860411,Hietzinger Hauptstraße,19,Wien,1130,fast_food,Mo-Fr 08:30-19:00; Sa 09:00-17:00
+2693105392,Demmers Teehaus,16.3003072,48.1870432,Jodlgasse,7,Wien,1130,bar,"Mo-Fr 10:00-13:00,14:00-17:00"
+2694283360,Maxing Stüberl,16.300641,48.1845837,Maxingstraße,7,Wien,1130,restaurant,"Mo-Fr 17:00-24:00, Sa,Su 13:00-24:00"
+2694396478,Radatz,16.3006613,48.1869366,Hietzinger Hauptstraße,22,Wien,1130,fast_food,Mo-Fr 08:30-18:30; Sa 08:30-13:00
+2700279406,Bao,16.3036167,48.1875613,U-Bahn Station Hietzing,U,Wien,1130,fast_food,"Mo-Fr 11:00-24:00, Sa,Su,PH 11:00-24:00"
+2700279407,Kebap,16.3036598,48.1875856,U-Bahn Station Hietzing,U,Wien,1130,fast_food,
+2717549923,Café Hietzing,16.3020004,48.1833598,Maxingstraße,13B,Wien,1130,cafe,
+2837660500,Schönbrunner Stöckl,16.3188765,48.1839705,Schloß Schönbrunn,S,Wien,1130,regional,Mo-Su 10:00-23:00
+2837661101,Cafe Restaurant Residenz,16.313908,48.1852516,Schloß Schönbrunn,S,Wien,1130,cafe,Mo-Su 10:00-20:00
+2956332333,Eissalon Cheers,16.2796007,48.1635934,Speisinger Straße,100,Wien,1130,cafe,Mo-Su 10:00-22:00
+3447435743,Cafe Schloss Schönbrunn,16.3137181,48.1863366,Schloß Schönbrunn,S,Wien,1130,cafe,
+3806443868,Smash Bros,16.3002942,48.1870125,Jodlgasse,7,Wien,1130,fast_food,Mo-Fr 11:30-22:00; Sa 15:00-22:00
+3806505736,Radatz,16.3006661,48.1869182,Hietzinger Hauptstraße,22,Wien,1130,fast_food,Mo-Fr 08:30-18:30; Sa 08:30-13:00
+3815172594,Passione-Da Ferdinando,16.302836,48.1873091,Hietzinger Hauptstraße,6,Wien,1130,pizza;italian,Mo-Su 10:30-23:00
+3815188957,Noodle King,16.3028556,48.1873493,Hietzinger Hauptstraße,6,Wien,1130,fast_food,Mo-Su 11:00-22:00
+4081215562,Schneider-Gössl,16.2673187,48.189209,Firmiangasse,7,Wien,1130,restaurant,Mo-Su 16:00-00:00
+4251247196,Kulinario,16.2814063,48.1633348,Meillergasse,1-3,Wien,1130,restaurant,
+4867004688,Al Pacino,16.2839343,48.1766477,Lainzer Straße,143,Wien,1130,pizza,"PH,Mo-Su 11:00-22:30"
+4867004689,Eck Meck,16.2839498,48.1772142,Lainzer Straße,135,Wien,1130,fast_food,
+4867004691,China Restaurant Hietzing,16.2834321,48.1767877,Lainzer Straße,144,Wien,1130,chinese,"Mo 11:30-15:00; Tu-Su 11:30-15:00,17:00-22:30"
+5092213117,Veganista,16.2981172,48.1859748,Altgasse,27,Wien,1130,ice_cream,
+5235320925,Yildiz Villa,16.2835174,48.1899403,Auhofstraße,80,Wien,1130,turkish,Mo-Su 10:30-22:00
+5235324131,Sun,16.282628,48.1874409,Hietzinger Hauptstraße,88,Wien,1130,chinese;asian;japanese,"Mo 11:00-15:00; Tu-Su,PH 11:00-15:00,17:00-22:00"
+5376196674,Waldemar Tagesbar,16.3000686,48.1853196,Altgasse,6,Wien,1130,cafe,Mo-Fr 08:00-20:00; Fr-Su 09:00-15:00
+5385722030,Vanillas,16.3015138,48.1863729,Hietzinger Hauptstraße,18,Wien,1130,ice_cream,
+5415132662,vis a vis,16.3012413,48.1864361,Hietzinger Hauptstraße,18,Wien,1130,restaurant,Mo-Fr 15:00-22:00
+5470682462,nook [nuk],16.2993951,48.1854034,Altgasse,12,Wien,1130,cafe,Mo-Su 10:00-18:00
+5516963181,Tete a Tee GmbH & Co KG,16.2839009,48.1784656,Lainzer Straße,130,Wien,1130,cafe,Sep-Jun Mo 10:00-18:00; Tu off; We 13:00-18:30; Th-Fr 10:00-19:00; Sa 10:00-14:00; Su off; Jul-Aug Mo 10:00-18:00; Tu off; We 13:00-18:30; Th-Fr 10:00-19:00; Sa 10:00-14:00; Su off
+5540303339,Wiener Würstelstand,16.3059609,48.1817563,Maxingstraße,13B,Wien,1130,fast_food,
+5578380835,Osteria Piccolino,16.2855433,48.1818547,Stadlergasse,2,Wien,1130,restaurant,Mo-Fr 08:00-22:00; Sa 09:00-15:00
+5578380836,Wok'in,16.2851235,48.1812368,Lainzer Straße,84,Wien,1130,asian;sushi;japanese;chinese,"Tu-Sa 11:30-15:00,17:30-22:30; Su 11:30-22:30; PH 11:30-22:30"
+5578380844,Hanil Sushi,16.2840351,48.1776722,Lainzer Straße,129,Wien,1130,sushi;asian;japanese,
+5578380846,Argo,16.2840089,48.177607,Lainzer Straße,131,Wien,1130,mediterranean;greek,
+5601799593,Brandauers Bierstube,16.3010253,48.1858882,Am Platz,5,Wien,1130,pub,17:00-02:00
+5661953685,Antons,16.2669055,48.1881834,Firmiangasse,2,Wien,1130,ice_cream,Mar: Mo-Su 12:00-18:00
+5666587083,Thurn,16.2681144,48.1895206,Firmiangasse,8,Wien,1130,heuriger,"Mo,Th,Fr,Sa 11:30-23:00; Su,PH 11:30-17:00"
+5757289796,Da Salvatore Pizzeria,16.2668659,48.1880526,Hietzinger Hauptstraße,153,Wien,1130,pizza,"Tu-Su 11:30-14:30, 18:00-22:30"
+5757292482,Ristorante da Salvatore,16.2707353,48.190396,Streckerplatz,,Wien,1130,italian,"""Bis auf weiteres geschlossen"""
+5840072648,Bunt,16.2689556,48.187942,Hietzinger Hauptstraße,162,Wien,1130,restaurant,
+6697197212,Hermes,16.246366,48.1708841,Lainzer Tiergarten,T,Wien,1130,restaurant,
+6705086838,Das Pizz,16.2751969,48.1873561,Hietzinger Hauptstraße,115,Wien,1130,italian,"Mo-Fr 11:00-15:00, 17:00-22:00; Sa, Su 11:00-22:00"
+8149240617,Dolce Cucina Cafeteria,16.2884613,48.1702471,Feldkellergasse,22,Wien,1130,cafe,
+9207992360,Mähnenspringer Buffet,16.3062458,48.1810476,Maxingstraße,13B,Wien,1130,fast_food,
+9233625372,Eiswagerl,16.3042009,48.1815024,Maxingstraße,13B,Wien,1130,ice_cream,
+9256276194,Cafe Speising,16.2839942,48.1678948,Speisinger Straße,55,Wien,1130,bar,
+9256286954,Cafe Konditorei Strudleck,16.2823703,48.173585,Anton-Langer-Gasse,2-6,Wien,1130,cafe,"Mo-Fr 09:00-21:00; Sa-Su,PH 11:00-21:00"
+9725537767,Rhino Eisbar,16.3018985,48.1836275,Maxingstraße,13B,Wien,1130,ice_cream,
+9815333460,Jin's Hietzing,16.3025013,48.1876428,Eduard-Klein-Gasse,1,Wien,1130,chinese,Tu-Su 11:30-22:00
+9939953626,Café Allgemein,16.2792572,48.1694557,Biraghigasse,38-42,Wien,1130,cafe,Tu-Su 09:00-18:00
+9957331542,Blue Marlin,16.3018903,48.1863367,Hietzinger Hauptstraße,neben 10-16,Wien,1130,seafood,"Mo-Su,PH 11:00-23:00"
+9982004749,KOMM-Café Minimarkt,16.2750321,48.171719,Versorgungsheimplatz,1,Wien,1130,cafe,"Mo-Fr 08:00-16:00; PH,Sa,Su 10:00-16:00"
+10013110915,Bioparadies,16.2976379,48.1854439,Altgasse,23A,Wien,1130,austrian,"Mo-Fr 09:00-18:00; Sa, Su 10:00-16:00"
+10020377254,KOMM-Café,16.2751172,48.1717499,Versorgungsheimplatz,1,Wien,1130,food_court,
+10031188017,Mensa Buffet,16.2790654,48.1683036,Hermesstraße,2,Wien,1130,restaurant,
+10907451991,Manolos,16.2949231,48.176839,Wattmanngasse,66,Wien,1130,cafe,Tu-Sa 12:00-20:00; Su 10:00-18:00
+11146662331,Restaurant May31,16.2844336,48.1639225,Maygasse,31,Wien,1130,pasta,
+11356439305,Anton's Tafel,16.2991874,48.1866184,Hietzinger Hauptstraße,28,Wien,1130,ice_cream,Mo-Su 12:00-18:00
+11873682084,Café Laska,16.2978822,48.1859089,Altgasse,25,Wien,1130,cafe,"Tu-Fr 07:00-16:00; Sa, Su 09:00-16:00"
+11891801540,Biergarten,16.3040858,48.1830084,Maxingstraße,13B,Wien,1130,austrian,Mo-Su 11:00-17:30
+11966412922,4HANGOVER.at,16.2944088,48.1687242,Atzgersdorfer Straße,14,Wien,1130,restaurant,
+12048792534,Café Pavillon,16.3168439,48.1830577,Schloß Schönbrunn,S,Wien,1130,cafe,"Mo-Fr 10:00-18:00; Sa,Su 09:00-18:00"
+12085769399,Joseph II Schloss-Restaurant Schönbrunn,16.3150285,48.1859728,Schloß Schönbrunn,S,Wien,1130,austrian,Mo-Su 10:00-22:00
+12216263642,Hietz Kebap,16.2832503,48.1874321,Feldmühlgasse,6-8,Wien,1130,fast_food,Mo-Su 09:00-21:00
+12407314721,Mensa-Café,16.2665677,48.1843037,Einsiedeleigasse,31,Wien,1130,restaurant,
+12729729274,Helli & Leo Bio Eis,16.3063038,48.181773,Maxingstraße,13B,Wien,1130,ice_cream,
+26382936,Rasthaus Hirschgstemm,16.2033331,48.1712217,Lainzer Tiergarten,T,Wien,1130,restaurant,
+26386408,Rasthaus Rohrhaus,16.2307986,48.178368,Lainzer Tiergarten,T,Wien,1130,regional,Fr-Tu 11:00-18:00+
+26721761,Gasthaus Tirolergarten,16.3032609,48.1798061,Seckendorff-Gudent-Weg,8,Wien,1130,regional,
+27240345,Restaurant Kaiserpavillon,16.3028377,48.1822453,Maxingstraße,13B,Wien,1130,restaurant,
+112459718,Rhino Bar,16.3076304,48.1813717,Maxingstraße,13B,Wien,1130,ice_cream,
+153919618,McDonald's,16.2793104,48.1914724,Hietzinger Kai,137,Wien,1130,fast_food,
+172941403,Jumbo Grillgarten,16.3037741,48.1813421,Maxingstraße,13B,Wien,1130,restaurant,
+195521763,Gasthaus Lindwurm,16.255248,48.1790562,Ghelengasse,44,Wien,1130,restaurant,Sa-Th 09:30-23:00
+210022524,zur Wildsau,16.2546437,48.181614,KLG Am Hauerweg,,Wien,1130,heuriger,
+220023191,Weinschenke Schneider,16.2843664,48.1893947,Feldmühlgasse,26,Wien,1130,heuriger;buschenschank;austrian;local,
+227095044,Schnitzel Kaiser,16.2870353,48.1705322,Hofwiesengasse,44,Wien,1130,fast_food,"Su-Th 10:00-22:00, Fr,Sa 10:00-02:00"
+266170877,Schönbrunn Brezel,16.3023564,48.1829879,Maxingstraße,13B,Wien,1130,fast_food,
+266172132,Imbiss Kinderspielplatz,16.3057188,48.1821367,Maxingstraße,13B,Wien,1130,fast_food,
+272390044,Jumbo Buffet,16.3035264,48.1815704,Maxingstraße,13B,Wien,1130,fast_food,

@@ -1,0 +1,208 @@
+﻿id,name,lat,long,addr:street,addr:housenumber,addr:city,addr:postcode,cuisine_or_amenity,opening_hours
+249711653,Cafe U1,16.3702567,48.1947168,Taubstummengasse,17,Wien,1040,cafe,Tu-Fr 17:30-24:00
+249711654,Wiener Wiaz'haus,16.3694095,48.1966507,Karlsgasse,22,Wien,1040,austrian,"Mo-Fr 17:00-22:00; Sa,Su off ""Variable Öffnungszeiten an Feiertagen"""
+249711655,TU Wien Mensa Freihaus,16.3674833,48.198936,Wiedner Hauptstraße,8-10,Wien,1040,restaurant,Mo-Fr 11:00-14:00
+277843035,Cafè Schrödinger,16.367363,48.1985019,Wiedner Hauptstraße,8-10,Wien,1040,restaurant,Mo-Fr 09:00-16:00; PH off
+279452021,Cafe Frey,16.3716892,48.1901375,Favoritenstraße,44,Wien,1040,cafe,"Mo-Fr 07:00-21:00, Sa,Su,PH 09:00-21:00"
+281657531,Schlupfwinkel,16.3628298,48.1932065,Schäffergasse,23,Wien,1040,pub,"PH off; Jul-Aug: Sa,Su off, Jul-Aug: Mo-Th 17:00-01:00, Jul-Aug: Fr,Sa 17:00-02:00"
+297478688,Carl Ludwig Cafe,16.3693761,48.1954827,Favoritenstraße,7,Wien,1040,cafe,"Mo-Fr 07:30-19:00; Sa 10:00-17:00; Su,PH off"
+298347612,Kebap-Haus,16.3660632,48.1984179,Faulmanngasse,1,Wien,1040,turkish,
+306095249,Pointers,16.3686553,48.1989041,Resselgasse,5,Wien,1040,burger;sandwich,"Mo-Fr 12:00-01:00, Sa 15:00-01:00; Su,PH off"
+307433233,Art Corner,16.3793496,48.1912462,Karolinengasse,2,Wien,1040,greek,
+309293364,Schikaneder,16.3651253,48.196612,Margaretenstraße,22,Wien,1040,bar,"Mo-Sa 18:00-04:00, Su 18:00-01:00"
+310649397,Four Bells,16.3668127,48.1965758,Schleifmühlgasse,2,Wien,1040,pub,Mo-Su 16:00-24:00
+333532257,Pizzeria-Ristorante Venezia,16.3749156,48.1884547,Viktorgasse,27,Wien,1040,pizza;italian;regional,Mo-Su 11:00-22:45
+339908188,Opern Schnitzel,16.3664826,48.199431,Operngasse,20A,Wien,1040,fast_food,Mo-Fr 09:00-22:00; Sa 09:00-21:00
+340069340,Quick Yammy,16.3680702,48.1989782,Wiedner Hauptstraße,5,Wien,1040,asian,"Su-Fr,PH 11:00-20:30; Sa off"
+358546165,Pizzeria Ischia,16.3685366,48.1953002,Mozartgasse,3,Wien,1040,italian,"Mo-Sa 11:30-14:00,17:30-23:00"
+358546222,Bok,16.3689191,48.1954736,Favoritenstraße,8,Wien,1040,asian,"Mo-Fr 11:30-15:30,18:00-22:00; PH 13:00-22:00"
+366223123,Artner,16.3684341,48.1947224,Floragasse,6,Wien,1040,fine_dining,"Mo-Fr 12:00-24:00; Sa,Su,PH 18:00-24:00"
+366223947,Chang Asian Duck,16.3666467,48.1947223,Rienößlgasse,1,Wien,1040,asian,Mo-Sa 11:30-23:30
+366224622,Wieden Bräu,16.3663673,48.1948153,Rienößlgasse,1,Wien,1040,regional,"Mo-Th 11:00-23:00; Fr,Sa 11:00-24:00; Su 11:00-22:30"
+370931029,Johnny's Pub,16.3653882,48.1970101,Schleifmühlgasse,9,Wien,1040,pub,Su-Mo 17:00-02:00; Tu-Sa 17:00-04:00
+406361098,Bếp Việt,16.3677282,48.1962325,Favoritenstraße,2,Wien,1040,vietnamese,"Mo-Fr,Su,PH 10:30-22:30"
+409168057,Mani im Vierten,16.3656897,48.1967604,Margaretenstraße,11,Wien,1040,cafe,"Mo-We 08:00-24:00, Th,Fr 08:00-02:00, Sa 09:00-02:00, Su 09:00-24:00"
+409188538,Café Amacord,16.3639735,48.198445,Schleifmühlgasse,22,Wien,1040,cafe,Mo-Sa 11:30-24:00
+409188539,Café Anzengruber,16.3644998,48.1977814,Mühlgasse,18,Wien,1040,regional,Tu-Sa 16:00-01:00
+412345248,Ostmeer,16.372236,48.1967864,Argentinierstraße,9,Wien,1040,chinese,"Tu-Fr 11:30-14:30, Sa,Su 12:00-22:00, Tu-Fr 17:00-22:00; Mo off"
+412345268,Schwarzberg,16.3749505,48.1977287,Schwindgasse,1,Wien,1040,bar,Mo-Sa 16:00-02:00; Su 16:00-00:00
+417751942,Rainer-Stüberl,16.3678514,48.1886658,Rainergasse,18A,Wien,1040,pub,Mo-Fr 17:00-23:00
+423005402,Zweitbester,16.3630803,48.1953383,Preßgasse,17,Wien,1040,restaurant,"Mo-Fr 11:00-24:00, Sa 10:00-24:00, Su 10:00-23:00"
+423005412,Gugg,16.3617915,48.1962274,Heumühlgasse,14,Wien,1040,cafe,"Tu,We,Fr 19:00-24:00, Th 17:30-22:00"
+423005424,Ubl,16.3624168,48.1964398,Mühlgasse,27,Wien,1040,regional,
+423005429,Schlawiener,16.3621238,48.1964916,Mühlgasse,32,Wien,1040,austrian,Tu-Sa 17:00-23:00+
+457117732,Café Gitarre,16.3722614,48.1879965,Kolschitzkygasse,6,Wien,1040,cafe,Mo-Su 16:00-24:00
+476576751,Radatz,16.3661387,48.1905613,Wiedner Hauptstraße,64,Wien,1040,fast_food,Mo-Fr 08:00-18:30; Sa 08:00-13:00
+476609598,Fladerei Mittersteig,16.3641141,48.1924482,Rienößlgasse,21,Wien,1040,pita,"Mo-Fr 11:00-02:00; PH,Sa,Su 17:00-02:00"
+479236853,Eis Giardino,16.3669877,48.1914381,Wiedner Hauptstraße,55,Wien,1040,fast_food,Mo-Su 10:00-22:00
+524581338,aïda,16.3665087,48.1913017,Wiedner Hauptstraße,60,Wien,1040,cafe,Mo-Su 18:00-19:00
+563271467,schik,16.3641963,48.1969042,Schikanedergasse,5,Wien,1040,pub,
+563271468,Beograd,16.3638285,48.1971297,Schikanedergasse,7,Wien,1040,restaurant,"Tu-Sa 10:00-24:00, Su 11:00-18:00"
+563271473,Lisboa Lounge,16.3641958,48.1976224,Mühlgasse,20,Wien,1040,portuguese,"Mo-Sa 12:00-15:00,17:00-23:00; Su off"
+563271476,Nineofive,16.3641199,48.1975725,Mühlgasse,20,Wien,1040,pizza,"Mo,Th 17:00-23:00; Fr-Su 12:00-23:00"
+582575376,Sarajevo,16.3711906,48.18548,Wiedner Gürtel,54,Wien,1040,balkan,Su-Th 08:00-02:00; Fr-Sa 08:00-16:00
+618283970,Salon Wichtig,16.3694761,48.1967438,Karlsgasse,22,Wien,1040,fast_food,Mo-Fr 11:30-15:00
+618284053,Alt-Wiener Gasthaus Buchecker und Sohn,16.3711774,48.1970001,Gußhausstraße,23,Wien,1040,regional,Mo-Sa 12:00-22:30
+618284057,Café dein Alter Ego,16.3699196,48.1974037,Karlsgasse,14,Wien,1040,restaurant,
+627834757,Noodle King,16.3673849,48.194341,Floragasse,9A,Wien,1040,asian,Mo-Su 11:00-22:00
+628757252,Gasthaus Wolf,16.3647151,48.1928809,Große Neugasse,18,Wien,1040,regional,"Mo-Fr 18:00-01:00+; Sa,Su,PH off"
+637647125,Kojiro 2,16.3651343,48.1977336,Schleifmühlgasse,16,Wien,1040,japanese,Mo-Sa 11:30-21:00
+637647128,Kojiro 1,16.3649238,48.1989082,Rechte Wienzeile,9,Wien,1040,japanese;sushi,Mo-Fr 11:00-18:30; Sa 10:00-14:00
+637819745,The Point of Sale,16.3655391,48.1972375,Operngasse,36,Wien,1040,cafe,Mo off; Tu-Su 08:00-24:00
+696546390,Riva Officina,16.3679827,48.1959904,Neumanngasse,4,Wien,1040,italian,"Mo-Fr 12:00-14:30, 18:00-22:00; Sa 18:00-22:00, Su,PH off"
+696546391,Vollpension,16.365035,48.1976603,Schleifmühlgasse,16,Wien,1040,cafe,Mo-Su 08:00-22:00
+696546392,Z'som,16.3719924,48.1975365,Gußhausstraße,12,Wien,1040,restaurant,We-Su 18:00-23:00
+844543582,Blue Orange,16.3657698,48.1969984,Margaretenstraße,9,Wien,1040,cafe,"Mo-Fr 07:30-18:00; Sa 08:00-18:00; Su,PH 09:00-18:00"
+844544378,Rohrböck Gastwirtschaft,16.3670596,48.1978087,Rilkeplatz,7,Wien,1040,regional,Mo-Th 16:15-23:00
+921348845,Pronto Volante,16.3723718,48.1880232,Kolschitzkygasse,6,Wien,1040,fast_food,"Tu-Su 11:30-14:30, 17:00-22:00"
+960200368,Restaurant Böhmerwald,16.3771005,48.1873677,Wiedner Gürtel,20,Wien,1040,regional,Mo-Su 11:00-22:30
+1157535963,Fein Essen,16.3675718,48.1966123,Wiedner Hauptstraße,19,Wien,1040,international,Mo-Fr 11:30-16:00; PH off
+1298534106,Gorilla Kitchen,16.3720081,48.19728,Argentinierstraße,5,Wien,1040,fast_food,Mo-Fr 07:00-24:00; Sa 09:00-24:00; Su 09:00-22:00
+1301361977,Kaffeefabrik,16.3684611,48.1959469,Favoritenstraße,4-6,Wien,1040,cafe,Mo-Fr 08:00-18:00; Sa 10:00-17:00
+1301361978,Kaffeerösterei Alt Wien,16.3640359,48.1981687,Schleifmühlgasse,23,Wien,1040,cafe,"Mo-Fr 10:00-18:00; Sa 10:00-16:00; PH,Su off"
+1306459053,Cafe Mirage,16.3766737,48.1915702,Mommsengasse,6,Wien,1040,cafe,"Mo-Fr 08:00-22:00; Su,PH 10:00-22:00"
+1307579567,Výtopna,16.3632531,48.1980368,Schikanedergasse,14,Wien,1040,pub,11:00-23:00
+1363354897,Aromat,16.3620757,48.1943999,Margaretenstraße,52,Wien,1040,crepe,"Tu-Fr,Su 17:00-22:00"
+1434634576,Gasthaus Krippl,16.3678039,48.192477,Graf-Starhemberg-Gasse,2B,Wien,1040,local,Mo-Fr 09:00-22:00
+1439072551,Spice of India,16.3619257,48.1939488,Kleine Neugasse,20,Wien,1040,indian,"Mo-Fr 11:00-14:30,18:00-22:30; Sa,Su 12:00-22:30"
+1439072553,Sling,16.3615963,48.1945532,Kettenbrückengasse,4,Wien,1040,bar,
+1439093696,Rollin',16.3623787,48.1946238,Margaretenstraße,50,Wien,1040,fast_food,Tu-Sa 12:00-20:00
+1439094432,Cafè Mi.Ro.,16.3668466,48.1935085,Wiedner Hauptstraße,44,Wien,1040,cafe,
+1439094454,corto e nero,16.3667974,48.193166,Wiedner Hauptstraße,48,Wien,1040,cafe,Mo-Fr 07:30-22:00; Sa-Su 09:00-15:00
+1439094467,Naber Kaffee,16.3669458,48.1942496,Wiedner Hauptstraße,40,Wien,1040,cafe,Mo-Fr 08:00-17:00; Sa 09:00-13:00
+1524647218,Babette's,16.3646896,48.1976166,Schleifmühlgasse,17,Wien,1040,restaurant,Mo-Fr 10:00-19:00; Sa 10:30-17:00
+1541442086,Tancredi,16.3659293,48.1915994,Große Neugasse,5,Wien,1040,regional,"Tu-Sa 17:00-23:00; Su,Mo,PH off"
+1691943627,Breakfast Club,16.3652316,48.1974713,Schleifmühlgasse,12-14,Wien,1040,cafe,"We-Fr 08:00-14:00; Sa,Su 08:00-15:00"
+1709195189,Cafe & Spiel,16.368908,48.1870211,Schönburgstraße,34,Wien,1040,pub,Th-Sa 18:00-02:00
+1711057804,Café Goldegg,16.3761259,48.189695,Goldeggasse,22,Wien,1040,cafe,"Mo-Fr 08:00-20:00; Sa,Su 09:00-20:00"
+1722195549,YAMATO kitchen & bar,16.3659746,48.1903704,Wiedner Hauptstraße,66,Wien,1040,restaurant,Mo-Fr 11:00-22:00; Sa 12:00-22:00
+1729158193,Vinothek Eulennest,16.3658758,48.1978962,Operngasse,30,Wien,1040,restaurant,Tu-Sa 16:00-22:00
+1729254629,Sekt comptoir,16.3644261,48.1978378,Mühlgasse,18,Wien,1040,bar,"We,Th 17:00-23:00; Fr 15:00-23:00; Sa 12:00-23:00"
+1729255371,Xeno,16.3641846,48.1980274,Schleifmühlgasse,21,Wien,1040,bar,Mo-Th 18:00-02:00;Fr-Sa 18:00-04:00;Su 20:00-02:00
+1730779756,Nagoya Susji,16.3659399,48.1968805,Schleifmühlgasse,8,Wien,1040,restaurant,"Mo-Fr 11:30-22:30, Su 11:30-21:30"
+1730938065,Otto e mezzo,16.3643052,48.1981985,Schleifmühlgasse,20,Wien,1040,italian_pizza,Tu-Sa 18:00-21:30
+1731090910,Hanil Sushi,16.3652476,48.1990865,Rechte Wienzeile,7,Wien,1040,sushi,
+1731973535,Sebastiano,16.3673278,48.1923715,Mayerhofgasse,20,Wien,1040,italian,"Su,Mo,PH off; Tu-Fr 11:30-14:30,17:00-24:00"
+1732011317,Maxima,16.3708682,48.1920702,Favoritenstraße,34,Wien,1040,fast_food,"Mo-Fr 10:00-22:00; Sa,Su 11:00-22:00"
+1732209431,Uni Café,16.370057,48.1975588,Karlsgasse,14,Wien,1040,cafe,"Mo-Th 11:30-23:00; Fr 13:00-24:00; Sa,Su off"
+1732227706,Shin Ju,16.3728846,48.1887374,Favoritenstraße,33,Wien,1040,sushi,"PH,Th-Tu 11:00-22:00; We off"
+1732241000,Manzana Restaurante,16.3696074,48.1978476,Apfelgasse,1,Wien,1040,spanish,Mo-Sa 17:00-23:00
+1732434815,Wunderladen,16.3718469,48.197551,Gußhausstraße,12,Wien,1040,cafe,"We,Th 13:00-19:00; Fr 13:00-18:00; Sa 11:00-17:00"
+1732434827,Gorilla Bar,16.3720659,48.1971851,Argentinierstraße,5,Wien,1040,fast_food,Mo-Fr 07:00-24:00; Sa 09:00-24:00; Su 09:00-18:00
+1747565716,Classico,16.3670014,48.1963068,Wiedner Hauptstraße,22,Wien,1040,cafe,"Mo-Fr 09:00-20:00; Su,PH 11:00-19:00; Sa 11:00-18:00"
+1747565720,Da Franco,16.3669347,48.1963262,Wiedner Hauptstraße,22,Wien,1040,restaurant,
+1779876734,Nam Nam Dabba,16.3659621,48.1984377,Faulmanngasse,1,Wien,1040,indian,Mo-Fr 11:30-14:30
+1779876876,Tasty Kebap Pizza,16.3662813,48.1996539,Operngasse,18,Wien,1040,fast_food,
+1779876936,Castillo's Eis&Bar,16.3635662,48.1955165,Margaretenstraße,40,Wien,1040,ice_cream,Mo-Su 11:00-23:00
+1779876974,Yong Street Food,16.3646721,48.1987862,Rechte Wienzeile,9A,Wien,1040,restaurant,"Mo-Fr 11:30-17:30; Sa 11:30-15:30; PH,Su off"
+1780408812,Bánh Mì Hội An,16.3672898,48.1949068,Wiedner Hauptstraße,33,Wien,1040,vietnamese,Mo-Fr 11:00-21:00; Sa 12:00-21:00
+1784481906,Café Wortner,16.3671146,48.1915953,Wiedner Hauptstraße,55,Wien,1040,cafe,"Mo-Sa 08:00-23:00; Su, PH 09:00-23:00"
+1838694688,Süd Länder Cafe Bistro,16.3672183,48.1978979,Rilkeplatz,7,Wien,1040,mediterranean,"Tu-Fr 11:30-15:00,17:00-22:00"
+1887055494,Berfin,16.3669314,48.1959809,Wiedner Hauptstraße,24,Wien,1040,fast_food,"Mo-Fr 09:00-21:00; Sa,Su,PH off"
+1930466965,Fine Fine,16.372599,48.196242,Argentinierstraße,15,Wien,1040,italian,"Mo-Sa 11:00-23:00; Su,PH 11:00-23:00"
+1930467033,trude und töchter: und töchter,16.3729431,48.1993335,Karlsplatz,8,Wien,1040,cafe,"Tu-We,Fr 09:00-18:00; Th 09:00-21:00; Sa-Su 10:00-18:00"
+1943204056,Wohlleben,16.3739932,48.1966416,Wohllebengasse,10,Wien,1040,restaurant,"Mo-Th 12:00-14:30; Fr,Sa 18:00-22:30"
+1969920409,Cha No Ma,16.3651316,48.1988831,Faulmanngasse,7,Wien,1040,cafe,Mo-Sa 11:00-18:00; Su off
+1984031682,"Cafe-Imbiss ""Am Platzl""",16.3758866,48.1906437,Karolinenmarkt,,Wien,1040,fast_food,Mo-Fr 09:30-19:00
+2137688161,Alma,16.3630653,48.193893,Große Neugasse,31,Wien,1040,restaurant,Mo-Fr 17:00-23:00
+2316391562,Café Vitrine,16.3671755,48.1885625,Johann-Strauß-Gasse,10-14,Wien,1040,cafe,"Mo,Tu,Fr 11:00-18:00; We,Th 11:00-19:00"
+2336501622,Lades Kebab,16.374174,48.1866065,Wiedner Gürtel,44,Wien,1040,fast_food,
+2484918184,Don Giovanni,16.3792453,48.1887048,Weyringergasse,7A,Wien,1040,italian_pizza,"Mo-Fr,Su 11:30-14:30,17:30-22:30; Sa 17:30-22:30"
+2512621735,Santos Wieden,16.3686096,48.1957657,Favoritenstraße,4-6,Wien,1040,mexican,"Su-Th 11:00-24:00, Fr,Sa 11:00-01:00"
+2515671261,Zur Herknerin,16.3667889,48.1950591,Wiedner Hauptstraße,36,Wien,1040,austrian,Tu-Fr 18:00-22:00+
+2632060138,Dim-Sum Restaurant,16.3616207,48.1971827,Rechte Wienzeile,29,Wien,1040,chinese,"Mo-Tu,Th-Su 11:00-22:00"
+2984602439,Silver Bar,16.3673297,48.1974387,Rilkeplatz,4,Wien,1040,bar,Tu-Sa 19:00-03:00
+3038856181,Allergiker Café,16.3673543,48.1946268,Neumanngasse,12,Wien,1040,cafe,Tu-Fr 10:30-18:00; Sa 10:00-16:00
+3157765847,Dining Ruhm,16.364697,48.190354,Leibenfrostgasse,2,Wien,1040,regional,"Tu-Sa 11:00-14:00, 17:00-23:00"
+3186185369,Entler,16.367638,48.1933724,Wiedner Hauptstraße,41,Wien,1040,restaurant,"Th-Sa 17:00-01:00, PH off"
+3274539678,Sokrates,16.3663902,48.1908069,Wiedner Hauptstraße,60B,Wien,1040,greek,"11:30-14:30,18:00-24:00"
+3296415383,The Everest Restaurant,16.369689,48.1857779,Johann-Strauß-Gasse,42,Wien,1040,nepalese;indian,"Tu-Su 11:30-14:30,18:00-22:30"
+3371230811,Cafe - Restaurant im Otto Wagner Pavillon,16.3708108,48.2001577,U-Bahn Station Karlsplatz,2,Wien,1010,regional,Mo-Su 09:00-04:00
+3423723048,Lima56,16.3723893,48.1890258,Favoritenstraße,56,Wien,1040,restaurant,"Mo-Fr 12:00-15:30,17:00-23:00; Sa-Su 12:00-23:00"
+3457504497,Radio Cafe,16.3731422,48.1947552,Argentinierstraße,30,Wien,1040,cafe,Mo-Fr 10:00-22:00
+3470331946,Guzzi,16.3621935,48.1954191,Heumühlgasse,7,Wien,1040,restaurant,"Mo-Fr 12:00-15:00,17:00-22:00; Sa,Su off"
+3505174957,Espresso Mobil,16.3678884,48.1995522,Treitlstraße,1,Wien,1040,cafe,"""it's a mobile truck"""
+3512291544,Chasen Brew,16.3677904,48.1979356,Rilkeplatz,2,Wien,1040,cafe,"Mo-Fr 08:00-17:00; Sa,Su 09:00-17:00"
+3587719462,15 süße Minuten,16.3735697,48.1875178,Favoritenstraße,45,Wien,1040,cafe,"Mo-Fr 08:00-16:00; Sa,Su 08:00-19:00"
+3662026157,Quartier Wein & Genuss,16.3788385,48.1879488,Mommsengasse,32,Wien,1040,ice_cream,
+3662988505,Hot Lemon Kitchen,16.3714046,48.1855476,Wiedner Gürtel,54,Wien,1040,asian;chinese;japanese;korean;thai;vietnamese,We-Mo 11:00-22:00
+3789312658,Cafe Nest,16.3660323,48.1974109,Operngasse,25,Wien,1040,bar,Mo-Fr 17:00-23:00
+3933751004,Taste Of India,16.364183,48.1959588,Margaretenstraße,32,Wien,1040,indian,"Mo-Fr 11:00-14:30, 17:30-23:00; Sa-Su,PH 12:00-23:00"
+3994209817,Swing Kitchen,16.3661456,48.1986137,Faulmanngasse,2,Wien,1040,fast_food,11:00-22:00
+4071146442,Kojiro,16.3623622,48.1973142,Rechte Wienzeile,25-27,Wien,1040,japanese,"Mo-Th 11:30-15:00,17:30-23:00, Fr-Su 11:30-23:00"
+4096883256,Admiral,16.3666209,48.1998096,Operngasse,18,Wien,1040,bar,09:00-23:30
+4096953614,El Burro,16.3659587,48.1971391,Margaretenstraße,9,Wien,1040,mexican,Mo-Sa 11:30-21:00
+4096953617,Matcha Komatchi,16.3661427,48.1977009,Operngasse,23,Wien,1040,japanese,Mo-Su 11:00-22:00
+4096953621,Wiener Blut,16.3651722,48.1988562,Faulmanngasse,5,Wien,1040,bar,
+4099311016,Riva Favorita,16.3682445,48.1960231,Favoritenstraße,4-6,Wien,1040,pizza,Mo-Sa 11:30-23:30; Su 17:30-22:30
+4205175993,Bánh Mì Vienna,16.3658777,48.1984625,Faulmanngasse,3,Wien,1040,fast_food,Mo-Fr 11:15-19:45
+4299025600,Café Prinz,16.3752499,48.197299,Prinz-Eugen-Straße,4,Wien,1040,cafe,Mo-Sa 09:00-02:00
+4609350539,Louisiana Blues Pub,16.375277,48.1972311,Prinz-Eugen-Straße,4,Wien,1040,cafe,We-Sa 17:00-22:00
+4881951621,Mishi,16.3649859,48.1890218,Wiedner Hauptstraße,78,Wien,1040,asian,11:30-22:00
+5009464083,Weinhappel,16.3717305,48.1878608,Graf-Starhemberg-Gasse,36,Wien,1040,restaurant,Mo-Fr 11:30-22:00
+5009471625,Just 4 Fun,16.3731149,48.186249,Südtiroler Platz,1,Wien,1040,pub,Mo-Fr 10:00-02:00; Sa 14:00-02:00
+5009473111,Tuk Tuk,16.3714901,48.1877455,Kolschitzkygasse,12,Wien,1040,bar,Mo-Su 18:00-06:00
+5166420467,Singletreff,16.3724252,48.1859492,Petzvalgasse,5,Wien,1040,bar,
+5185156871,Le's,16.3740535,48.1995677,Lothringerstraße,4,Wien,1040,vietnamese,Mo-Fr 11:00-19:00; Sa off; Su 16:00-19:00
+5209783748,SHA Guo,16.3673941,48.1942364,Wiedner Hauptstraße,37,Wien,1040,asian,Mo-Sa 11:30-24:00; Su off
+5448487047,Pinsatore,16.3642875,48.1979578,Schleifmühlgasse,21,Wien,1040,cafe,"Mo-Sa 12:00-22:00; PH,Su off"
+5640186728,Smashbox Wien,16.365587,48.1967091,Margaretenstraße,11,Wien,1040,fast_food,Mo-Su 11:30-22:30
+5699209673,Oliviers & Co,16.365965,48.1969032,Schleifmühlgasse,8,Wien,1040,restaurant,
+5745872876,SHU Spicy Sichuan Food,16.3658854,48.1980062,Operngasse,30,Wien,1040,asian,"Mo-Sa 11:30-15:00,17:30-22:00"
+6019713292,Bacco,16.3645807,48.1958431,Margaretenstraße,25,Wien,1040,restaurant,"Mo-Fr 12:00-22:00; Sa,Su off"
+6124963021,Das Lokal im Hof,16.3737595,48.1885781,Weyringergasse,38,Wien,1040,regional,Mo-Fr 11:00-23:00
+6157212207,Ukiyo café bistro,16.3651434,48.1884926,Wiedner Hauptstraße,75,Wien,1040,cafe,"We, Fr, Sa 09:00-15:00, 17:00-21:00; Th, Su 09:00-18:00"
+6209274799,Kenny's,16.3691039,48.1979054,Paniglgasse,15,Wien,1040,fast_food,Mo-Fr 09:00-21:00; Sa 10:00-21:00
+6270516682,Porto,16.3672083,48.1976111,Rilkeplatz,4,Wien,1040,bar,Mo-Su 11:00-02:00
+6586005787,Manolos,16.3800677,48.188261,Wiedner Gürtel,6,Wien,1040,restaurant,
+6708093447,Kikko Bā,16.3659953,48.1968563,Schleifmühlgasse,8,Wien,1040,restaurant,Tu-Sa 17:00-23:30
+6718724286,Kiosk Calypso,16.3710273,48.1992088,Karlsplatz,13,Wien,1040,bar,
+6800000386,Knockbox,16.3681673,48.1998023,Treitlstraße,1,Wien,1040,cafe,Mo-Fr 07:00-18:00; Sa-Su 09:30-18:00
+7005266248,Jinco,16.3602192,48.1967725,Rechte Wienzeile,37,Wien,1040,chinese,Tu-Su 11:30-22:00
+7211287004,Wiki Wiki Poke,16.3649181,48.1964367,Schikanedergasse,1,Wien,1040,hawaiian,Mo-Fr 11:00-21:00; Sa-Su 12:00-21:00
+7611694176,Goldener Löwe,16.3731487,48.1861596,Südtiroler Platz,1,Wien,1040,viennese,
+7902355885,Café Obsthunger,16.3757883,48.1907983,Karolinenmarkt,,Wien,1040,cafe,"Mo 15:00+; Tu-Fr 08:30+; Sa 08:00+; Su 09:30+; ""Bei Regen geschlossen"""
+8656023415,Bahn,16.3733672,48.1871781,Favoritenstraße,74,Wien,1040,fast_food,Mo-Su 09:00-22:00
+9090956956,Trinity,16.3677521,48.1976525,Rilkeplatz,3,Wien,1040,pub,"Mo-Th 11:30-23:00; Fr-Sa 11:30-01:00; Su,PH 11:30-22:00"
+9254434717,Tolstoy,16.366136,48.1995819,Naschmarkt,,Wien,1060,restaurant,Mo-Su 11:00-20:30
+9493744013,Smile Food,16.3732464,48.1874317,Favoritenstraße,72,Wien,1040,fast_food,
+9493787337,Hühnerparadies,16.3729842,48.1878896,Favoritenstraße,66,Wien,1040,fast_food,Mo-Fr 09:00-18:00
+9867760531,Nr. 13,16.37063,48.1948488,Taubstummengasse,15,Wien,1040,suppe;burritos;curry;salad,Mo-Fr 11:00-14:30
+9876947173,Wiener Schnitzel Center,16.3724636,48.1895766,Karolinengasse,35,Wien,1040,fast_food,Mo-Su 11:00-21:00
+9884613585,CasolaroBros,16.3733949,48.1961832,Wohllebengasse,15,Wien,1040,italian;cafe,"Tu-Fr 12:00-22:00; Sa 10:00-22:00; Su,Mo off"
+9961180303,Tildas,16.3664321,48.1893482,Johann-Strauß-Gasse,5,Wien,1040,cafe,
+10013636662,Piccolo Bar,16.3761667,48.1870734,Wiedner Gürtel,28,Wien,1040,bar,
+10036128118,Südtirolerplatzl,16.3741488,48.1866483,Wiedner Gürtel,44,Wien,1040,cafe,
+10036128120,Check In,16.3736816,48.1873631,Schelleingasse,22,Wien,1040,cafe,"Mo-Fr 09:00-02:00, Sa 11:00-02:00"
+10036128124,Salek,16.3734713,48.1877319,Favoritenstraße,45,Wien,1040,ice_cream,"PH,Mo-Su 10:00-22:00"
+10130691912,Bastis Sandwich Bar,16.3669772,48.197782,Rilkeplatz,7,Wien,1040,fast_food,"Mo-We 11:00-20:00; Th,Fr 11:00-22:00"
+10143373335,La Bella Vita,16.370145,48.189572,Graf-Starhemberg-Gasse,20,Wien,1040,italian;austrian,We-Sa 11:00-23:30; Su-Mo 11:00-23:00
+10554272709,No Panic Coffee,16.3687934,48.1981397,Paniglgasse,16,Wien,1040,cafe,Mo-Fr 08:30-16:30; Sa-Su 09:30-17:30
+10592308005,Happy Cooking,16.3649775,48.1882606,Wiedner Hauptstraße,77,Wien,1040,restaurant,"Mo-Fr 11:00-22:00; Sa off; Su,PH 12:00-21:00"
+10857169007,Sam's Frische Küche,16.3734172,48.1878145,Favoritenstraße,43,Wien,1040,fast_food,
+11217416418,Schelato,16.3652471,48.1971653,Schleifmühlgasse,11,Wien,1040,ice_cream,May-Sep Mo-Su 12:00-20:00
+11261329101,Aufzug Café,16.380364,48.1883009,Wiedner Gürtel,4,Wien,1040,cafe,We-Su 09:00-17:00
+11329047882,Bao Bar,16.3658599,48.1979492,Operngasse,30,Wien,1040,asian,Mo-Sa 11:30-20:00
+11384636882,Il Forno,16.3700106,48.1895315,Rainergasse,14,Wien,1040,pizza,"Tu-Fr 12:00-14:30, Tu-Fr 17:30-22:00, Sa-Su 16:00-22:00"
+11460031963,Made in Sud,16.3640333,48.1958758,Margaretenstraße,36,Wien,1040,italian,Mo-Sa 11:30-22:00
+11543753358,Tanti Saluti,16.365942,48.1874946,Rainergasse,31,Wien,1040,italian;austrian;arab,Mo-Su 11:00-23:00
+11663095843,Schön & Gut,16.3623912,48.1966205,Preßgasse,28,Wien,1040,cafe,Mo-Fr 09:00-18:00; Sa 09:00-13:00
+11708248373,Yu Noodle & Hotpot,16.3662601,48.1960449,Paulanergasse,10,Wien,1040,chinese,"Mo-Tu,Th-Su 11:30-22:00; We off"
+11761399962,Yu,16.3664652,48.1960355,Paulanergasse,10,Wien,1040,restaurant,
+11815153569,Ararat,16.3763079,48.1888573,Argentinierstraße,50,Wien,1040,fast_food,Mo-Fr 10:00-19:00; Sa 10:00-18:00
+12034032824,Winzerkönigin,16.3669592,48.194174,Wiedner Hauptstraße,40,Wien,1040,bar,Mo-Sa 17:00-23:00
+12037542771,Donatella,16.3634763,48.195466,Preßgasse,14-16,Wien,1040,italian,"Tu-Fr 11:00-20:00; Sa 10:00-18:00; Su,Mo off"
+12160714100,Moons Rooftop Bar,16.3778141,48.1876329,Wiedner Gürtel,16,Wien,1040,bar,
+12209615559,trude und töchter: trude,16.3729088,48.1990344,Karlsplatz,8,Wien,1040,regional,Tu-Su 09:00-23:00
+12301517263,Tomochan Ramen,16.3751802,48.1974147,Prinz-Eugen-Straße,2,Wien,1040,ramen,Mo-Th 11:30-22:00; Fr-Su 12:30-22:00
+12499162907,An's kitchen Karlsplatz,16.3682824,48.1982085,Paniglgasse,22,Wien,1040,vietnamese,
+12499175428,Comal,16.3695071,48.1921926,Danhausergasse,3,Wien,1040,mexican,Tu-Sa 17:00-23:00
+12504220168,Chuan Fu,16.372121,48.1965399,Argentinierstraße,16,Wien,1040,chinese,"Mo-Sa 11:30-14:30,17:30-22:00"
+12652837503,Kuchenamt,16.3646857,48.1944234,Schäffergasse,10,Wien,1040,cafe,Mo-Fr 07:30-18:00;PH off
+12669822423,Cafe Kachel,16.3738026,48.1898675,Viktorgasse,12,Wien,1040,cafe,"Mo-Fr 08:00-18:00, Sa-Su 09:30-16:00"
+12694665202,re:kompany,16.3695013,48.1869776,Kolschitzkygasse,24,Wien,1040,cafe,Tu-Su 11:00-20:30
+12749429502,15 süsse Minuten,16.3735188,48.1876378,Favoritenstraße,45,Wien,1040,cafe,
+5813216,Heuer,16.3676905,48.2002189,Treitlstraße,2,Wien,1040,restaurant,Mo-Sa 11:30-01:00; Su off
+77917794,Würstelstand Südtirolerplatz,16.3730493,48.185654,Wiedner Gürtel,vor 3,Wien,1040,fast_food,09:00-04:00
+519344244,Chindo Asia Imbiss,16.3665698,48.1904239,Wiedner Hauptstraße,63,Wien,1040,fast_food,Mo-Su 09:30-22:30
+848458964,Denis,16.3678131,48.198383,Wiedner Hauptstraße,11,Wien,1040,fast_food,
