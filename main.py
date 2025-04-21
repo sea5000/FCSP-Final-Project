@@ -112,52 +112,117 @@ class Location:
 def ParseHours(inputString):
     dayMap = ["Mo","Tu","We","Th","Fr","Sa","Su","PH"]
     NormalDayMap = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun","PH"]
-    patternA = re.compile(r'(?P<days>(?:PH|Mo|Tu|We|Th|Fr|Sa|Su)(?:[-,](?:PH|Mo|Tu|We|Th|Fr|Sa|Su))*)\s+(?P<hours>(?:\d{2}:\d{2}-\d{2}:\d{2})(?:,\d{2}:\d{2}-\d{2}:\d{2})*)')
-    patternB = re.compile(r'(?P<days>(?:PH|Mo|Tu|We|Th|Fr|Sa|Su))')
+    patternTimeDG = re.compile(r'((\w+|\-|\,)+ (\d{2}:\d{2}-\d{2}:\d{2}))')
+    patternDays = re.compile(r'(PH|Mo|Tu|We|Th|Fr|Sa|Su)')
+    patternDayRange = re.compile(r'((?:PH|Mo|Tu|We|Th|Fr|Sa|Su)\-*(?:PH|Mo|Tu|We|Th|Fr|Sa|Su))')
+    patternDaysOff = re.compile(r'([(PH|Mo|Tu|We|Th|Fr|Sa|Su)\, ]+) (?:off|closed)') #(?:(?<=^)|(?<=;|\s))\s*((?:PH|Mo|Tu|We|Th|Fr|Sa|Su)(?:\s*,\s*(?:PH|Mo|Tu|We|Th|Fr|Sa|Su))*)\s*\b(?:off)\b
+    patternHours = re.compile(r'(?P<hours>(\d{2}:\d{2}-\d{2}:\d{2}))')
     schedule = {}
-    matches = patternA.finditer(inputString)
-    if [i for i in matches] == []:
-        for i in NormalDayMap:
-            schedule[i] = inputString
-    else:
-        matches = patternA.finditer(inputString)
-        for match in matches:
-            daysPart = match.group('days')
-            hoursPart = match.group('hours')
-            if "," in hoursPart:
-                hoursPart = hoursPart.split(",")
-            if "-" in daysPart:
-                if "," in daysPart:
-                    daysPart = daysPart.split(",")
-                    if "-" in daysPart[0]:
-                        for i in daysPart:
-                            if "-" in i:
-                                start, end = i.split('-')
-                                for i in range(dayMap.index(start), dayMap.index(end)+1):
-                                    schedule[NormalDayMap[i]] = hoursPart
-                            else:
-                                schedule[NormalDayMap[dayMap.index(i)]] = hoursPart
-                    #     daysPart[0] = daysPart[0].split("-")
-                        
-                    # soloDays = [day for day in daysPart if "-" not in day]
-                    # for i in soloDays:
-                    #     schedule[NormalDayMap[dayMap.index(i)]] = hoursPart
-                    # daysPart = str([day for day in daysPart if day not in soloDays]).replace("[","").replace("]","").replace("'","")
-
+    if ";" in inputString:
+        modInputString = inputString.split(";")
+        for a in modInputString:
+            days = patternDayRange.findall(a)
+            if days != [] and len(days) == 1:
+                rangeV = [dayMap.index(i) for i in days[0].split("-")]
+                rangeV.sort()
+                rangeV[1] += 1
+                hours = patternHours.findall(a)
+                for i in range(rangeV[0],rangeV[1]):
+                    if hours != []:
+                        schedule[NormalDayMap[i]] = list(set(hours[0]))
+            if ("off" in a or "geschlossen" in a or "closed" in a or "OFF" in a) and "offen" not in a:
+                days = patternDaysOff.findall(a)
+                if any([True for m in days if ',' in m]):
+                    daysMod = days[0].strip().split(",")
+                    for day in daysMod:
+                        if day in dayMap:
+                            schedule[NormalDayMap[dayMap.index(day.strip())]] = "OFF"
                 else:
-                    start, end = daysPart.split('-')
-                    for i in range(dayMap.index(start), dayMap.index(end)+1):
-                        schedule[NormalDayMap[i]] = hoursPart
-            else:
-                subDays = patternB.findall(daysPart)
-                for i in subDays:
-                    schedule[NormalDayMap[dayMap.index(i)]] = hoursPart
+                    if len(days) == 1:
+                        if days != []:
+                            subDays = patternDays.findall(days[0])
+                            if len(subDays) > 1:
+                                for day in subDays:
+                                    if day in dayMap:
+                                        schedule[NormalDayMap[dayMap.index(day.strip())]] = patternHours.findall(a)
+                            else:
+                                if days[0] in dayMap:
+                                    schedule[NormalDayMap[dayMap.index(days[0].strip())]] = patternHours.findall(a)
+                    else:
+                        if days!= []:
+                            schedule[NormalDayMap[dayMap.index(days)]] = patternHours.findall(a)
+            if any([True for i in a if ',' in i]):
+                days = patternDays.findall(a)
+                if len(days) > 1:
+                    for b in days:
+                        days = patternDays.findall(b)
+                        hours = patternHours.findall(b)
+                        for day in days:
+                            if hours != []:
+                                schedule[NormalDayMap[dayMap.index(day)]] = list(set(hours[0]))
+                else:
+                    if days != []:
+                        schedule[NormalDayMap[dayMap.index(days[0])]] = patternHours.findall(days[0])
+    elif len(patternTimeDG.findall(inputString)) == 0 and len(patternDays.findall(inputString)) == 0 and len(patternHours.findall(inputString)) == 1:
+        for day in NormalDayMap:
+            schedule[day] = inputString
+    else:
+        groups = patternTimeDG.findall(inputString)
+        for a in groups:
+            a = a[0]
+            days = patternDayRange.findall(a)
+            if days != [] and len(days) == 1:
+                rangeV = [dayMap.index(i) for i in days[0].split("-")]
+                rangeV.sort()
+                rangeV[1] += 1
+                
+                hours = patternHours.findall(a)
+                for i in range(rangeV[0],rangeV[1]):
+                    if hours != []:
+                        schedule[NormalDayMap[i]] = list(set(hours[0]))
+            elif ("off" in a or "geschlossen" in a or "closed" in a or "OFF" in a) and "offen" not in a:
+                days = patternDaysOff.findall(a)
+                if days == []:
+                    continue
+                if any([True for m in days if ',' in m]):
+                    daysMod = days[0].split(",")
+                    for day in daysMod:
+                        if day in dayMap:
+                            schedule[NormalDayMap[dayMap.index(day.strip())]] = patternHours.findall(a)
+                else:
+                    if len(days) == 1:
+                        subDays = patternDays.findall(days[0])
+                        if len(subDays) > 1:
+                            for day in subDays:
+                                if day in dayMap:
+                                    schedule[NormalDayMap[dayMap.index(day.strip())]] = patternHours.findall(a)
+                        else:
+                            if days[0] in dayMap:
+                                schedule[NormalDayMap[dayMap.index(days[0].strip())]] = patternHours.findall(a)
+                    else:
+                        if days!= []:
+                            schedule[NormalDayMap[dayMap.index(days)]] = patternHours.findall(a)
+            elif ',' in a:
+                days = patternDays.findall(a)
+                hours = patternHours.findall(a)
+                if len(days) > 1:
+                    for b in days:
+                        if b != [] or b != '':
+                            schedule[NormalDayMap[dayMap.index(b)]] = list(set(hours[0]))
+                else:
+                    if days != []:
+                        schedule[NormalDayMap[dayMap.index(days[0])]] = list(set(hours[0]))
+    
+    # if schedule == {} and inputString != '':
+    #     raise ValueError("Invalid inputString")
     return schedule
+
 class OpenHours:
     def __init__(self, hours:str=None):
         if hours is None:
             raise ValueError("hours cannot be None")
         if str(hours) != 'nan':
+            hours = re.sub(r'(\d{2}:\d{2})\s*-\s*(\d{2}:\d{2})', r'\1-\2', hours)
             self.hours = ParseHours(hours)
         else:
             self.hours = None
@@ -180,50 +245,192 @@ class Restaurant:
             return self.hours.hours.get(key)
         raise KeyError(f"{key} not found in Restaurant or DataBase")
     def __str__(self):
-        return f"{self.id} {self.name} ({self.cuisine}) - {self.location} - {self.distanceFrom} km"
+        if self.__getattribute__("queryScore") is None:
+            return f"{self.id} - {self.name} ({self.cuisine}) - {self.location} - {self.distanceFrom} km"
+        else:
+            return f"{self.id} - {self.name} ({self.cuisine}) - {self.location} - {self.distanceFrom} km - {self.queryScore}"
     def distanceFromCrow(self, address):
         userPoint = ox.geocoder.geocode(address)
         resPoint = Point(float(self.location.lat), float(self.location.long))
         self.distanceFrom = geodesic((userPoint[0], userPoint[1]), (resPoint.y, resPoint.x)).kilometers
         return self.distanceFrom
+    # def distanceFromPT(self, address):
+        # url = "http://www.wienerlinien.at/ogd_routing/XML_TRIP_REQUEST2"
+
+        # params = {
+        #     "sessionID": "0",
+        #     "type_origin": "stopID",
+        #     "name_origin": "60201468",         # Westbahnhof stop ID
+        #     "type_destination": "stopID",
+        #     "name_destination": "60201320",    # Stephansplatz stop ID
+        #     "itdDate": "20250418",             # Date in YYYYMMDD
+        #     "itdTime": "1030",                 # Time in HHMM
+        #     "itdTripDateTimeDepArr": "dep",    # dep or arr
+        #     "ptOptionsActive": "1",
+        #     "excludedMeans": "4",              # Exclude trams
+        #     "outputFormat": "XML"
+        # }
+
+        # response = requests.get(url, params=params)
+        # print("Status:", response.status_code)
+        # print(response.text)  # or write to file to examine more easily
+        # with open("response.xml", "w", encoding="utf-8") as f:
+        #     f.write(response.text)
+
+
+        # import xml.etree.ElementTree as ET
+
+        # # Load the XML file
+        # tree = ET.parse('response.xml')
+        # root = tree.getroot()
+
+        # # Namespace helper (some tags may include namespaces)
+        # ns = {'ns': root.tag.split('}')[0].strip('{')} if '}' in root.tag else {}
+
+        # # Find all routes
+        # routes = root.findall(".//itdRoute")
+
+        # # Loop through routes and extract info
+        # for i, route in enumerate(routes, 1):
+        #     print(f"\n=== 🚆 Route Option {i} ===")
+            
+        #     # Travel time
+        #     duration = route.attrib.get("publicDuration")
+        #     print(f"🕒 Duration: {duration}")
     def isCurrentlyOpen(self):
         day = dt.datetime.now().strftime("%a")
         currentTime = dt.datetime.now().strftime("%H:%M")
         currentTime = dt.datetime.strptime(currentTime, "%H:%M").time()
         if self.hours.hours is None:
             return "No Data"
+        if day not in self.hours.hours:
+            return False
         hours = self.hours.hours[day]
-        if ',' in hours:
-            hours = hours.split(',')
+        if hours == "OFF":
+            return False
+        if type(hours) == list and len(hours) > 1:
             for i in hours:
                 start, end = i.split("-")
+                if start == "24:00":
+                    start = "23:59"
+                if end == "24:00":
+                    end = "23:59"
+                if int(end[:2]) > 23:
+                    end = f"{int(end[:2])-24}:{end[-2:]}"
                 start_time = dt.datetime.strptime(start, "%H:%M").time()
                 end_time = dt.datetime.strptime(end, "%H:%M").time()
                 current_time = dt.datetime.strptime(time, "%H:%M").time()
                 if start_time <= current_time <= end_time:
                     return True
-            return False
+            return False            
         else:
-            start, end = hours.split("-")
-            if start == "24:00":
-                start = "23:59"
-            if end == "24:00":
-                end = "23:59"
-            startTime = dt.datetime.strptime(start, "%H:%M").time()
-            endTime = dt.datetime.strptime(end, "%H:%M").time()
-            if startTime <= currentTime <= endTime:
-                return True
+            if type(hours) != str:
+                for i in hours:
+                    start, end = i.split("-")
+                    if start == "24:00":
+                        start = "23:59"
+                    if end == "24:00":
+                        end = "23:59"
+                    if int(end[:2]) > 23:
+                        end = f"{int(end[:2])-24}:{end[-2:]}"
+                    startTime = dt.datetime.strptime(start, "%H:%M").time()
+                    endTime = dt.datetime.strptime(end, "%H:%M").time()
+                    if startTime <= currentTime <= endTime:
+                        return True
+                    else:
+                        return False
             else:
-                return False
+                start, end = hours.split("-")
+                if start == "24:00":
+                    start = "23:59"
+                if end == "24:00":
+                    end = "23:59"
+                if int(end[:2]) > 23:
+                    end = f"{int(end[:2])-24}:{end[-2:]}"
+                startTime = dt.datetime.strptime(start, "%H:%M").time()
+                endTime = dt.datetime.strptime(end, "%H:%M").time()
+                if startTime <= currentTime <= endTime:
+                    return True
+                else:
+                    return False
+class SearchQuery:
+    def __init__(self, cuisine:str=None, Diststance:int=None, District:str=None, OpenNow:bool=False):
+        self.cuisine = cuisine
+        self.Diststance = Diststance
+        self.District = District
+        self.OpenNow = OpenNow
+    def __str__(self):
+        return f"Looking for {self.cuisine} within {self.Diststance}km of the user {"that is open now" if self.OpenNow == True else "that is not open now"}"
+    def setQueryParameters(self, cuisine:str=None, Diststance:int=None, District:str=None, OpenNow:bool=False):
+        self.cuisine = cuisine
+        self.Diststance = Diststance
+        self.District = District
+        self.OpenNow = OpenNow
+        return [self.query, self.cuisine, self.location, self.hours]
+    def menu(self):
+        instructions = set()
+        print("Select your search parameters:")
+        print("1. Cuisine")
+        print("2. Distance")
+        print("3. District")
+        print("4. Open Now")
+        print("5. Done")
+        choice = input("Enter any combination of the above choice (ie 143 or 1,3,2): ")
+        if choice == '5':
+            return False
+        if choice == 'q':
+            print("Exiting...")
+            return False
+        if choice == '':
+            print("No choice made, please try again.")
+            return True
+        if ',' in choice:
+            choice = choice.split(",")
+            for i in choice:
+                instructions.add(int(i))
+        if choice.isdigit():
+            choice = [int(i) for i in choice]
+            for i in choice:
+                instructions.add(int(i))
+        for i in instructions:
+            if i == 1:
+                self.cuisine = input("Enter cuisine: ").lower()
+            elif i == 2:
+                self.Diststance = float(input("Enter distance (km): "))
+            elif i ==   3:
+                self.District = str(int(input("Enter district: ")))
+                # print(self.District)
+            elif i == 4:    
+                self.OpenNow = input("Open now? (y/n): ")
+                if self.OpenNow == "y":
+                    self.OpenNow = True
+                elif self.OpenNow == "n":
+                    self.OpenNow = False
+
+    def evaluateQuery(self, restaurant:Restaurant):
+        if self.District == restaurant.location.district:
+            print(self.District,restaurant.location.district)
+        score = 0
+        if self.cuisine is not None and restaurant.cuisine == self.cuisine:
+            score += 1
+        if self.Diststance is not None and restaurant.distanceFrom < self.Diststance:
+            score += 1
+        if self.District is not None and str(restaurant.location.district) == str(self.District):
+            # print("DISTRICT CHECK")
+            score += 1
+        if self.OpenNow and restaurant.isCurrentlyOpen():
+            score += 1
+        return score
             
 class DataBase(DataObject):
-    def __init__(self, city:str="Währing, Wien, Austria", name:str=None, dataBrought:bool=False):
+    def __init__(self, city:str="Währing, Wien, Austria", name:str=None, dataBrought:bool=True):
         self.city = city
         self.restaurants = []
         self.dataBrought = dataBrought
         self.dataPull = DataObject(dataBrought=self.dataBrought, city=self.city, name=name)
         self.restaurants = self.dataPull.data
-        self.restaurants = [Restaurant(row['id'], row['name'], row['cuisine_or_amenity'], Location(row['lat'],row['long'], row['addr:postcode'], row['addr:street'], row['addr:housenumber'], ), OpenHours(row['opening_hours'])) for index, row in self.restaurants.iterrows()]
+        self.restaurants = [Restaurant(row['id'], row['name'], row['cuisine_or_amenity'].lower(), Location(row['lat'],row['long'], row['addr:postcode'], row['addr:street'], row['addr:housenumber'], ), OpenHours(row['opening_hours'])) for index, row in self.restaurants.iterrows()]
+        self.distanceSorted = False
     def __getitem__(self, key):
         if hasattr(self, key):
             return getattr(self, key)
@@ -244,6 +451,74 @@ class DataBase(DataObject):
             
     def getClosestList(self, address:str, n:int=5):
         for i in self.restaurants:
-            i.distanceFromCrow(address)
+            try :
+                if i.distanceFrom is None:
+                    i.distanceFromCrow(address)
+            except:
+                i.distanceFromCrow(address)
         self.restaurants.sort(key=lambda x: x.distanceFrom)
+        self.distanceSorted = True
         return [str(x) for x in self.restaurants[:n]]
+    def getClosestViaPublicTransport(self, address:str, n:int=5):
+        # for i in self.restaurants:
+        #     # if i.get("distanceFrom") is None:
+        #     #     print("CALCULATING DISTANCE - REMOVE LATER")
+        #         i.distanceFromCrow(address)
+        self.restaurants.sort(key=lambda x: x.distanceFrom)
+        return [str(x) for x in self.restaurants[:n] if x.cuisine == "restaurant"]
+    def restrauntListPresenter(self,rList:list):
+        print("Restaurants:")
+        count = 1
+        for i in rList:
+            print(f"{count}: - {i}")
+        SubProcess = True
+        while SubProcess == True:
+            try:
+                choice = int(input("Enter the number of the restaurant you want to see: "))
+                if choice > len(rList) or choice < 1:
+                    print("Invalid choice, please try again.")
+                else:
+                    SubProcess = False
+            except ValueError:
+                print("Invalid input, please enter a number.")
+        return self.restaurants[choice-1]            
+    def run(self):
+        print("Welcome to the Restaurant Finder! (At any point press 'q' to quit.)")
+        while True:
+            choice = self.display_menu()
+            if choice == '1':
+                if self.distanceSorted == False:
+                    self.getClosestList(input("Enter your address: "), 0)
+                else:
+                    self.restaurants.sort(key=lambda x: x.distanceFrom)
+                Search = SearchQuery()
+                if Search.menu() == False:
+                    break
+                print("Searching...")
+                for i in self.restaurants:
+                    i.queryScore = Search.evaluateQuery(i)
+                print("Sorting...")
+                # RestaurantsCopy = self.restaurants.copy()
+                # RestaurantsCopy = [x for x in RestaurantsCopy if x.queryScore >= 2]
+                self.restaurants.sort(key=lambda x: int(x.queryScore), reverse=True)
+
+                print(Search)
+                for i in self.restaurants[:10]:
+                    print(i)
+                # print([str(x) for x in self.restaurants[:10]])
+            elif choice == '2':
+                self.restrauntListPresenter(self.getClosestList(input("Enter your address: ")))
+            elif choice == '4':
+                break
+            elif choice == 'q':
+                print("Exiting...")
+                break
+            else:
+                print("Invalid choice, please try again.")
+
+    def display_menu(self):
+        print("\nMENU:")
+        print("1. Search Restaurants")
+        print("2. Show closest restaurants")
+        print("4. Exit")
+        return input("Enter choice: ")
