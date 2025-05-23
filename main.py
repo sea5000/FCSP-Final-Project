@@ -571,6 +571,7 @@ class DataBase(DataObject):
             # self.restaurants = Restaurant(row['id'], row['name'], row['cuisine_or_amenity'].lower(), Location(row['lat'],row['long'], row['addr:postcode'], row['addr:street'], row['addr:housenumber'])
         # self.restaurants = [Restaurant(row['id'], row['name'], row['cuisine_or_amenity'].lower(), Location(row['lat'],row['long'], row['addr:postcode'], row['addr:street'], row['addr:housenumber'], ), OpenHours(row['opening_hours']),) for index, row in self.restaurants.iterrows()]
         self.distanceSorted = False
+        self.addrChange = False
         self.cuisines = list(self.cuisines).sort()
     def __getitem__(self, key):
         if hasattr(self, key):
@@ -589,13 +590,15 @@ class DataBase(DataObject):
             else:
                 return answer
     def getClosestList(self):
-        for i in self.restaurants:
-            try :
-                if i.distanceFrom is None:
+        if not self.distanceSorted or self.addrChange:
+            for i in self.restaurants:
+                try :
+                    if i.distanceFrom is None:
+                        i.distanceFromCrow(self.addressCoords)
+                except:
                     i.distanceFromCrow(self.addressCoords)
-            except:
-                i.distanceFromCrow(self.addressCoords)
         self.restaurants.sort(key=lambda x: x.distanceFrom)
+        self.addrChange = False
         self.distanceSorted = True
         return True
     def getClosestViaPublicTransport(self, address:str, n:int=5):
@@ -698,14 +701,15 @@ class DataBase(DataObject):
                     self.usrAddress['addr:housenumber'] = data['features'][0]['properties']['StreetNumber']
                     self.usrAddress['addr:city'] = data['features'][0]['properties']['Municipality']
                     self.usrAddress['addr:postcode'] = data['features'][0]['properties']['PostalCode']
+                print(f"Address '{self.inpUsrAddress}' was normalized to '{str(self.usrAddress['addr:street']+" "+self.usrAddress['addr:housenumber']+", "+self.usrAddress['addr:postcode']+" "+self.usrAddress['addr:city'])}' at '{self.addressCoords}'")
             except:
                 raise SystemError(response.status_code)
+            self.addrChange = True
+        if self.addrChange:
             self.getClosestList()
     def breakInput(self, inpt):
         if inpt == "q":
             return True
-        elif inpt== "m":
-            return "m"
         else:
             return False
         
@@ -720,8 +724,8 @@ class DataBase(DataObject):
                     inpt = resp
                     break
                 if resp == 'm':
-                    inpt == resp
-                    break
+                    inpt = False
+                    continue
                 Search = SearchQuery()
                 if Search.menu() == False:
                     breakOut = True
@@ -739,36 +743,47 @@ class DataBase(DataObject):
                     inpt = resp
                     break
                 if resp == "m":
-                    inpt = resp
-                    break
+                    inpt = False
+                    continue
                 # print([str(x) for x in self.restaurants[:10]])
             elif choice == '2':
-                resp = self.checkUserAddr()
-                if resp == 'q':
-                    inpt = val
-                if resp == 'm':
-                    inpt = val
+                if self.distanceSorted == False:
+                    resp = self.checkUserAddr()
+                    if resp == 'q':
+                        inpt = resp
+                    if resp == 'm':
+                        inpt = False
+                        continue
+                else:
+                    self.getClosestList()
+                #self.getClosestList()
                 resp = self.restrauntListPresenter()
                 if resp == "q":
                     inpt = resp
                     break
                 if resp == "m":
-                    inpt = resp
-                    break
+                    inpt = False
+                    continue
             elif choice == "3":
                 for i in self.cuisines:
                     print(i)
             elif choice == '4':
                 self.distanceSorted = False
                 resp = self.checkUserAddr()
+                # self.getClosestList()
                 print(resp)
                 if resp == 'q':
                     inpt = resp
                     break
                 if resp == 'm':
-                    inpt = resp
-                    break
-                print(f"Address '{self.inpUsrAddress}' was normalized to '{str(self.usrAddress['addr:street']+" "+self.usrAddress['addr:housenumber']+", "+self.usrAddress['addr:postcode']+" "+self.usrAddress['addr:city'])}' at '{self.addressCoords}'")
+                    inpt = False
+                    continue
+                
+            elif choice == 'debug':
+                inp = None
+                while inp != "quit":
+                    inp = input("")
+                    print(eval(inp))
             elif choice == 'q':
                 print("Exiting...")
                 breakOut = True
