@@ -385,22 +385,41 @@ class Restaurant(DataEntity):
         return f"{self.id} - {self.name} ({self.cuisine}) - {self.location} - {distance}" + (f" - {self.queryScore} points" if queryScore is not None else "")
     def matches(self, criteria: dict[str, any]) -> bool:
         """Polymorphic implementation for Restaurant"""
+        phoneList = ["phone","contact:phone","contact:mobile","phone:mobile"]
         for key, value in criteria.items():
-            if key == "min_rating" and self.rating < value:
+            veg = (True if getSecond(self.__dict__, 'menuCuisineAttr',"diet:vegetarian") == "yes" else False)
+            wheelchair = (True if getSecond(self.__dict__,'accessibilityAttr','wheelchair') == 'yes' else False)
+            outdoor = (True if getSecond(self.__dict__,'servicesAttr','outdoor_seating') == 'yes' else False)
+            delivery = (True if getSecond(self.__dict__,'servicesAttr','delivery') == "yes" else False)
+            phone = getSecond(self.__dict__,"onlineContactAttr","phone")
+            phone = {} if phone == None else phone
+            if key == "district" and self.location.district != value:
                 return False
-            elif key == "max_price" and self.price_level > value:
+            elif key == "distance" and self.distanceFrom < value: # Should return true if distance is shorter than the value
+                return False
+            elif key == "open" and self.isCurrentlyOpen() == value:
+                return False
+            elif key == "vegitarian" and veg != None and veg.lower() != value:
+                return False
+            elif key == "wheelchair" and wheelchair != None and wheelchair != value:
                 return False
             elif key == "cuisine" and self.cuisine != value:
                 return False
-            elif key == "outdoor_seating" and self.outdoor_seating != value:
+            elif key == "chain" and self.chain != None and self.chain != value:
                 return False
-            elif key == "delivery" and self.delivery != value:
+            elif key == "outdoor_seating" and outdoor != None and outdoor != value:
+                return False
+            elif key == "delivery" and delivery != None and delivery != value:
+                return False
+            elif key == "phone" and phone != None and value == False and any([True for k,i in phone.items() if i in phoneList]):
+                return False
+            elif key == "phone" and phone != None and value == True and any([False if i in phoneList else True for k,i in phone.items()]):
                 return False
         return True
     def get_field(self, field_name):
         if hasattr(self, field_name):
             return getattr(self, field_name)
-        raise AttributeError(f"Field '{field_name}' not found")
+        return None
     def distanceFromCrow(self, userPoint):
         try:
             resPoint = Point(float(self.location.lat), float(self.location.long))
@@ -513,6 +532,7 @@ class Chain(DataEntity):
         self.amenity = data['identity']['amenity']
         self.id = data['identity']['id']
         self.hours = getSecond(data,'opHoursAttr','opening_hours',OpenHours)
+        self.chain = getSecond(data,'operatorAttr','brand')
         lat, long, district, street, housenumber = data['locationAttr']['lat'],data['locationAttr']['long'],data['locationAttr']['addr:postcode'],data['locationAttr']['addr:street'],getSecond(data,'locationAttr','addr:housenumber')
         self.location = Location(lat, long, district, street, ("" if housenumber == None else housenumber)) #lat, long, district, street, house
         for k,i in data.items():
@@ -521,24 +541,39 @@ class Chain(DataEntity):
         """Polymorphic implementation for Restaurant"""
         phoneList = ["phone","contact:phone","contact:mobile","phone:mobile"]
         for key, value in criteria.items():
-            outdoor = getSecond(self.__dict__,'servicesAttr','outdoor_seating')
-            delivery = getSecond(self.__dict__,'servicesAttr','delivery')
+            veg = (True if getSecond(self.__dict__, 'menuCuisineAttr',"diet:vegetarian") == "yes" else False)
+            wheelchair = (True if getSecond(self.__dict__,'accessibilityAttr','wheelchair') == 'yes' else False)
+            outdoor = (True if getSecond(self.__dict__,'servicesAttr','outdoor_seating') == 'yes' else False)
+            delivery = (True if getSecond(self.__dict__,'servicesAttr','delivery') == "yes" else False)
             phone = getSecond(self.__dict__,"onlineContactAttr","phone")
+            phone = {} if phone == None else phone
             if key == "district" and self.location.district != value:
+                return False
+            elif key == "distance" and self.distanceFrom < value: # Should return true if distance is shorter than the value
+                return False
+            elif key == "open" and self.isCurrentlyOpen() == value:
+                return False
+            elif key == "vegitarian" and veg != None and veg.lower() != value:
+                return False
+            elif key == "wheelchair" and wheelchair != None and wheelchair != value:
                 return False
             elif key == "cuisine" and self.cuisine != value:
                 return False
-            elif key == "outdoor_seating" and outdoor != None and outdoor != "No" and outdoor != "no":
+            elif key == "chain" and self.chain != None and self.chain != value:
                 return False
-            elif key == "delivery" and delivery != None and delivery != 'no' and delivery != 'No':
+            elif key == "outdoor_seating" and outdoor != None and outdoor != value:
                 return False
-            elif key == "phone" and phone != None and any(True for k,i in phone.items() if i in phoneList)!= None:
+            elif key == "delivery" and delivery != None and delivery != value:
+                return False
+            elif key == "phone" and phone != None and value == False and any([True for k,i in phone.items() if i in phoneList]):
+                return False
+            elif key == "phone" and phone != None and value == True and any([False if i in phoneList else True for k,i in phone.items()]):
                 return False
         return True
     def get_field(self, field_name):
         if hasattr(self, field_name):
             return getattr(self, field_name)
-        raise AttributeError(f"Field '{field_name}' not found")
+        return None
     def isCurrentlyOpen(self):
         now = dt.datetime.now()
         currentDay = now.strftime("%a")  # e.g. "Mon"
@@ -609,12 +644,13 @@ class Chain(DataEntity):
         except:
             print(self.name,self.location.lat,self.location.long)
         return self.distanceFrom
-class SearchQuery:
+class SearchQuery:  
     def __init__(self, cuisine:str=None, Diststance:int=None, District:str=None, OpenNow:bool=False):
         self.cuisine = cuisine
         self.Diststance = Diststance
         self.District = District
         self.OpenNow = OpenNow
+        self.parameter = {}
     def __str__(self):
         distance = getattr(self, "Distance", None)
         if distance == None:
@@ -630,7 +666,13 @@ class SearchQuery:
         print("3. District")
         print("4. Open Now")
         print("5. Done")
-        choice = getInput("Enter any combination of the above choice (ie 143 or 1,3,2): ")
+        print("Enter any combination of the above choice (ie 143 or 1,3,2).")
+        """elif "and" in choice and "or" in choice
+        elif "and" in choice:
+            choice = choice.lower.split("and")
+            for i in choice:
+                instructions.add(i)"""
+        choice = getInput("Enter: ")
         if choice == '5':
             return False
         elif choice == '':
@@ -649,7 +691,9 @@ class SearchQuery:
             return True
         for i in instructions:
             if i == 1:
+                print("Input any number of cuisines to be 'OR' searched. (i.e. 'thai or sushi')")
                 _ = getInput("Enter cuisine: ")
+                self.parameter['cuisne':[]]#######
                 self.cuisine = _
             elif i == 2:
                 _ = getInput("Enter distance (km): ")
@@ -662,6 +706,25 @@ class SearchQuery:
                 self.OpenNow = True
             else:
                 self.OpenNow = False
+    def sort(self,sortOptions:list[int],data:list):
+        dataC = {}
+        for i in sortOptions:
+            dataC[i] = data.copy()
+            if i == "1":
+                self.sortBubble(data)
+            elif i == "2":
+                self.sortInsert(data)
+
+    def search(self,searchOptions:list[int],data:list):
+        ...
+        dataC = {}
+        for i in searchOptions:
+            dataC[i] = data.copy()
+            if i == "1":
+                dataC[i] = self.linearSearch(data)
+            elif i == "2":
+                dataC[i] = self.linearSearch(data)
+        return dataC#searchOptions[0]}
     def linearSearch(self,arr, target):
         for i in range(len(arr)):
             if arr[i] == target:
@@ -673,12 +736,45 @@ class SearchQuery:
             if arr[mid] == target:
                 return mid
             elif arr[mid] < target:
-                return binary_search(arr, target, mid + 1, high)
+                return binarySearch(arr, target, mid + 1, high)
             else:
-                return binary_search(arr, target, low, mid - 1)
+                return binarySearch(arr, target, low, mid - 1)
         else:
             return -1
-    
+    def bubbleSortSub(self,n, currentPass, arr):
+        for i in range(0,n-1-currentPass):
+            if arr[i] > arr[i + 1]:
+                arr[i], arr[i + 1] = arr[i + 1], arr[i]
+                swapped = True
+        return
+    def sortBubble(self,arr):
+        n = len(arr)
+        max = n-1
+        with tqdm(range(len(arr) - 1, 0, -1), desc="Bubble Sorting", colour="RED",leave=True, ncols=100) as pbar:
+            currentPass = 0
+            while currentPass < max:# in range(len(arr) - 1, 0, -1):
+                swapped = False
+                bubbleSortSub(n, currentPass, arr)
+                currentPass += 1
+                pbar.update(1)
+                if not swapped:
+                    remUpdates = max - pbar.n # pbar.n is current position
+                    if remUpdates > 0: # Only update if there's progress left
+                        pbar.update(remUpdates)
+                    break
+        return arr
+    def sortInsert(self,arr):
+        n = len(arr)
+        if n <= 1:
+            return
+        for i in tqdm(range(1, n), desc="Insert Sorting", colour="GREEN",leave=True, ncols=100):
+            key = arr[i]
+            j = i-1
+            while j >= 0 and key < arr[j]:
+                arr[j+1] = arr[j]
+                j -= 1
+            arr[j+1] = key
+        return arr
     def evaluateQuery(self, restaurant:Restaurant):
         if self.District == restaurant.location.district:
             print(self.District,restaurant.location.district)
@@ -739,8 +835,8 @@ class DataBase(DataObject):
         self.custSearch = False
         self.cuisines = list(self.cuisines)
         self.cuisines.sort()
-        self.defualtSort = [1]
-        self.defualtSearch = [1]
+        self.defualtSort = ['1']
+        self.defualtSearch = ['1']
     def __getitem__(self, key):
         if hasattr(self, key):
             return getattr(self, key)
@@ -886,41 +982,6 @@ class DataBase(DataObject):
         else:
             return False      
     
-    def sortInsert(self):
-        n = len(arr)
-        if n <= 1:
-            return
-        for i in tqdm(range(1, n), desc="Insert Sorting", colour="GREEN",leave=True, ncols=100):
-            key = arr[i]
-            j = i-1
-            while j >= 0 and key < arr[j]:
-                arr[j+1] = arr[j]
-                j -= 1
-            arr[j+1] = key
-        return arr
-    def bubbleSortSub(self,n, currentPass, arr):
-        for i in range(0,n-1-currentPass):
-            if arr[i] > arr[i + 1]:
-                arr[i], arr[i + 1] = arr[i + 1], arr[i]
-                swapped = True
-        return
-    def sortBubble(self,arr):
-        n = len(arr)
-        max = n-1
-        with tqdm(range(len(arr) - 1, 0, -1), desc="Bubble Sorting", colour="RED",leave=True, ncols=100) as pbar:
-            currentPass = 0
-            while currentPass < max:# in range(len(arr) - 1, 0, -1):
-                swapped = False
-                bubbleSortSub(n, currentPass, arr)
-                currentPass += 1
-                pbar.update(1)
-                if not swapped:
-                    remUpdates = max - pbar.n # pbar.n is current position
-                    if remUpdates > 0: # Only update if there's progress left
-                        pbar.update(remUpdates)
-                    break
-        return arr
-   
     def searchOptionsM(self) -> str:
         print('1. Set Default Search Algorithm\n2. Set Defualt Sort Algorithm. \n3. Test Search Algorithm speed')
         inpt2 = getInput("Select an option: ")
