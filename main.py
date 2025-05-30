@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import osmnx as ox
 import pandas as pd
+import numpy as np
 from tqdm import tqdm
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
@@ -209,13 +210,36 @@ def ParseHours(inputString):
                     for day in reDays:
                         schedule[NormalDayMap[dayCheck(day,dayMap,gDayMap).index(day)]] = patternHours.findall(item)
     return schedule
-def getInput(prompt:str) ->str:
-        inp = input(prompt)
-        if inp.lower() == "q":
-            raise MenuBreak("q")
-        elif inp.lower() == "m":
-            raise MenuBreak("m")
-        return inp
+def getInput(prompt:str, dataType) ->str:
+        # inp = input(prompt)
+        # if inp.lower() == "q":
+        #     raise MenuBreak("q")
+        # elif inp.lower() == "m":
+        #     raise MenuBreak("m")
+        # return inp
+    while True:
+        try:
+            inp = input(prompt).strip()
+            if inp.lower() == "q":
+                raise MenuBreak("q")
+            elif inp.lower() == "m":
+                raise MenuBreak("m")
+            if dataType == bool:
+                if inp.lower() in ['yes', 'y']:
+                    return True
+                elif inp.lower() in ['no', 'n']:
+                    return False
+                elif inp == '':
+                    return None # Represents 'any'
+                else:
+                    raise ValueError("Please enter 'yes', 'no', or leave blank.")
+            elif inp == '' and dataType is not str: # Allow empty for non-string optional inputs
+                 return None
+            return dataType(inp) if inp else None
+        except MenuBreak as e:
+            raise MenuBreak(e.code)
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
 def getSecond(dict:dict,term1:str,term2:str,fun=None):
     _x = dict.get(term1)
     if _x != None and not isinstance(_x, str):
@@ -320,7 +344,6 @@ class DataObject:
             raise FileNotFoundError(f"File {CSVName} not found")
         print(f"Data added from {CSVName}")
         print("====================")
-    
     def writeToCSV(self,name:str=None):
 
         if name is None:
@@ -336,7 +359,7 @@ class Location:
         self.street = street
         self.house = house
     def __str__(self):
-        return f"{self.street} {self.house}, {self.district} - ({self.lat},{self.long})"
+        return f"{self.street} {self.house}, {self.district}"
 
 class OpenHours:
     def __init__(self, hours:str|None):
@@ -347,29 +370,164 @@ class OpenHours:
             self.hours = ParseHours(hours)
     def __str__(self):
         return str(self.hours)
+    def is_open(self, checkDatetime=None):
+        if not self.schedule:
+            return None # Represents "Data not available"
+
+        if checkDatetime is None:
+            checkDatetime = dt.datetime.now()
+
+        dayAbbr = checkDatetime.strftime("%a")[:2] # Mo, Tu, We...
+        currentTime = checkDatetime.time()
+
+        if dayAbbr not in self.schedule:
+            return False # Closed if day not in schedule
+
+        daySchedule = self.schedule[dayAbbr]
+        if not daySchedule or "OFF" in daySchedule:
+            return False
+
+        for timeRangeStr in daySchedule:
+            try:
+                startStr, end_str = timeRangeStr.split('-')
+                startTime = dt.datetime.strptime(startStr, "%H:%M").time()
+                
+                # Handle 24:00 as end of day
+                if end_str == "24:00":
+                    end_time = dt.time(23, 59, 59)
+                else:
+                    end_time = dt.datetime.strptime(end_str, "%H:%M").time()
+
+                if startTime <= end_time: # Normal same-day range
+                    if startTime <= currentTime <= end_time:
+                        return True
+                else: # Overnight range (e.g., 22:00-02:00)
+                    if currentTime >= startTime or currentTime <= end_time:
+                        return True
+            except ValueError:
+                continue # Skip malformed time range
+        return False
     def __getitem__(self, key):
         return self.hours.get(key) if self.hours else None
-
-class DataEntity(ABC):
+    def isCurrentlyOpen(self):
+        now = dt.datetime.now()
+        currentDay = now.strftime("%a")  # e.g. "Mon"
+        currentTime = now.time()  # datetime.time object directly
+        currentMonth = now.strftime("%b")  # e.g. "Apr"
+        if self.hours is None:
+            return None
+        if len(self.hours) > 8:
+            if currentMonth not in self.hours:
+                # print(f"{currentMonth} not in self.hours: {self.hours.keys()}")
+                return False
+            hourInfo = self.hours[currentMonth]
+            if hourInfo == {} or hourInfo.get(currentDay) == None:
+                return False
+            hours = hourInfo[currentDay]
+        else:
+            if currentDay not in self.hours:
+                return False
+            hours = self.hours[currentDay]
+            if hours == [] or hours == {}:
+                return False
+        for i in hours:
+            if i == "OFF":
+                return False
+            start, end = i.split("-")
+            if start == "24:00":
+                start = "23:59"
+            if end == "24:00":
+                end = "23:59"
+            if int(end[:2]) > 23:
+                end = f"{int(end[:2]) - 24:02}:{end[-2:]}"
+            start_time = dt.datetime.strptime(start, "%H:%M").time()
+            end_time = dt.datetime.strptime(end, "%H:%M").time()
+            if start_time <= currentTime <= end_time:
+                return True
+        return False
+class Place(ABC):
+    def __init__(self, identity, name, location_obj, hours_obj, cuisine_list=None, outdoor_seating=None):
+        self.identity = identity
+        self.name = name
+        self.location = location_obj
+        self.hours = hours_obj
+        self.cuisine = cuisine_list if cuisine_list else []
+        self.outdoor_seating = outdoor_seating # True, False, or None
+        self.distanceFromUser = None
     @abstractmethod
     def matches(self, criteria: dict[str, any]) -> bool:
         ...
     @abstractmethod
     def get_field(self, field_name: str):
         ...
-    @abstractmethod
+    def getDisplayAttributes(self):
+        open_status = self.hours.isCurrentlyOpen()
+        if open_status is None:
+            open_display = "Hours N/A"
+        elif open_status:
+            open_display = "Open Now"
+        else:
+            open_display = "Closed Now"
+
+        if self.distanceFromUser is not None:
+            if self.distanceFromUser < 1:
+                distance = f"{round(self.distanceFromUser*1000)} m"
+            else:
+                distance = f"{self.distanceFromUser:.2f} km"
+        else:
+            distance = "N/A"
+
+        details = [
+            self.identity,
+            self.name,
+            ", ".join(self.cuisine) if self.cuisine else "N/A",
+            distance,
+            str(self.location),
+            open_display,
+            self.amenity
+        ]
+        return details
     def distanceFromCrow(self, userPoint: tuple):
-        ...
-class Restaurant(DataEntity):
-    def __init__(self, data:dict):
-        self.name = data['identity']['name']
-        self.amenity = data['identity']['amenity']
-        self.id = data['identity']['id']
-        self.hours = getSecond(data,'opHoursAttr','opening_hours',OpenHours)
-        lat, long, district, street, housenumber = data['locationAttr']['lat'],data['locationAttr']['long'],data['locationAttr']['addr:postcode'],data['locationAttr']['addr:street'],getSecond(data,'locationAttr','addr:housenumber')
-        self.location = Location(lat, long, district, street, ("" if housenumber == None else housenumber)) #lat, long, district, street, house
-        for k,i in data.items():
-            setattr(self,k,i)
+        if self.location.lat is not None and self.location.long is not None:
+            try:
+                restaurant_point = (float(self.location.lat), float(self.location.long))
+                self.distanceFromUser = geodesic(userPoint, restaurant_point).km
+            except (ValueError, TypeError):
+                self.distanceFromUser = None
+        else:
+            self.distanceFromUser = None
+        return self.distanceFromUser
+    def __lt__(self, other): # For sorting
+        if self.distanceFromUser is None and other.distanceFromUser is None:
+            return self.name < other.name
+        if self.distanceFromUser is None:
+            return False # None is considered greater
+        if other.distanceFromUser is None:
+            return True # other.None is greater
+        
+        # Primary sort by distance, secondary by name
+        if self.distanceFromUser != other.distanceFromUser:
+            return self.distanceFromUser < other.distanceFromUser
+        return self.name.lower() < other.name.lower()
+    def __le__(self,other):
+        if self.distanceFromUser is None and other.distanceFromUser is None:
+            return self.name < other.name
+        if self.distanceFromUser is None:
+            return False # None is considered greater
+        if other.distanceFromUser is None:
+            return True # other.None is greater
+        
+        # Primary sort by distance, secondary by name
+        if self.distanceFromUser != other.distanceFromUser:
+            return self.distanceFromUser <= other.distanceFromUser
+        return self.name.lower() < other.name.lower()
+class Restaurant(Place):
+    def __init__(self, identity, name, location_obj, hours_obj, cuisine_list, amenity, outdoor_seating=None, phone=None, website=None, wheelchair=None):
+        super().__init__(identity, name, location_obj, hours_obj, cuisine_list, outdoor_seating)
+        self.amenity = amenity # E.g. restaurant, cafe, bar
+        self.phone = phone
+        self.website = website
+        self.wheelchairAccessible = wheelchair # True, False, or None
     def __getitem__(self, key):
         if hasattr(self, key):
             return getattr(self, key)
@@ -382,7 +540,7 @@ class Restaurant(DataEntity):
             distance = str(int(round(self.distanceFrom,3)*1000)) +" m"
         else:
             distance = str(round(self.distanceFrom,2)) + " km"
-        return f"{self.id} - {self.name} ({self.cuisine}) - {self.location} - {distance}" + (f" - {self.queryScore} points" if queryScore is not None else "")
+        return f"{self.identity} - {self.name} ({', '.join(self.cuisine)}) - {self.location} - {distance}" + (f" - {self.queryScore} points" if queryScore is not None else "")
     def matches(self, criteria: dict[str, any]) -> bool:
         """Polymorphic implementation for Restaurant"""
         phoneList = ["phone","contact:phone","contact:mobile","phone:mobile"]
@@ -416,11 +574,21 @@ class Restaurant(DataEntity):
             elif key == "phone" and phone != None and value == True and any([False if i in phoneList else True for k,i in phone.items()]):
                 return False
         return True
+    def getSearchAttr(self):
+        return {
+                "name": self.name.lower() if self.name else "",
+                "cuisine": [c.lower() for c in self.cuisine],
+                "outdoor_seating": self.outdoor_seating,
+                "is_open": self.hours.isOpen(),
+                "district": self.location.district.lower() if self.location.district else "",
+                "wheelchairAssc": self.wheelchairAccessible.lower() if self.wheelchairAccessible.lower() else ""
+            }
     def get_field(self, field_name):
         if hasattr(self, field_name):
             return getattr(self, field_name)
         return None
-    def distanceFromCrow(self, userPoint):
+    
+    # def distanceFromCrow(self, userPoint):
         try:
             resPoint = Point(float(self.location.lat), float(self.location.long))
             self.distanceFrom = geodesic((userPoint[0], userPoint[1]), (resPoint.y, resPoint.x)).kilometers
@@ -514,7 +682,7 @@ class Restaurant(DataEntity):
             for k,i in self.__dict__.items():
                 print(f"{count}: {k}")
                 count +=1
-            choice = getInput("Enter your selection: ")
+            choice = getInput("Enter your selection: ",str)
             match choice:
                 case choice if choice == "":
                     print("No choice made, please try again.")
@@ -526,17 +694,15 @@ class Restaurant(DataEntity):
                     print(self.__dict__[list(self.__dict__.keys())[int(choice)-1]])
                     print("===================")
 #['restaurant', 'pub', 'cafe', 'fast_food', 'bar', 'food_court', 'biergarten', 'ice_cream']
-class Chain(DataEntity):
-    def __init__(self, data:dict):
-        self.name = data['identity']['name']
-        self.amenity = data['identity']['amenity']
-        self.id = data['identity']['id']
-        self.hours = getSecond(data,'opHoursAttr','opening_hours',OpenHours)
-        self.chain = getSecond(data,'operatorAttr','brand')
-        lat, long, district, street, housenumber = data['locationAttr']['lat'],data['locationAttr']['long'],data['locationAttr']['addr:postcode'],data['locationAttr']['addr:street'],getSecond(data,'locationAttr','addr:housenumber')
-        self.location = Location(lat, long, district, street, ("" if housenumber == None else housenumber)) #lat, long, district, street, house
-        for k,i in data.items():
-            setattr(self,k,i)
+class Chain(Place):
+    #elf, id, name, location_obj, hours_obj, cuisine_list=None, outdoor_seating=None
+    def __init__(self, identity, name, location_obj, hours_obj, cuisine_list, amenity, outdoor_seating=None, phone=None, website=None, wheelchair=None,chain=None):
+        super().__init__(identity, name, location_obj, hours_obj, cuisine_list, outdoor_seating)
+        self.amenity = amenity # E.g. restaurant, cafe, bar
+        self.phone = phone
+        self.chain = chain
+        self.website = website
+        self.wheelchairAccessible = wheelchair # True, False, or None
     def matches(self, criteria: dict[str, any]) -> bool:
         """Polymorphic implementation for Restaurant"""
         phoneList = ["phone","contact:phone","contact:mobile","phone:mobile"]
@@ -570,6 +736,20 @@ class Chain(DataEntity):
             elif key == "phone" and phone != None and value == True and any([False if i in phoneList else True for k,i in phone.items()]):
                 return False
         return True
+    def getDisplayAttributes(self):
+        # Polymorphic override: Add chain information
+        base_details = super().getDisplayAttributes()
+        base_details[1] = f"{self.name} ({self.chain} Chain)" # Modify name
+        return base_details
+    def getSearchAttr(self):
+        return {
+                "name": self.name.lower() if self.name else "",
+                "cuisine": [c.lower() for c in self.cuisine],
+                "outdoor_seating": self.outdoor_seating,
+                "is_open": self.hours.isOpen(),
+                "district": self.location.district.lower() if self.location.district else "",
+                "wheelchairAssc": self.wheelchairAccessible.lower() if self.wheelchairAccessible.lower() else ""
+            }
     def get_field(self, field_name):
         if hasattr(self, field_name):
             return getattr(self, field_name)
@@ -617,7 +797,7 @@ class Chain(DataEntity):
             for k,i in self.__dict__.items():
                 print(f"{count}: {k}")
                 count +=1
-            choice = getInput("Enter your selection: ")
+            choice = getInput("Enter your selection: ",str)
             match choice:
                 case choice if choice == "":
                     print("No choice made, please try again.")
@@ -634,18 +814,20 @@ class Chain(DataEntity):
             distance = str(int(round(self.distanceFrom,3)*1000)) +" m"
         else:
             distance = str(round(self.distanceFrom,2)) + " km"
-        return f"{self.id} - {self.name} ({self.cuisine}) - {self.location} - {distance}" + (f" - {self.queryScore} points" if queryScore is not None else "")
+        return f"{self.identity} - {self.name} ({', '.join(self.cuisine)}) - {self.location} - {distance}" + (f" - {self.queryScore} points" if queryScore is not None else "")
     def __repr__(self):
         return f"{self.name} - {type(self)} - {self.location}"
-    def distanceFromCrow(self, userPoint):
+    # def distanceFromCrow(self, userPoint):
         try:
             resPoint = Point(float(self.location.lat), float(self.location.long))
             self.distanceFrom = geodesic((userPoint[0], userPoint[1]), (resPoint.y, resPoint.x)).kilometers
         except:
             print(self.name,self.location.lat,self.location.long)
         return self.distanceFrom
-class SearchQuery:  
-    def __init__(self, cuisine:str=None, Diststance:int=None, District:str=None, OpenNow:bool=False):
+
+'''class SearchQuery:  
+    def __init__(self, id, name, location_obj, hours_obj, cuisine_list, amenity,
+                 price_range=None, outdoor_seating=None, phone=None, website=None, wheelchair=None):
         self.cuisine = cuisine
         self.Diststance = Diststance
         self.District = District
@@ -672,7 +854,7 @@ class SearchQuery:
             choice = choice.lower.split("and")
             for i in choice:
                 instructions.add(i)"""
-        choice = getInput("Enter: ")
+        choice = getInput("Enter: ",str)
         if choice == '5':
             return False
         elif choice == '':
@@ -692,14 +874,14 @@ class SearchQuery:
         for i in instructions:
             if i == 1:
                 print("Input any number of cuisines to be 'OR' searched. (i.e. 'thai or sushi')")
-                _ = getInput("Enter cuisine: ")
+                _ = getInput("Enter cuisine: ",str)
                 self.parameter['cuisne':[]]#######
                 self.cuisine = _
             elif i == 2:
-                _ = getInput("Enter distance (km): ")
+                _ = getInput("Enter distance (km): ",float)
                 self.Diststance = float(_)
             elif i ==   3:
-                _ = getInput("Enter district: ")
+                _ = getInput("Enter district: ",int)
                 self.District = str(int(_))
                 # print(self.District)
             elif i == 4:
@@ -754,7 +936,7 @@ class SearchQuery:
             currentPass = 0
             while currentPass < max:# in range(len(arr) - 1, 0, -1):
                 swapped = False
-                bubbleSortSub(n, currentPass, arr)
+                self.bubbleSortSub(n, currentPass, arr)
                 currentPass += 1
                 pbar.update(1)
                 if not swapped:
@@ -789,6 +971,7 @@ class SearchQuery:
         if self.OpenNow and restaurant.isCurrentlyOpen() == True:
             score += 1
         return score
+'''
 class MenuBreak(Exception): #Inheritance of the exception class. Making a custom class to raise user raised errors.
     def __init__(self, code, message="Menu Break"):
         self.code = code
@@ -796,12 +979,32 @@ class MenuBreak(Exception): #Inheritance of the exception class. Making a custom
         super().__init__(self.message)
     def __str__(self):
         return self.code
+
 class DataBase(DataObject):
     def __init__(self, city:str="Währing, Wien, Austria", name:str=None, dataBrought:bool=True):
         super().__init__(dataBrought=dataBrought, city=city, name=name)
         self.restaurants = []
-        self.cuisines = set()
-        self.chains = set()
+        
+        self.distanceSorted = False
+        self.addrSet = False
+        self.custSearch = False
+        self.defaultSort = ['2']
+        self.defaultSearch = ['1']
+        self.loadFromDO()
+        self.cuisines = self._extractUniqueCuisines()
+
+    def __getitem__(self, key):
+        if hasattr(self, key):
+            return getattr(self, key)
+    def _extractUniqueCuisines(self):
+        allCuisines = set()
+        for r in self.restaurants:
+            if r.cuisine:
+                for c in r.cuisine:
+                    #print(c if c.location = 'Pizza')
+                    allCuisines.add(c.strip().lower())
+        return sorted(list(allCuisines))
+    def loadFromDO(self):
         with open('./catagories.json',"r") as file:
             catagories = json.loads(file.read())
         records = self.dataPull.to_dict('records')
@@ -816,30 +1019,156 @@ class DataBase(DataObject):
                 if dict_ != {}:
                     data[newCol] = dict_
 
-            cuisine = getSecond(data,"menuCuisneAttr","cuisine")
-            if cuisine != None:
+            cuisine = row['cuisine']
+            if pd.notna(cuisine):# and cuisine != None:
                 if ";" in cuisine:
-                    cuisine = cuisine.split(";")
+                    cuisine = [str(x).strip().lower() for x in cuisine.split(";")]
                 elif "," in cuisine:
-                    cuisine = cuisine.split(",")
-                for i in cuisine:
-                    self.cuisines.add(i)
-
-            if getSecond(data,'operatorAttr','brand') == None:
-                self.chains.add(getSecond(data,'operatorAttr','brand'))
-                self.restaurants.append(Chain(data))
+                    cuisine = [str(x).strip().lower() for x in cuisine.split(",")]
+                else:
+                    cuisine = [str(cuisine)]
             else:
-                self.restaurants.append(Restaurant(data))
-        self.distanceSorted = False
-        self.addrSet = False
-        self.custSearch = False
-        self.cuisines = list(self.cuisines)
-        self.cuisines.sort()
-        self.defualtSort = ['1']
-        self.defualtSearch = ['1']
-    def __getitem__(self, key):
-        if hasattr(self, key):
-            return getattr(self, key)
+                cuisine = None
+            lat = float(row['lat'])
+            identity = int(row['id'])
+            long = float(row['long'])
+            city = str(row['addr:city'])
+            street = str(row['addr:street'])
+            house = str(row['addr:housenumber'])
+            district = int(row['addr:postcode'])
+            location_obj = Location(lat, long, district, street, house)
+            hours = str(row['opening_hours'])
+            hours_obj = OpenHours(hours)
+            name = str(row['name'])
+            amenity = str(row['amenity'])
+            outdoor_seating = str(row['outdoor_seating'])
+            phone = str(row['phone'])
+            website = str(row['website'])
+            wheelchair = str(row['wheelchair'])
+            chain = row['brand']
+            #id, name, location_obj, hours_obj, cuisine_list, amenity, outdoor_seating=None, phone=None, website=None, wheelchair=None,chain=None)
+            if pd.notna(chain) == True:
+                self.restaurants.append(Chain(identity, name, location_obj, hours_obj, cuisine, amenity, outdoor_seating, phone, website, wheelchair, str(chain)))
+            else:
+                self.restaurants.append(Restaurant(identity, name, location_obj, hours_obj, cuisine, amenity, outdoor_seating, phone, website, wheelchair))
+    
+    def get_filtered_restaurants(self, criteria):
+        """
+        Filters restaurants based on complex criteria.
+        criteria: dict like {'cuisine': ['italian', 'pizza'], 'price_max': 3, 'open_now': True, 'outdoor': True, 'district': '1010', 'logic': 'AND'}
+        """
+        if not self.restaurants:
+            return []
+
+        filteredList = []
+        logicOperator = criteria.get('logic', 'AND').upper()
+
+        for restaurant in self.restaurants:
+            attrs = restaurant.get_search_attributes()
+            matchConditions = []
+
+            # Cuisine check (OR logic within cuisines)
+            if criteria.get('cuisine'):
+                desiredCuisines = [c.lower().strip() for c in criteria['cuisine']]
+                if any(c in attrs['cuisine'] for c in desiredCuisines):
+                    matchConditions.append(True)
+                else:
+                    matchConditions.append(False)
+            else:
+                matchConditions.append(True) # No cuisine specified, so it's a match for this part
+
+            # Outdoor seating
+            if criteria.get('outdoor_seating') is not None:
+                if attrs['outdoor_seating'] == criteria['outdoor_seating']:
+                    matchConditions.append(True)
+                else:
+                    matchConditions.append(False)
+            else:
+                matchConditions.append(True)
+
+            # Open now
+            if criteria.get('open_now') is not None:
+                # is_open() can return None if data is unavailable. Treat None as not matching a specific True/False request.
+                if attrs['is_open'] is None and criteria['open_now'] is not None: # User wants specific open/closed, but data is N/A
+                    matchConditions.append(False)
+                elif attrs['is_open'] == criteria['open_now']:
+                    matchConditions.append(True)
+                else:
+                    matchConditions.append(False)
+            else:
+                matchConditions.append(True)
+            
+            # District
+            if criteria.get('district'):
+                if attrs['district'] and criteria['district'].lower() == attrs['district']:
+                    matchConditions.append(True)
+                else:
+                    matchConditions.append(False)
+            else:
+                matchConditions.append(True)
+
+            if criteria.get('wheelchairAccessible') is not None:
+                # is_open() can return None if data is unavailable. Treat None as not matching a specific True/False request.
+                if attrs['is_open'] is None and criteria['open_now'] is not None: # User wants specific open/closed, but data is N/A
+                    matchConditions.append(False)
+                elif attrs['is_open'] == criteria['open_now']:
+                    matchConditions.append(True)
+                else:
+                    matchConditions.append(False)
+            else:
+                matchConditions.append(True)
+
+
+            # Combine conditions
+            if logicOperator == 'AND':
+                if all(matchConditions):
+                    filteredList.append(restaurant)
+            elif logicOperator == 'OR':
+                # For OR, we need to be careful. If no criteria are set, it's a match.
+                # If criteria ARE set, then at least one specific criterion must match.
+                # This current structure of match_conditions[] appending True for non-specified
+                # criteria doesn't work well for OR. Let's adjust for OR.
+
+                # Re-evaluate for OR:
+                # A restaurant matches if ANY of the *specified* criteria are met.
+                # If a criterion is NOT specified by the user, it doesn't contribute to an OR match.
+                
+                if not any(k in criteria for k in ['cuisine', 'wheelchairAccessible', 'outdoor_seating', 'open_now', 'district']):
+                    # No criteria actually specified for the OR search, means match all (or none, depending on interpretation)
+                    # Let's say it matches all if no specific OR conditions given.
+                    filteredList.append(restaurant)
+                    continue
+
+                or_match = False
+                if criteria.get('cuisine'):
+                    desiredCuisines = [c.lower().strip() for c in criteria['cuisine']]
+                    if any(c in attrs['cuisine'] for c in desiredCuisines):
+                        or_match = True
+                
+                # if not or_match and criteria.get('price_max') is not None:
+                #     if attrs.get('price_range') is not None and attrs['price_range'] <= criteria['price_max']:
+                #         or_match = True
+                
+                if not or_match and criteria.get('outdoor_seating') is not None:
+                    if attrs['outdoor_seating'] == criteria['outdoor_seating']:
+                        or_match = True
+                
+                if not or_match and criteria.get('open_now') is not None:
+                     if attrs['is_open'] is not None and attrs['is_open'] == criteria['open_now']:
+                        or_match = True
+                
+                if not or_match and criteria.get('district'):
+                    if attrs['district'] and criteria['district'].lower() == attrs['district']:
+                        or_match = True
+
+                if not or_match and criteria.get('wheelchairAccessible'):
+                    if attrs['wheelchairAccessible'] and criteria['wheelchairAccessible'].lower() == attrs['wheelchairAccessible']:
+                        or_match = True
+                
+                if or_match:
+                     filteredList.append(restaurant)
+
+        return filteredList
     def getRestaurant(self, name:str, district:str=None):
         if district:
             answer = [x for x in self.restaurants if (x.name == name and x.location.district == district)]
@@ -853,6 +1182,7 @@ class DataBase(DataObject):
                 return answer[0]
             else:
                 return answer
+
     def getClosestList(self):
         if False == self.distanceSorted:
             print("Getting Distances...")
@@ -867,7 +1197,11 @@ class DataBase(DataObject):
                 # except:
                 #     i.distanceFromCrow(self.addressCoords)
             print("Sorting...")
-            self.restaurants.sort(key=lambda x: x.distanceFrom)
+            for i in self.defaultSort: 
+                copy = self.restaurants.copy()
+
+
+            #self.restaurants.sort(key=lambda x: x.distanceFrom)
             self.distanceSorted = True
         elif self.custSearch == True:
             self.restaurants.sort(key=lambda x: x.distanceFrom)
@@ -890,67 +1224,48 @@ class DataBase(DataObject):
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
             return False
-    def restrauntListPresenter(self, n:int=10):
-        print("===================")
-        print("Restaurants:")
-        SubProcess = True
-        while SubProcess == True:
+    def displayRestaurants(self, sortedList, maxDisplay:int=10):
+        if not sortedList:
+            print("No restaurants to display.")
+            return
+
+        table = PrettyTable()
+        
+        table.field_names = ["#", "Name", "Cuisine(s)","Distance", "Location - Open Status"]
+        
+
+
+        for i, restaurant in enumerate(sortedList,start=1):
+            if i > maxDisplay:
+                print(f"... and {len(sortedList) - len(maxDisplay)} more. Refine your search or see all.")
+                break
             try:
-                count = 1
-                table = PrettyTable()
-                if self.custSearch == True:
-                    table.field_names = ["#","id","Name", "Amenity","Cuisine", "Location", "Distance", "Search Score"]
-                    for r in self.restaurants[:n]:
-                        queryScore = getattr(r, "queryScore", None)
-                        if r.distanceFrom < 1:
-                            distance = str(int(round(r.distanceFrom,3)*1000)) +" m"
-                        else:
-                            distance = str(round(r.distanceFrom,2)) + " km"
-                        menuC = getattr(r,'menuCuisineAttr',{})
-                        cuisine = getattr(menuC,'cuisine',None)
-                        table.add_row([count, r.id, r.name, r.amenity, cuisine, r.location, distance, f"{queryScore} points" if queryScore is not None else ""])
-                        #print(f"{count}: - {i}")
-                        count+=1
+                details = restaurant.getDisplayAttributes()
+                # Ensure the number of details matches the number of field names
+                table.add_row([i, details[1], details[2], details[3],", ".join(map(str,details[4:6])) if len(details) > 2 else "N/A"])
+                """if len(details) == len(table.field_names):
+                    table.add_row([(j,k) for j,k in details.items()])
                 else:
-                    table.field_names = ["#","id","Name", "Amenity","Cuisine", "Location", "Distance"]
-                    for r in self.restaurants[:n]:
-                        queryScore = getattr(r, "queryScore", None)
-                        if r.distanceFrom < 1:
-                            distance = str(int(round(r.distanceFrom,3)*1000)) +" m"
-                        else:
-                            distance = str(round(r.distanceFrom,2)) + " km"
-                        menuC = getattr(r,'menuCuisineAttr',{})
-                        cuisine = menuC.get('cuisine')
-                        table.add_row([count, r.id, r.name, r.amenity, cuisine, r.location, distance])
-                        #print(f"{count}: - {i}")
-                        count+=1
-                print(table)
-                print("===================")
-                choice = getInput("Press 'q' to quit or 'm' to return to the menu\nEnter the number of the restaurant you want to see: ")
-                choice = int(choice)
-                match choice:
-                    case choice if choice < 0 or choice > len(self.restaurants):
-                        print(f"Choice '{choice}' is out of range of list, please try again.")
-                    case choice if type(choice) != int:
-                        print(f"Choice '{choice}' is not an integer, please try again.")
-                    case _:
-                        value = self.restaurants[choice-1].selector()
-            except MenuBreak as e:
-                raise MenuBreak(e.args)
+                    # Fallback if detail structure doesn't match
+                    table.add_row([i, details[1], details[2],", ".join(map(str,details[3:])) if len(details) > 2 else "N/A"] + [""] * (len(table.field_names) - 3))"""
             except Exception as e:
-                print(f"Invalid. Error: '{e}'.")
-                SubProcess = False
-                continue
-            except:
-                print("Invalid input, please enter a number.")
-                SubProcess = False
-                continue
-        return self.restaurants[choice-1]         
+                print(f"Error displaying restaurant {restaurant.name}: {e}")
+                # Add a row with error info if needed
+                table.add_row([i,restaurant.name,"Err","Err" if hasattr(restaurant,'name') else 'Error Name', str(e)] + [""] * (len(table.field_names) - 4))
+        #table.add_column("#",[i for i in range(1,len(maxDisplay)),])
+        print(table)
+    def showCuisines(self):
+        print("\n--- Available Cuisines ---")
+        if self.uniqueCuisines:
+            for i, cuisine in enumerate(self.uniqueCuisines):
+                print(f"{i+1}. {cuisine.capitalize()}")
+        else:
+            print("No cuisine data available.")    
     def checkUserAddr(self):
         if self.addrSet == False:
             _ = False
             while _ == False:
-                self.inpUsrAddress = getInput("Enter your address: ")
+                self.inpUsrAddress = getInput("Enter your address: ",str)
                 _ = self.usrGetCoords(self.inpUsrAddress)
             lat = self.addressCoords[1]
             long = self.addressCoords[0]
@@ -982,32 +1297,256 @@ class DataBase(DataObject):
         else:
             return False      
     
+    def advanced_search_ui(self):
+        print("\n--- Advanced Restaurant Search ---")
+        
+        cuisines_input = getInput("Enter desired cuisine(s) (comma-separated, or leave blank for any): ", str)
+        desired_cuisines = [c.strip() for c in cuisines_input.split(',')] if cuisines_input else None
+
+        price_max_input = getInput("Enter maximum price range (1-4, or leave blank for any): ", int)
+        outdoor_seating_input = getInput("Needs outdoor seating? (yes/no, or leave blank for any): ", bool)
+        open_now_input = getInput("Needs to be open now? (yes/no, or leave blank for any): ", bool)
+        
+        district_input_str = getInput("Enter district (e.g., 1010 or 1 (for 1st), or leave blank for any): ", str)
+        district_input = None
+        if district_input_str:
+            if district_input_str.isdigit():
+                if len(district_input_str) <= 2: # e.g. 1, 7, 10, 23
+                    district_input = "1" + district_input_str.zfill(3) if len(district_input_str) < 3 else district_input_str
+                elif len(district_input_str) == 4 and district_input_str.startswith("1"): # e.g. 1010, 1230
+                     district_input = district_input_str
+                else:
+                    print("Invalid district format. Searching all districts.")
+            else:
+                print("Invalid district format. Searching all districts.")
+
+
+        logic_choice = getInput("Combine criteria with AND or OR? (and/or): ", str)
+        logic = 'AND'
+        if logic_choice and logic_choice.upper() == 'OR':
+            logic = 'OR'
+        
+        search_criteria = {
+            'cuisine': desired_cuisines,
+            'price_max': price_max_input,
+            'outdoor_seating': outdoor_seating_input,
+            'open_now': open_now_input,
+            'district': district_input,
+            'logic': logic
+        }
+        
+        print(f"\nSearching with criteria: {search_criteria}")
+        results = self.get_filtered_restaurants(search_criteria)
+        
+        if self.user_location:
+            for r in results:
+                r.calculate_distance(self.user_location[0], self.user_location[1])
+            # Default sort by distance if location is known
+            results = self.sort_restaurants_interface(results, default_sort='distance')
+        else:
+            # Default sort by name if no location
+             results = self.sort_restaurants_interface(results, default_sort='name')
+
+
+        self.displayRestaurants(results)
+        if results:
+            if getInput("Save these results to CSV? (yes/no): ", bool):
+                filename = getInput("Enter filename (e.g., search_results.csv): ", str)
+                if filename:
+                    self.saveRToCSV(results, filename)
+    def sortInsert(self,arr):
+        n = len(arr)
+        if n <= 1:
+            return
+        for i in tqdm(range(1, n), desc="Insert Sorting", colour="GREEN",leave=True, ncols=100):
+            key = arr[i]
+            j = i-1
+            while j >= 0 and key < arr[j]:
+                arr[j+1] = arr[j]
+                j -= 1
+            arr[j+1] = key
+        return arr
+    
+    def sortMerge(self, arr):
+        """
+        Sorts an array using the Merge Sort algorithm recursively.
+        This is the main public method, similar to your `sortBubble`.
+        """
+        n = len(arr)
+        if n <= 1:
+            return arr  # Already sorted or empty
+
+        # Call a recursive helper that works with indices on the original array
+        self._mergeSortRecursiveHelper(arr, 0, n - 1)
+        return arr # arr is now sorted
+
+    def _mergeSortRecursiveHelper(self, arr, left_idx, right_idx):
+        """
+        Recursive helper function for Merge Sort.
+        This function divides the array and calls itself, then merges.
+        Analogous to the recursive control structure.
+        """
+        if left_idx < right_idx:  # Base case: if there is more than one element
+            mid_idx = (left_idx + right_idx) // 2
+
+            # Recursive calls for the two halves
+            self._mergeSortRecursiveHelper(arr, left_idx, mid_idx)
+            self._mergeSortRecursiveHelper(arr, mid_idx + 1, right_idx)
+
+            # Merge the sorted halves
+            self._mergeHalves(arr, left_idx, mid_idx, right_idx)
+
+    def _mergeHalves(self, arr, left_start_idx, mid_idx, right_end_idx):
+        """
+        Merges two sorted sub-arrays of `arr`.
+        arr[left_start_idx...mid_idx] and arr[mid_idx+1...right_end_idx]
+        This is a sub-operation, somewhat analogous to your `bubbleSortSub`
+        performing a specific part of the sort.
+        """
+        # Create temporary arrays for the left and right halves.
+        # This is standard for merge sort to allow merging back into the original array segment.
+        left_half_copy = arr[left_start_idx : mid_idx + 1]
+        right_half_copy = arr[mid_idx + 1 : right_end_idx + 1]
+
+        # Pointers for iterating through the temporary copies
+        i = 0  # Pointer for left_half_copy
+        j = 0  # Pointer for right_half_copy
+        
+        # Pointer for placing elements back into the original array `arr`
+        k = left_start_idx
+
+        # Merge data from temp arrays back into arr[left_start_idx...right_end_idx]
+        while i < len(left_half_copy) and j < len(right_half_copy):
+            if left_half_copy[i] <= right_half_copy[j]:
+                arr[k] = left_half_copy[i]
+                i += 1
+            else:
+                arr[k] = right_half_copy[j]
+                j += 1
+            k += 1
+
+        # Copy any remaining elements of left_half_copy
+        while i < len(left_half_copy):
+            arr[k] = left_half_copy[i]
+            i += 1
+            k += 1
+
+        # Copy any remaining elements of right_half_copy
+        while j < len(right_half_copy):
+            arr[k] = right_half_copy[j]
+            j += 1
+            k += 1
+    
+    def _sortBubbleSub(self, n, currentPass, arr):
+        # Initialize swapped for the current pass
+        swapped = False
+        for i in range(0, n - 1 - currentPass):
+            if arr[i] > arr[i + 1]:
+                arr[i], arr[i + 1] = arr[i + 1], arr[i]
+                swapped = True # Mark that a swap occurred
+        return swapped # Return whether a swap happened in this pass
+
+    def sortBubble(self, arr):
+        n = len(arr)
+        # The loop for bubble sort goes from n-1 down to 1 (or 0 passes for the last element)
+        # The number of passes is n-1.
+        # So the total for tqdm should be n-1.
+        with tqdm(total=n - 1, desc="Bubble Sorting", colour="RED", leave=True, ncols=100) as pbar:
+            for currentPass in range(n - 1): # Iterate through the passes
+                # Call the sub-function and get the swapped status
+                swapped_in_pass = self._sortBubbleSub(n, currentPass, arr)
+                pbar.update(1) # Update the progress bar for each completed pass
+
+                # If no swaps occurred in this pass, the array is sorted.
+                # We can break early.
+                if not swapped_in_pass:
+                    # If we break early, we need to ensure the tqdm bar
+                    # reaches its total to show completion.
+                    rem_updates = pbar.total - pbar.n
+                    if rem_updates > 0:
+                        pbar.update(rem_updates)
+                    break # Exit the loop as the array is sorted
+
+        return arr
     def searchOptionsM(self) -> str:
-        print('1. Set Default Search Algorithm\n2. Set Defualt Sort Algorithm. \n3. Test Search Algorithm speed')
-        inpt2 = getInput("Select an option: ")
+        print('1. Set Default Search Algorithm\n2. Set Default Sort Algorithm. \n3. Test Search Algorithm speed')
+        inpt2 = getInput("Select an option: ",str)
         match inpt2:
             case inpt2 if inpt2 == '1':
                 print('1. Binary Search\n2. Linear Search')
-                inpt3 = getInput("Select any combination of options (i.e. 1,3,4 or 413)")
+                inpt3 = getInput("Select any combination of options (i.e. 1,3,4 or 413)",str)
                 if "," in inpt3:
                     inpt3 = inpt3.split(',')
                 else:
                     inpt3 = list(inpt3)
                 inpt3.sort()
-                self.defualtSearch = inpt3
+                self.defaultSearch = inpt3
             case inpt2 if inpt2 == '2':
-                print('1. Bubble Sort\n2. Insert Sort')
-                inpt3 = getInput("Select any combination of options (i.e. 1,3,4 or 413)")
+                print('1. Bubble Sort\n2. Insert Sort\n3. Merge Sort')
+                inpt3 = getInput("Select any combination of options (i.e. 1,3,4 or 413)",str)
                 if "," in inpt3:
                     inpt3 = inpt3.split(',')
                 else:
                     inpt3 = list(inpt3)
                 inpt3.sort()
-                self.defualtSort = inpt3
+                self.defaultSort = inpt3
             case inpt2 if inpt2 == '3':
                 return '2'
 
         return
+    def sort(self, arr):
+        sortedOutput = None
+        for i in self.defaultSort:
+            if i == "1":#1. Bubble Sort\n2. Insert Sort\n3. Merge Sort
+                sortedOutput = self.sortBubble(arr)
+            if i == "2":
+                sortedOutput = self.sortInsert(arr)
+            if i == "3":
+                sortedOutput = self.sortMerge(arr)
+        return sortedOutput
+    def showClosestRest(self, top_n=10):
+        # Ensure all restaurants have distance calculated
+        for r in self.restaurants:
+            r.distanceFromCrow((self.addressCoords[0], self.addressCoords[1]))
+        
+        # Filter out restaurants with no distance and sort
+        valid_distance_restaurants = [r for r in self.restaurants if r.distanceFromUser is not None]
+        
+        # Use Python's sort with the __lt__ method defined in Place/Restaurant
+        # 1. Bubble Sort\n2. Insert Sort\n3. Merge Sort
+        sorted_restaurants = self.sort(valid_distance_restaurants)
+
+        print(f"\n--- Top {top_n} Closest Restaurants ---")
+        self.displayRestaurants(sorted_restaurants[:top_n])
+    def saveRToCSV(self, restaurant_list, filename):
+        if not restaurant_list:
+            print("No results to save.")
+            return
+        if not filename.endswith(".csv"):
+            filename += ".csv"
+        
+        try:
+            with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
+                writer = csv.writer(csvfile)
+                # Write header based on the display details
+                if isinstance(restaurant_list[0], Restaurant):
+                    header = ["ID", "Name", "Cuisine(s)", "Location", "Distance (km)", "Open Status", "Type"]
+                else: # Fallback
+                    header = ["ID", "Name", "Details"]
+                writer.writerow(header)
+                
+                for restaurant in restaurant_list:
+                    details = restaurant.getDisplayAttributes()
+                    # Ensure details match header length if using specific headers
+                    if len(details) == len(header):
+                         writer.writerow(details)
+                    else: # Fallback if mismatch
+                        writer.writerow([details[0], details[1], ", ".join(map(str,details[2:]))])
+            print(f"Results saved to {filename}")
+        except IOError:
+            print(f"Error: Could not write to file {filename}.")
+        except Exception as e:
+            print(f"An unexpected error occurred while saving: {e}")
     def run(self):
         print("Welcome to the Restaurant Finder!\n(At any point press 'q' to quit or 'm' to return to the menu.)")
         b = False
@@ -1016,22 +1555,11 @@ class DataBase(DataObject):
                 choice = self.display_menu()
                 if choice == '1':
                     self.checkUserAddr()
-                    Search = SearchQuery()
-                    if Search.menu() == False:
-                        raise MenuBreak("m")
-                    # print("Searching...")
-                    for i in self.restaurants:
-                        i.queryScore = Search.evaluateQuery(i)
-                    # print("Sorting...")
-                    ## RestaurantsCopy = self.restaurants.copy()
-                    ## RestaurantsCopy = [x for x in RestaurantsCopy if x.queryScore >= 2]
-                    # self.restaurants.sort(key=lambda x: int(x.queryScore), reverse=True)
-                    self.custSearch = True
-                    print(Search)
-                    resp = self.restrauntListPresenter()
+                    self.advanced_search_ui()
+                    #resp = self.displayRestaurants()
                 elif choice == '2':
                     self.checkUserAddr()                     
-                    self.restrauntListPresenter()
+                    self.showClosestRest()
                 elif choice == "3":
                     for i in self.cuisines:
                         print(i)
@@ -1046,7 +1574,7 @@ class DataBase(DataObject):
                 elif choice == 'debug':
                     inp = None
                     while inp != "quit":
-                        inp = getInput("Code: ")
+                        inp = getInput("Code: ",str)
                         print(eval(inp,globals(),locals()))
                 else:
                     print("Invalid Input. Try agian or press 'q' to quit.")
@@ -1065,7 +1593,7 @@ class DataBase(DataObject):
         print("4. Set User Location")
         print("5. Search Options")
         print("6. Exit")
-        return getInput("Enter choice: ")
+        return getInput("Enter choice: ",str)
 if __name__ == "__main__":
     # do = DataObject(dataBrought=True, city="Wien, Austria", name="../Vienna OSM expanded data/Wien_Restaurants-Expanded")
     # do.dataPull.head()
