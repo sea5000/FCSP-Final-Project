@@ -16,6 +16,7 @@ import time
 from pathvalidate import is_valid_filename
 from prettytable import PrettyTable
 import json
+import csv
 
 weekdayMap = {
     r'\b(Mon|Montag|Mo)\b': 'Mo',
@@ -468,6 +469,7 @@ class Place(ABC):
             open_display = "Open Now"
         else:
             open_display = "Closed Now"
+            
 
         if self.distanceFromUser is not None:
             if self.distanceFromUser < 1:
@@ -575,13 +577,27 @@ class Restaurant(Place):
                 return False
         return True
     def getSearchAttr(self):
+        if self.outdoor_seating is not None:
+            if self.outdoor_seating != "no":
+                attrOutdoorSeating = True
+            else:
+                attrOutdoorSeating = False
+        else:
+            attrOutdoorSeating = None
+        if self.wheelchairAccessible is not None:
+            if self.wheelchairAccessible != "no" and self.wheelchairAccessible is not None:
+                        attrWheelchairAccessible = True
+            else:
+                attrWheelchairAccessible = False
+        else:
+            attrWheelchairAccessible = None
         return {
-                "name": self.name.lower() if self.name else "",
+                "name": self.name.lower() if self.name else None,
                 "cuisine": [c.lower() for c in self.cuisine],
-                "outdoor_seating": self.outdoor_seating,
-                "is_open": self.hours.isOpen(),
-                "district": self.location.district.lower() if self.location.district else "",
-                "wheelchairAssc": self.wheelchairAccessible.lower() if self.wheelchairAccessible.lower() else ""
+                "outdoor_seating": attrOutdoorSeating,
+                "is_open": self.hours.isCurrentlyOpen(),
+                "district": self.location.district if self.location.district else None,
+                "wheelchairAssc": attrWheelchairAccessible
             }
     def get_field(self, field_name):
         if hasattr(self, field_name):
@@ -742,13 +758,27 @@ class Chain(Place):
         base_details[1] = f"{self.name} ({self.chain} Chain)" # Modify name
         return base_details
     def getSearchAttr(self):
+        if self.outdoor_seating is not None:
+            if self.outdoor_seating != "no":
+                attrOutdoorSeating = True
+            else:
+                attrOutdoorSeating = False
+        else:
+            attrOutdoorSeating = None
+        if self.wheelchairAccessible is not None:
+            if self.wheelchairAccessible != "no" and self.wheelchairAccessible is not None:
+                        attrWheelchairAccessible = True
+            else:
+                attrWheelchairAccessible = False
+        else:
+            attrWheelchairAccessible = None
         return {
-                "name": self.name.lower() if self.name else "",
+                "name": self.name.lower() if self.name else None,
                 "cuisine": [c.lower() for c in self.cuisine],
-                "outdoor_seating": self.outdoor_seating,
-                "is_open": self.hours.isOpen(),
-                "district": self.location.district.lower() if self.location.district else "",
-                "wheelchairAssc": self.wheelchairAccessible.lower() if self.wheelchairAccessible.lower() else ""
+                "outdoor_seating": attrOutdoorSeating,
+                "is_open": self.hours.isCurrentlyOpen(),
+                "district": self.location.district if self.location.district else None,
+                "wheelchairAssc": attrWheelchairAccessible
             }
     def get_field(self, field_name):
         if hasattr(self, field_name):
@@ -1051,26 +1081,27 @@ class DataBase(DataObject):
                 self.restaurants.append(Chain(identity, name, location_obj, hours_obj, cuisine, amenity, outdoor_seating, phone, website, wheelchair, str(chain)))
             else:
                 self.restaurants.append(Restaurant(identity, name, location_obj, hours_obj, cuisine, amenity, outdoor_seating, phone, website, wheelchair))
-    
-    def get_filtered_restaurants(self, criteria):
+    def getFilteredRestaurants(self, criteria):
         """
         Filters restaurants based on complex criteria.
-        criteria: dict like {'cuisine': ['italian', 'pizza'], 'price_max': 3, 'open_now': True, 'outdoor': True, 'district': '1010', 'logic': 'AND'}
+        criteria: dict like {'cuisine': ['italian', 'pizza'], 'open_now': True, 'outdoor': True, 'district': '1010', 'logic': 'AND'}
         """
         if not self.restaurants:
             return []
 
         filteredList = []
-        logicOperator = criteria.get('logic', 'AND').upper()
+        logicOperator = criteria.get('logic', 'AND').upper() # Defaults to AND if logic dict entry is None or doesn't exist.
 
         for restaurant in self.restaurants:
-            attrs = restaurant.get_search_attributes()
+            attrs = restaurant.getSearchAttr()
             matchConditions = []
 
             # Cuisine check (OR logic within cuisines)
             if criteria.get('cuisine'):
-                desiredCuisines = [c.lower().strip() for c in criteria['cuisine']]
-                if any(c in attrs['cuisine'] for c in desiredCuisines):
+                desiredCuisines = set([c.lower().strip() for c in criteria['cuisine']])
+                attrCuisineSet = set(attrs['cuisine'])
+                matchedCuisines = attrCuisineSet & desiredCuisines #Intersection of set
+                if matchedCuisines:
                     matchConditions.append(True)
                 else:
                     matchConditions.append(False)
@@ -1100,7 +1131,7 @@ class DataBase(DataObject):
             
             # District
             if criteria.get('district'):
-                if attrs['district'] and criteria['district'].lower() == attrs['district']:
+                if attrs['district'] and criteria['district'] == attrs['district']:
                     matchConditions.append(True)
                 else:
                     matchConditions.append(False)
@@ -1145,10 +1176,6 @@ class DataBase(DataObject):
                     if any(c in attrs['cuisine'] for c in desiredCuisines):
                         or_match = True
                 
-                # if not or_match and criteria.get('price_max') is not None:
-                #     if attrs.get('price_range') is not None and attrs['price_range'] <= criteria['price_max']:
-                #         or_match = True
-                
                 if not or_match and criteria.get('outdoor_seating') is not None:
                     if attrs['outdoor_seating'] == criteria['outdoor_seating']:
                         or_match = True
@@ -1158,7 +1185,7 @@ class DataBase(DataObject):
                         or_match = True
                 
                 if not or_match and criteria.get('district'):
-                    if attrs['district'] and criteria['district'].lower() == attrs['district']:
+                    if attrs['district'] and criteria['district'] == attrs['district']:
                         or_match = True
 
                 if not or_match and criteria.get('wheelchairAccessible'):
@@ -1196,7 +1223,7 @@ class DataBase(DataObject):
                 #         i.distanceFromCrow(self.addressCoords)
                 # except:
                 #     i.distanceFromCrow(self.addressCoords)
-            print("Sorting...")
+            #print("Sorting...")
             for i in self.defaultSort: 
                 copy = self.restaurants.copy()
 
@@ -1233,11 +1260,9 @@ class DataBase(DataObject):
         
         table.field_names = ["#", "Name", "Cuisine(s)","Distance", "Location - Open Status"]
         
-
-
         for i, restaurant in enumerate(sortedList,start=1):
             if i > maxDisplay:
-                print(f"... and {len(sortedList) - len(maxDisplay)} more. Refine your search or see all.")
+                print(f"... and {len(sortedList) - maxDisplay} more. Refine your search or see all.")
                 break
             try:
                 details = restaurant.getDisplayAttributes()
@@ -1299,22 +1324,21 @@ class DataBase(DataObject):
     
     def advanced_search_ui(self):
         print("\n--- Advanced Restaurant Search ---")
-        
-        cuisines_input = getInput("Enter desired cuisine(s) (comma-separated, or leave blank for any): ", str)
+        print("Leave blank for any option.")
+        cuisines_input = getInput("Enter desired cuisine(s) (comma-separated, multiples will be or searched): ", str)
         desired_cuisines = [c.strip() for c in cuisines_input.split(',')] if cuisines_input else None
 
-        price_max_input = getInput("Enter maximum price range (1-4, or leave blank for any): ", int)
-        outdoor_seating_input = getInput("Needs outdoor seating? (yes/no, or leave blank for any): ", bool)
-        open_now_input = getInput("Needs to be open now? (yes/no, or leave blank for any): ", bool)
+        outdoor_seating_input = getInput("Needs outdoor seating? (yes/no): ", bool)
+        open_now_input = getInput("Needs to be open now? (yes/no): ", bool)
         
-        district_input_str = getInput("Enter district (e.g., 1010 or 1 (for 1st), or leave blank for any): ", str)
+        district_input_str = getInput("Enter district (e.g., 1010 or 1 (for 1st)): ", str)
         district_input = None
         if district_input_str:
-            if district_input_str.isdigit():
+            if district_input_str.isdigit() and int(district_input_str) <= 23 and int(district_input_str) >= 0:
                 if len(district_input_str) <= 2: # e.g. 1, 7, 10, 23
-                    district_input = "1" + district_input_str.zfill(3) if len(district_input_str) < 3 else district_input_str
+                    district_input = int("1"+district_input_str.zfill(2)+"0")# "1" + district_input_str.zfill(1) if len(district_input_str) < 3 else district_input_str
                 elif len(district_input_str) == 4 and district_input_str.startswith("1"): # e.g. 1010, 1230
-                     district_input = district_input_str
+                     district_input = int(district_input_str)
                 else:
                     print("Invalid district format. Searching all districts.")
             else:
@@ -1328,7 +1352,6 @@ class DataBase(DataObject):
         
         search_criteria = {
             'cuisine': desired_cuisines,
-            'price_max': price_max_input,
             'outdoor_seating': outdoor_seating_input,
             'open_now': open_now_input,
             'district': district_input,
@@ -1336,16 +1359,17 @@ class DataBase(DataObject):
         }
         
         print(f"\nSearching with criteria: {search_criteria}")
-        results = self.get_filtered_restaurants(search_criteria)
+        results = self.getFilteredRestaurants(search_criteria)
         
-        if self.user_location:
-            for r in results:
-                r.calculate_distance(self.user_location[0], self.user_location[1])
-            # Default sort by distance if location is known
-            results = self.sort_restaurants_interface(results, default_sort='distance')
-        else:
-            # Default sort by name if no location
-             results = self.sort_restaurants_interface(results, default_sort='name')
+        results = self.sortAlg(results)
+        # if self.addressCoords:
+        #     for r in results:
+        #         r.calculate_distance(self.addressCoords[0], self.addressCoords[1])
+        #     # Default sort by distance if location is known
+        #     results = self.sortAlg(results)
+        # else:
+        #     # Default sort by name if no location
+             
 
 
         self.displayRestaurants(results)
@@ -1494,7 +1518,7 @@ class DataBase(DataObject):
                 return '2'
 
         return
-    def sort(self, arr):
+    def sortAlg(self, arr):
         sortedOutput = None
         for i in self.defaultSort:
             if i == "1":#1. Bubble Sort\n2. Insert Sort\n3. Merge Sort
@@ -1514,7 +1538,7 @@ class DataBase(DataObject):
         
         # Use Python's sort with the __lt__ method defined in Place/Restaurant
         # 1. Bubble Sort\n2. Insert Sort\n3. Merge Sort
-        sorted_restaurants = self.sort(valid_distance_restaurants)
+        sorted_restaurants = self.sortAlg(valid_distance_restaurants)
 
         print(f"\n--- Top {top_n} Closest Restaurants ---")
         self.displayRestaurants(sorted_restaurants[:top_n])
