@@ -238,6 +238,7 @@ def getInput(prompt:str, dataType) ->str:
                  return None
             return dataType(inp) if inp else None
         except MenuBreak as e:
+            print("TESTTT")
             raise MenuBreak(e.code)
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
@@ -270,7 +271,8 @@ class DataObject:
         tags = {'amenity': ['restaurant', 'pub', 'cafe', 'fast_food', 'bar', 'food_court', 'biergarten', 'ice_cream']}
         # tags is the list of amenity we are looking for. (Filters off other OSM items.)
         print("Pulling Data from OSM...")
-        restaurants = ox.features_from_place(self.city, tags) #Pulls data
+        
+        restaurants = ox.features_from_place(self.city, tags)            
 
         # def get_cuisine_or_amenity(row):
         #     if row['amenity'] == 'restaurant' and pd.notna(row['cuisine']):
@@ -284,21 +286,22 @@ class DataObject:
         # geocode = RateLimiter(geolocator.reverse, min_delay_seconds=1)
         
         restaurants['id'] = [i[1] for i in restaurants.index]#Sets the ID for the restraunt form the index to the id column
-        restaurants["lat"] = restaurants['geometry'].apply(lambda x: re.search(r'(\d+[.]{1}\d+[ ]\d+[.]{1}\d+)', str(x)).group(0).split(" ")[0]) # Grabs the lat coord from the geometry field.
-        restaurants["long"] = restaurants['geometry'].apply(lambda x: re.search(r'(\d+[.]{1}\d+[ ]\d+[.]{1}\d+)', str(x)).group(0).split(" ")[1]) # Grabs the long coord from the geometry field.
+        restaurants["lat"] = restaurants['geometry'].apply(lambda x: re.search(r'(\d+[.]{1}\d+[ ]\d+[.]{1}\d+)', str(x)).group(0).split(" ")[1]) # Grabs the lat coord from the geometry field.
+        restaurants["long"] = restaurants['geometry'].apply(lambda x: re.search(r'(\d+[.]{1}\d+[ ]\d+[.]{1}\d+)', str(x)).group(0).split(" ")[0]) # Grabs the long coord from the geometry field.
         restaurants = restaurants.drop(columns=['geometry']) # Removes teh now redundant geometry field.
-
         if populateAddress: # If this is true (default it is) this will populate addressess based of the lat and long. Although there is good data in OSM, I opted for losing some accuracy in the address and having a complete address dataset.
-            print("Getting Addresses...")
+            #print("Getting Addresses...")
             start_time = time.time()
-            for index, row in restaurants.iterrows():
+            working = restaurants.to_dict("records")
+            for index, row in tqdm(enumerate(working),total=len(working),colour="#328ba8",desc="Normalizing Addresses",bar_format=customBarFormatMS,leave=True, ncols=100):
                 lat = row['lat']
                 long = row['long']
-                crs_wgs84 = CRS("EPSG:4326")
-                crs_epsg31256 = CRS("EPSG:31256")
-                transformer = Transformer.from_crs(crs_wgs84, crs_epsg31256, always_xy=True) # Converts Coordinate systems, from lat long, to vienna's own coordinate system, allows us to query their database for addresses.
-                easting, northing = transformer.transform(lat, long)
-                url = f"https://data.wien.gv.at/daten/OGDAddressService.svc/ReverseGeocode?location={easting},{northing}&crs=EPSG:31256&type=A3:8012"
+                # crs_wgs84 = CRS("EPSG:4326")
+                # crs_epsg31256 = CRS("EPSG:31256")
+                # transformer = Transformer.from_crs(crs_wgs84, crs_epsg31256, always_xy=True) # Converts Coordinate systems, from lat long, to vienna's own coordinate system, allows us to query their database for addresses.
+                # northing, easting = transformer.transform(lat, long)
+                #https://data.wien.gv.at/daten/OGDAddressService.svc/ReverseGeocode?location={easting},{northing}&crs=EPSG:31256&type=A3:8012
+                url = f"https://data.wien.gv.at/daten/OGDAddressService.svc/ReverseGeocode?location={row['long']},{row['lat']}&crs=WGS84"
                 
                 retries = 5
                 for attempt in range(retries):
@@ -310,7 +313,6 @@ class DataObject:
                             row['addr:housenumber'] = data['features'][0]['properties']['StreetNumber']
                             row['addr:city'] = data['features'][0]['properties']['Municipality']
                             row['addr:postcode'] = data['features'][0]['properties']['PostalCode']
-                            restaurants.loc[index] = row
                             break
                         else:
                             print(f"Request failed with status code: {response.status_code}")
@@ -890,7 +892,7 @@ class DataBase(DataObject):
         with open('./catagories.json',"r") as file:
             catagories = json.loads(file.read())
         records = self.dataPull.to_dict('records')
-        for row in tqdm(records,desc="Adding Entities", bar_format=customBarFormatMS):
+        for row in tqdm(records,desc="Adding Entities", bar_format=customBarFormatMS, colour="RED",leave=True, ncols=100):
             #tqdm(,total=self.dataPull.__len__(),desc="Adding Entity")
             data = {}
             for newCol, mappedCols in catagories.items():
@@ -914,19 +916,19 @@ class DataBase(DataObject):
             lat = float(row['lat'])
             identity = int(row['id'])
             long = float(row['long'])
-            city = str(row['addr:city'])
-            street = str(row['addr:street'])
-            house = str(row['addr:housenumber'])
-            district = int(row['addr:postcode'])
+            city = str(row['addr:city'] if pd.notna(row['addr:city']) else "")
+            street = str(row['addr:street'] if pd.notna(row['addr:street']) else "")
+            house = str(row['addr:housenumber'] if pd.notna(row['addr:housenumber']) else "")
+            district = int(row['addr:postcode']) if pd.notna(row['addr:postcode']) else None
             location_obj = Location(lat, long, district, street, house)
             hours = str(row['opening_hours'])
             hours_obj = OpenHours(hours)
             name = str(row['name'])
             amenity = str(row['amenity'])
-            outdoor_seating = str(row['outdoor_seating'])
-            phone = str(row['phone'])
-            website = str(row['website'])
-            wheelchair = str(row['wheelchair'])
+            outdoor_seating = str(row['outdoor_seating'] if pd.notna(row['outdoor_seating']) else "")
+            phone = str(row['phone'] if pd.notna(row['phone']) else "")
+            website = str(row['website'] if pd.notna(row['website']) else "")
+            wheelchair = str(row['wheelchair'] if pd.notna(row['wheelchair']) else "")
             chain = row['brand']
             #id, name, location_obj, hours_obj, cuisine_list, amenity, outdoor_seating=None, phone=None, website=None, wheelchair=None,chain=None)
             if pd.notna(chain) == True:
@@ -967,7 +969,7 @@ class DataBase(DataObject):
     def getClosestList(self):
         if False == self.distanceSorted:
             #print("Getting Distances...")
-            for i in tqdm(self.restaurants,bar_format=customBarFormatMS, desc="Getting Distances", colour="TEAL",leave=True, ncols=100):
+            for i in tqdm(self.restaurants,bar_format=customBarFormatMS, desc="Getting Distances", colour="CYAN",leave=True, ncols=100):
                 i.distanceFromCrow(self.addressCoords)
                 i.queryScore = 0
                 # try :
@@ -1387,11 +1389,11 @@ class DataBase(DataObject):
             filename += ".csv"
         
         try:
-            with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
+            with open(filename, 'w', newline='', encoding='utf-8-sig') as csvfile:
                 writer = csv.writer(csvfile)
                 # Write header based on the display details
                 if isinstance(restaurant_list[0], Restaurant):
-                    header = ["ID", "Name", "Cuisine(s)", "Location", "Distance (km)", "Open Status", "Type"]
+                    header = ["ID", "Name", "Cuisine(s)", "Distance",  "Location", "Open Status", "Type"]
                 else: # Fallback
                     header = ["ID", "Name", "Details"]
                 writer.writerow(header)
@@ -1460,22 +1462,26 @@ class DataBase(DataObject):
         print("6. Exit")
         return getInput("Enter choice: ",str)
 if __name__ == "__main__":
-    # do = DataObject(dataBrought=True, city="Wien, Austria", name="../Vienna OSM expanded data/Wien_Restaurants-Expanded")
-    # do.dataPull.head()
-    # try:
-    dp = DataBase(dataBrought=True, city="Wien, Austria", name="./Wien_Restaurants-Combined")
-    dp.run()
-    # except Exception as e:
-        
-    #     # print(e.with_traceback())
-    #     q = True
-    #     e
-    #     print(e)
-    #     print(e.args)
-    #     while q == True:
-    #         inp = input(":")
-    #         if inp == "q":
-    #             q = False
-    #         print(eval(inp,globals(),locals()))
+    dbRun = True
+    while dbRun == True:
+        try:
+            inp = getInput("Yes to pull your own data or No to use the default? ",bool)
+            if inp:
+                city = getInput("Which district? ('Wien, Austria', or 'Wahring 1180 Wien, Austria') ",str)
+                saveName = getInput("Save it as? ", str)
+                rs = DataBase(name=f"./{saveName}",city=city, dataBrought=False)
+                rs.run()
+            else:
+                dp = DataBase(dataBrought=True, city="Wien, Austria", name="./Wien_Restaurants-Combined")
+                dp.run()
+        except TypeError as e:
+                print(f"City Name wasn't found: {e.args}")
+        except MenuBreak as e:
+            if e.code == "q":
+                b = True
+            elif e.code == "m":
+                continue
+        except Exception as e:
+            print(f"Something went wrong. Error: {e}") 
 
         
