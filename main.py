@@ -17,6 +17,7 @@ from pathvalidate import is_valid_filename
 from prettytable import PrettyTable
 import json
 import csv
+import math
 
 weekdayMap = {
     r'\b(Mon|Montag|Mo)\b': 'Mo',
@@ -27,6 +28,11 @@ weekdayMap = {
     r'\b(Sat|Samstag|Sa)\b': 'Sa',
     r'\b(Sun|Sonntag|So)\b': 'Su',
 }
+customBarFormatMS = (
+    '{l_bar}{bar}| {n_fmt}/{total_fmt} '
+    '[{elapsed_s:.3f}s<{remaining_s:.3f}s, '  # Formats to 3 decimal places (milliseconds)
+    '{rate_fmt}]'
+)
 def normalizeWeekdays(text):
     for pattern, replacement in weekdayMap.items():
         text = re.sub(pattern, replacement, text, flags=re.IGNORECASE)
@@ -212,12 +218,6 @@ def ParseHours(inputString):
                         schedule[NormalDayMap[dayCheck(day,dayMap,gDayMap).index(day)]] = patternHours.findall(item)
     return schedule
 def getInput(prompt:str, dataType) ->str:
-        # inp = input(prompt)
-        # if inp.lower() == "q":
-        #     raise MenuBreak("q")
-        # elif inp.lower() == "m":
-        #     raise MenuBreak("m")
-        # return inp
     while True:
         try:
             inp = input(prompt).strip()
@@ -711,7 +711,6 @@ class Restaurant(Place):
                     print("===================")
 #['restaurant', 'pub', 'cafe', 'fast_food', 'bar', 'food_court', 'biergarten', 'ice_cream']
 class Chain(Place):
-    #elf, id, name, location_obj, hours_obj, cuisine_list=None, outdoor_seating=None
     def __init__(self, identity, name, location_obj, hours_obj, cuisine_list, amenity, outdoor_seating=None, phone=None, website=None, wheelchair=None,chain=None):
         super().__init__(identity, name, location_obj, hours_obj, cuisine_list, outdoor_seating)
         self.amenity = amenity # E.g. restaurant, cafe, bar
@@ -855,153 +854,6 @@ class Chain(Place):
             print(self.name,self.location.lat,self.location.long)
         return self.distanceFrom
 
-'''class SearchQuery:  
-    def __init__(self, id, name, location_obj, hours_obj, cuisine_list, amenity,
-                 price_range=None, outdoor_seating=None, phone=None, website=None, wheelchair=None):
-        self.cuisine = cuisine
-        self.Diststance = Diststance
-        self.District = District
-        self.OpenNow = OpenNow
-        self.parameter = {}
-    def __str__(self):
-        distance = getattr(self, "Distance", None)
-        if distance == None:
-            return f"Looking for {self.cuisine} {"that is open now" if self.OpenNow == True else "that is not open now"}"
-        else:
-            return f"Looking for {self.cuisine} within {self.Diststance}km of the user {"that is open now" if self.OpenNow == True else "that is not open now"}"
-    def menu(self)->bool:
-        instructions = set()
-        print("===================")
-        print("Select your search parameters:")
-        print("1. Cuisine")
-        print("2. Distance")
-        print("3. District")
-        print("4. Open Now")
-        print("5. Done")
-        print("Enter any combination of the above choice (ie 143 or 1,3,2).")
-        """elif "and" in choice and "or" in choice
-        elif "and" in choice:
-            choice = choice.lower.split("and")
-            for i in choice:
-                instructions.add(i)"""
-        choice = getInput("Enter: ",str)
-        if choice == '5':
-            return False
-        elif choice == '':
-            print("No choice made, please try again.")
-            return True
-        elif ',' in choice:
-            choice = choice.split(",")
-            for i in choice:
-                instructions.add(int(i))
-        elif choice.isdigit():
-            choice = [int(i) for i in choice]
-            for i in choice:
-                instructions.add(int(i))
-        else:
-            print("Invalid choice, please try again")
-            return True
-        for i in instructions:
-            if i == 1:
-                print("Input any number of cuisines to be 'OR' searched. (i.e. 'thai or sushi')")
-                _ = getInput("Enter cuisine: ",str)
-                self.parameter['cuisne':[]]#######
-                self.cuisine = _
-            elif i == 2:
-                _ = getInput("Enter distance (km): ",float)
-                self.Diststance = float(_)
-            elif i ==   3:
-                _ = getInput("Enter district: ",int)
-                self.District = str(int(_))
-                # print(self.District)
-            elif i == 4:
-                self.OpenNow = True
-            else:
-                self.OpenNow = False
-    def sort(self,sortOptions:list[int],data:list):
-        dataC = {}
-        for i in sortOptions:
-            dataC[i] = data.copy()
-            if i == "1":
-                self.sortBubble(data)
-            elif i == "2":
-                self.sortInsert(data)
-
-    def search(self,searchOptions:list[int],data:list):
-        ...
-        dataC = {}
-        for i in searchOptions:
-            dataC[i] = data.copy()
-            if i == "1":
-                dataC[i] = self.linearSearch(data)
-            elif i == "2":
-                dataC[i] = self.linearSearch(data)
-        return dataC#searchOptions[0]}
-    def linearSearch(self,arr, target):
-        for i in range(len(arr)):
-            if arr[i] == target:
-                return i
-        return -1
-    def binarySearch(self,arr, target, low, high):
-        if low <= high:
-            mid = (low + high) // 2
-            if arr[mid] == target:
-                return mid
-            elif arr[mid] < target:
-                return binarySearch(arr, target, mid + 1, high)
-            else:
-                return binarySearch(arr, target, low, mid - 1)
-        else:
-            return -1
-    def bubbleSortSub(self,n, currentPass, arr):
-        for i in range(0,n-1-currentPass):
-            if arr[i] > arr[i + 1]:
-                arr[i], arr[i + 1] = arr[i + 1], arr[i]
-                swapped = True
-        return
-    def sortBubble(self,arr):
-        n = len(arr)
-        max = n-1
-        with tqdm(range(len(arr) - 1, 0, -1), desc="Bubble Sorting", colour="RED",leave=True, ncols=100) as pbar:
-            currentPass = 0
-            while currentPass < max:# in range(len(arr) - 1, 0, -1):
-                swapped = False
-                self.bubbleSortSub(n, currentPass, arr)
-                currentPass += 1
-                pbar.update(1)
-                if not swapped:
-                    remUpdates = max - pbar.n # pbar.n is current position
-                    if remUpdates > 0: # Only update if there's progress left
-                        pbar.update(remUpdates)
-                    break
-        return arr
-    def sortInsert(self,arr):
-        n = len(arr)
-        if n <= 1:
-            return
-        for i in tqdm(range(1, n), desc="Insert Sorting", colour="GREEN",leave=True, ncols=100):
-            key = arr[i]
-            j = i-1
-            while j >= 0 and key < arr[j]:
-                arr[j+1] = arr[j]
-                j -= 1
-            arr[j+1] = key
-        return arr
-    def evaluateQuery(self, restaurant:Restaurant):
-        if self.District == restaurant.location.district:
-            print(self.District,restaurant.location.district)
-        score = 0
-        if self.cuisine is not None and self.cuisine in restaurant.cuisine:
-            score += 1
-        if self.Diststance is not None and restaurant.distanceFrom < self.Diststance:
-            score += 1
-        if self.District is not None and str(restaurant.location.district) == str(self.District):
-            # print("DISTRICT CHECK")
-            score += 1
-        if self.OpenNow and restaurant.isCurrentlyOpen() == True:
-            score += 1
-        return score
-'''
 class MenuBreak(Exception): #Inheritance of the exception class. Making a custom class to raise user raised errors.
     def __init__(self, code, message="Menu Break"):
         self.code = code
@@ -1019,7 +871,7 @@ class DataBase(DataObject):
         self.addrSet = False
         self.custSearch = False
         self.defaultSort = ['2']
-        self.defaultSearch = ['1']
+        #self.defaultSearch = ['1']
         self.loadFromDO()
         self.cuisines = self._extractUniqueCuisines()
 
@@ -1038,7 +890,7 @@ class DataBase(DataObject):
         with open('./catagories.json',"r") as file:
             catagories = json.loads(file.read())
         records = self.dataPull.to_dict('records')
-        for row in tqdm(records,desc="Adding Entities"):
+        for row in tqdm(records,desc="Adding Entities", bar_format=customBarFormatMS):
             #tqdm(,total=self.dataPull.__len__(),desc="Adding Entity")
             data = {}
             for newCol, mappedCols in catagories.items():
@@ -1092,108 +944,10 @@ class DataBase(DataObject):
         filteredList = []
         logicOperator = criteria.get('logic', 'AND').upper() # Defaults to AND if logic dict entry is None or doesn't exist.
 
-        for restaurant in self.restaurants:
-            attrs = restaurant.getSearchAttr()
-            matchConditions = []
-
-            # Cuisine check (OR logic within cuisines)
-            if criteria.get('cuisine'):
-                desiredCuisines = set([c.lower().strip() for c in criteria['cuisine']])
-                attrCuisineSet = set(attrs['cuisine'])
-                matchedCuisines = attrCuisineSet & desiredCuisines #Intersection of set
-                if matchedCuisines:
-                    matchConditions.append(True)
-                else:
-                    matchConditions.append(False)
-            else:
-                matchConditions.append(True) # No cuisine specified, so it's a match for this part
-
-            # Outdoor seating
-            if criteria.get('outdoor_seating') is not None:
-                if attrs['outdoor_seating'] == criteria['outdoor_seating']:
-                    matchConditions.append(True)
-                else:
-                    matchConditions.append(False)
-            else:
-                matchConditions.append(True)
-
-            # Open now
-            if criteria.get('open_now') is not None:
-                # is_open() can return None if data is unavailable. Treat None as not matching a specific True/False request.
-                if attrs['is_open'] is None and criteria['open_now'] is not None: # User wants specific open/closed, but data is N/A
-                    matchConditions.append(False)
-                elif attrs['is_open'] == criteria['open_now']:
-                    matchConditions.append(True)
-                else:
-                    matchConditions.append(False)
-            else:
-                matchConditions.append(True)
-            
-            # District
-            if criteria.get('district'):
-                if attrs['district'] and criteria['district'] == attrs['district']:
-                    matchConditions.append(True)
-                else:
-                    matchConditions.append(False)
-            else:
-                matchConditions.append(True)
-
-            if criteria.get('wheelchairAccessible') is not None:
-                # is_open() can return None if data is unavailable. Treat None as not matching a specific True/False request.
-                if attrs['is_open'] is None and criteria['open_now'] is not None: # User wants specific open/closed, but data is N/A
-                    matchConditions.append(False)
-                elif attrs['is_open'] == criteria['open_now']:
-                    matchConditions.append(True)
-                else:
-                    matchConditions.append(False)
-            else:
-                matchConditions.append(True)
-
-
-            # Combine conditions
-            if logicOperator == 'AND':
-                if all(matchConditions):
-                    filteredList.append(restaurant)
-            elif logicOperator == 'OR':
-                # For OR, we need to be careful. If no criteria are set, it's a match.
-                # If criteria ARE set, then at least one specific criterion must match.
-                # This current structure of match_conditions[] appending True for non-specified
-                # criteria doesn't work well for OR. Let's adjust for OR.
-
-                # Re-evaluate for OR:
-                # A restaurant matches if ANY of the *specified* criteria are met.
-                # If a criterion is NOT specified by the user, it doesn't contribute to an OR match.
-                
-                if not any(k in criteria for k in ['cuisine', 'wheelchairAccessible', 'outdoor_seating', 'open_now', 'district']):
-                    # No criteria actually specified for the OR search, means match all (or none, depending on interpretation)
-                    # Let's say it matches all if no specific OR conditions given.
-                    filteredList.append(restaurant)
-                    continue
-
-                or_match = False
-                if criteria.get('cuisine'):
-                    desiredCuisines = [c.lower().strip() for c in criteria['cuisine']]
-                    if any(c in attrs['cuisine'] for c in desiredCuisines):
-                        or_match = True
-                
-                if not or_match and criteria.get('outdoor_seating') is not None:
-                    if attrs['outdoor_seating'] == criteria['outdoor_seating']:
-                        or_match = True
-                
-                if not or_match and criteria.get('open_now') is not None:
-                     if attrs['is_open'] is not None and attrs['is_open'] == criteria['open_now']:
-                        or_match = True
-                
-                if not or_match and criteria.get('district'):
-                    if attrs['district'] and criteria['district'] == attrs['district']:
-                        or_match = True
-
-                if not or_match and criteria.get('wheelchairAccessible'):
-                    if attrs['wheelchairAccessible'] and criteria['wheelchairAccessible'].lower() == attrs['wheelchairAccessible']:
-                        or_match = True
-                
-                if or_match:
-                     filteredList.append(restaurant)
+        #Linear Search Algorithm
+        for restaurant in tqdm(self.restaurants,bar_format=customBarFormatMS,desc="Linear Searching", colour="#6232a8",leave=True, ncols=100):
+            if self.evalRes(restaurant, criteria, logicOperator):
+                filteredList.append(restaurant)
 
         return filteredList
     def getRestaurant(self, name:str, district:str=None):
@@ -1212,8 +966,8 @@ class DataBase(DataObject):
 
     def getClosestList(self):
         if False == self.distanceSorted:
-            print("Getting Distances...")
-            for i in tqdm(self.restaurants, desc="Getting Distances"):
+            #print("Getting Distances...")
+            for i in tqdm(self.restaurants,bar_format=customBarFormatMS, desc="Getting Distances", colour="TEAL",leave=True, ncols=100):
                 i.distanceFromCrow(self.addressCoords)
                 i.queryScore = 0
                 # try :
@@ -1321,7 +1075,109 @@ class DataBase(DataObject):
             return True
         else:
             return False      
-    
+    def evalRes(self,restaurant:Place, criteria:dict, logicOperator:str) -> bool:
+        #Takes restaurant and the criteria and returns bool if the restaurant meets that criteria
+        attrs = restaurant.getSearchAttr()
+        matchConditions = []
+
+        # Cuisine check (OR logic within cuisines)
+        if criteria.get('cuisine'):
+            desiredCuisines = set([c.lower().strip() for c in criteria['cuisine']])
+            attrCuisineSet = set(attrs['cuisine'])
+            matchedCuisines = attrCuisineSet & desiredCuisines #Intersection of set
+            if matchedCuisines:
+                matchConditions.append(True)
+            else:
+                matchConditions.append(False)
+        else:
+            matchConditions.append(True) # No cuisine specified, so it's a match for this part
+
+        # Outdoor seating
+        if criteria.get('outdoor_seating') is not None:
+            if attrs['outdoor_seating'] == criteria['outdoor_seating']:
+                matchConditions.append(True)
+            else:
+                matchConditions.append(False)
+        else:
+            matchConditions.append(True)
+
+        # Open now
+        if criteria.get('open_now') is not None:
+            # is_open() can return None if data is unavailable. Treat None as not matching a specific True/False request.
+            if attrs['is_open'] is None and criteria['open_now'] is not None: # User wants specific open/closed, but data is N/A
+                matchConditions.append(False)
+            elif attrs['is_open'] == criteria['open_now']:
+                matchConditions.append(True)
+            else:
+                matchConditions.append(False)
+        else:
+            matchConditions.append(True)
+        
+        # District
+        if criteria.get('district'):
+            if attrs['district'] and criteria['district'] == attrs['district']:
+                matchConditions.append(True)
+            else:
+                matchConditions.append(False)
+        else:
+            matchConditions.append(True)
+
+        if criteria.get('wheelchairAccessible') is not None:
+            # is_open() can return None if data is unavailable. Treat None as not matching a specific True/False request.
+            if attrs['is_open'] is None and criteria['open_now'] is not None: # User wants specific open/closed, but data is N/A
+                matchConditions.append(False)
+            elif attrs['is_open'] == criteria['open_now']:
+                matchConditions.append(True)
+            else:
+                matchConditions.append(False)
+        else:
+            matchConditions.append(True)
+
+
+        # Combine conditions
+        if logicOperator == 'AND':
+            if all(matchConditions):
+                return True
+        elif logicOperator == 'OR':
+            # For OR, we need to be careful. If no criteria are set, it's a match.
+            # If criteria ARE set, then at least one specific criterion must match.
+            # This current structure of match_conditions[] appending True for non-specified
+            # criteria doesn't work well for OR. Let's adjust for OR.
+
+            # Re-evaluate for OR:
+            # A restaurant matches if ANY of the *specified* criteria are met.
+            # If a criterion is NOT specified by the user, it doesn't contribute to an OR match.
+            
+            if not any(k in criteria for k in ['cuisine', 'wheelchairAccessible', 'outdoor_seating', 'open_now', 'district']):
+                # No criteria actually specified for the OR search, means match all (or none, depending on interpretation)
+                # Let's say it matches all if no specific OR conditions given.
+                return True
+                #continue
+
+            or_match = False
+            if criteria.get('cuisine'):
+                desiredCuisines = [c.lower().strip() for c in criteria['cuisine']]
+                if any(c in attrs['cuisine'] for c in desiredCuisines):
+                    or_match = True
+            
+            if not or_match and criteria.get('outdoor_seating') is not None:
+                if attrs['outdoor_seating'] == criteria['outdoor_seating']:
+                    or_match = True
+            
+            if not or_match and criteria.get('open_now') is not None:
+                if attrs['is_open'] is not None and attrs['is_open'] == criteria['open_now']:
+                    or_match = True
+            
+            if not or_match and criteria.get('district'):
+                if attrs['district'] and criteria['district'] == attrs['district']:
+                    or_match = True
+
+            if not or_match and criteria.get('wheelchairAccessible'):
+                if attrs['wheelchairAccessible'] and criteria['wheelchairAccessible'].lower() == attrs['wheelchairAccessible']:
+                    or_match = True
+            
+            if or_match:
+                    return True
     def advanced_search_ui(self):
         print("\n--- Advanced Restaurant Search ---")
         print("Leave blank for any option.")
@@ -1382,7 +1238,7 @@ class DataBase(DataObject):
         n = len(arr)
         if n <= 1:
             return
-        for i in tqdm(range(1, n), desc="Insert Sorting", colour="GREEN",leave=True, ncols=100):
+        for i in tqdm(range(1, n), desc="Insert Sorting",bar_format=customBarFormatMS, colour="GREEN",leave=True, ncols=100):
             key = arr[i]
             j = i-1
             while j >= 0 and key < arr[j]:
@@ -1392,54 +1248,37 @@ class DataBase(DataObject):
         return arr
     
     def sortMerge(self, arr):
-        """
-        Sorts an array using the Merge Sort algorithm recursively.
-        This is the main public method, similar to your `sortBubble`.
-        """
         n = len(arr)
         if n <= 1:
-            return arr  # Already sorted or empty
+            return arr
+        
+        # Initialize tqdm bar for the entire sorting process
+        # The total is 'n' because each element eventually passes through a merge.
+        # tqdm's default bar format will be used.
+        totalOps = int(n * math.ceil(math.log2(n))) 
+        with tqdm(total=totalOps, desc="Merge Sorting",bar_format=customBarFormatMS, colour="BLUE",leave=True, ncols=100) as pbar:
+            self._mergeSortRecursiveHelper(arr, 0, n - 1, pbar)
+        
+        return arr 
 
-        # Call a recursive helper that works with indices on the original array
-        self._mergeSortRecursiveHelper(arr, 0, n - 1)
-        return arr # arr is now sorted
-
-    def _mergeSortRecursiveHelper(self, arr, left_idx, right_idx):
-        """
-        Recursive helper function for Merge Sort.
-        This function divides the array and calls itself, then merges.
-        Analogous to the recursive control structure.
-        """
-        if left_idx < right_idx:  # Base case: if there is more than one element
+    def _mergeSortRecursiveHelper(self, arr, left_idx, right_idx, pbar: tqdm):
+        if left_idx < right_idx:
             mid_idx = (left_idx + right_idx) // 2
+            self._mergeSortRecursiveHelper(arr, left_idx, mid_idx, pbar)
+            self._mergeSortRecursiveHelper(arr, mid_idx + 1, right_idx, pbar)
+            
+            # Merge operation is where elements are actually processed and moved.
+            # We pass the pbar to update it.
+            self._mergeHalves(arr, left_idx, mid_idx, right_idx, pbar)
 
-            # Recursive calls for the two halves
-            self._mergeSortRecursiveHelper(arr, left_idx, mid_idx)
-            self._mergeSortRecursiveHelper(arr, mid_idx + 1, right_idx)
-
-            # Merge the sorted halves
-            self._mergeHalves(arr, left_idx, mid_idx, right_idx)
-
-    def _mergeHalves(self, arr, left_start_idx, mid_idx, right_end_idx):
-        """
-        Merges two sorted sub-arrays of `arr`.
-        arr[left_start_idx...mid_idx] and arr[mid_idx+1...right_end_idx]
-        This is a sub-operation, somewhat analogous to your `bubbleSortSub`
-        performing a specific part of the sort.
-        """
-        # Create temporary arrays for the left and right halves.
-        # This is standard for merge sort to allow merging back into the original array segment.
+    def _mergeHalves(self, arr, left_start_idx, mid_idx, right_end_idx, pbar: tqdm):
         left_half_copy = arr[left_start_idx : mid_idx + 1]
         right_half_copy = arr[mid_idx + 1 : right_end_idx + 1]
 
-        # Pointers for iterating through the temporary copies
-        i = 0  # Pointer for left_half_copy
-        j = 0  # Pointer for right_half_copy
-        
-        # Pointer for placing elements back into the original array `arr`
+        i = 0
+        j = 0
         k = left_start_idx
 
-        # Merge data from temp arrays back into arr[left_start_idx...right_end_idx]
         while i < len(left_half_copy) and j < len(right_half_copy):
             if left_half_copy[i] <= right_half_copy[j]:
                 arr[k] = left_half_copy[i]
@@ -1448,19 +1287,21 @@ class DataBase(DataObject):
                 arr[k] = right_half_copy[j]
                 j += 1
             k += 1
+            pbar.update(1) # Update progress for each element placed back into arr
 
-        # Copy any remaining elements of left_half_copy
         while i < len(left_half_copy):
             arr[k] = left_half_copy[i]
             i += 1
             k += 1
+            pbar.update(1) # Update progress for each element placed back into arr
 
-        # Copy any remaining elements of right_half_copy
         while j < len(right_half_copy):
             arr[k] = right_half_copy[j]
             j += 1
             k += 1
-    
+            pbar.update(1) # Update progress for each element placed back into arr
+
+
     def _sortBubbleSub(self, n, currentPass, arr):
         # Initialize swapped for the current pass
         swapped = False
@@ -1475,7 +1316,7 @@ class DataBase(DataObject):
         # The loop for bubble sort goes from n-1 down to 1 (or 0 passes for the last element)
         # The number of passes is n-1.
         # So the total for tqdm should be n-1.
-        with tqdm(total=n - 1, desc="Bubble Sorting", colour="RED", leave=True, ncols=100) as pbar:
+        with tqdm(total=n - 1, desc="Bubble Sorting",bar_format=customBarFormatMS, colour="RED", leave=True, ncols=100) as pbar:
             for currentPass in range(n - 1): # Iterate through the passes
                 # Call the sub-function and get the swapped status
                 swapped_in_pass = self._sortBubbleSub(n, currentPass, arr)
@@ -1493,19 +1334,10 @@ class DataBase(DataObject):
 
         return arr
     def searchOptionsM(self) -> str:
-        print('1. Set Default Search Algorithm\n2. Set Default Sort Algorithm. \n3. Test Search Algorithm speed')
+        print('1. Set Default Sort Algorithm. \n2. Test Search Algorithm speed')
         inpt2 = getInput("Select an option: ",str)
         match inpt2:
             case inpt2 if inpt2 == '1':
-                print('1. Binary Search\n2. Linear Search')
-                inpt3 = getInput("Select any combination of options (i.e. 1,3,4 or 413)",str)
-                if "," in inpt3:
-                    inpt3 = inpt3.split(',')
-                else:
-                    inpt3 = list(inpt3)
-                inpt3.sort()
-                self.defaultSearch = inpt3
-            case inpt2 if inpt2 == '2':
                 print('1. Bubble Sort\n2. Insert Sort\n3. Merge Sort')
                 inpt3 = getInput("Select any combination of options (i.e. 1,3,4 or 413)",str)
                 if "," in inpt3:
@@ -1514,6 +1346,11 @@ class DataBase(DataObject):
                     inpt3 = list(inpt3)
                 inpt3.sort()
                 self.defaultSort = inpt3
+            case inpt2 if inpt2 == '2':
+                self.checkUserAddr()
+                self.sortBubble(self.restaurants)
+                self.sortInsert(self.restaurants)
+                self.sortMerge(self.restaurants)
             case inpt2 if inpt2 == '3':
                 return '2'
 
@@ -1585,8 +1422,12 @@ class DataBase(DataObject):
                     self.checkUserAddr()                     
                     self.showClosestRest()
                 elif choice == "3":
-                    for i in self.cuisines:
-                        print(i)
+                    print("\n--- Available Cuisines ---")
+                    if self.unique_cuisines:
+                        for i, cuisine in enumerate(self.unique_cuisines):
+                            print(f"{i+1}. {cuisine.capitalize()}")
+                    else:
+                        print("No cuisine data available.")
                 elif choice == '4':
                     self.addrSet = False
                     self.distanceSorted = False
