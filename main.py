@@ -1,10 +1,7 @@
 from abc import ABC, abstractmethod
 import osmnx as ox
 import pandas as pd
-import numpy as np
 from tqdm import tqdm
-from geopy.geocoders import Nominatim
-from geopy.extra.rate_limiter import RateLimiter
 from shapely.geometry import Point
 import datetime as dt
 import re
@@ -13,9 +10,7 @@ from pyproj import CRS, Transformer
 import requests
 import json
 import time
-from pathvalidate import is_valid_filename
 from prettytable import PrettyTable
-import json
 import csv
 import math
 
@@ -238,7 +233,6 @@ def getInput(prompt:str, dataType) ->str:
                  return None
             return dataType(inp) if inp else None
         except MenuBreak as e:
-            print("TESTTT")
             raise MenuBreak(e.code)
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
@@ -254,7 +248,17 @@ def getSecond(dict:dict,term1:str,term2:str,fun=None):
             return None
     else:
         return None
+def printLogo():
+    print("""================================================================
 
+██████╗   █████╗ ████████╗ █████╗ ██████╗ ██╗███╗   ██╗███████╗
+██╔══██╗ ██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗██║████╗  ██║██╔════╝
+██║  ██║ ███████║   ██║   ███████║██║  ██║██║██╔██╗ ██║█████╗
+██║  ██║ ██╔══██║   ██║   ██╔══██║██║  ██║██║██║╚██╗██║██╔══╝
+██████╔╝ ██║  ██║   ██║   ██║  ██║██████╔╝██║██║ ╚████║███████╗
+╚═════╝  ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═════╝ ╚═╝╚═╝  ╚═══╝╚══════╝
+
+================================================================""")
 class DataObject:
     def __init__(self, dataBrought:bool=True, city:str="Währing, Wien, Austria", name:str=None):
         self.city:str = city
@@ -273,36 +277,18 @@ class DataObject:
         print("Pulling Data from OSM...")
         
         restaurants = ox.features_from_place(self.city, tags)            
-
-        # def get_cuisine_or_amenity(row):
-        #     if row['amenity'] == 'restaurant' and pd.notna(row['cuisine']):
-        #         return row['cuisine']
-        #     else:
-        #         return row['amenity']
-            
-        # restaurants['cuisine_or_amenity'] = restaurants.apply(get_cuisine_or_amenity, axis=1)
-
-        # geolocator = Nominatim(user_agent="my_geocoder")
-        # geocode = RateLimiter(geolocator.reverse, min_delay_seconds=1)
-        
+       
         restaurants['id'] = [i[1] for i in restaurants.index]#Sets the ID for the restraunt form the index to the id column
         restaurants["lat"] = restaurants['geometry'].apply(lambda x: re.search(r'(\d+[.]{1}\d+[ ]\d+[.]{1}\d+)', str(x)).group(0).split(" ")[1]) # Grabs the lat coord from the geometry field.
         restaurants["long"] = restaurants['geometry'].apply(lambda x: re.search(r'(\d+[.]{1}\d+[ ]\d+[.]{1}\d+)', str(x)).group(0).split(" ")[0]) # Grabs the long coord from the geometry field.
         restaurants = restaurants.drop(columns=['geometry']) # Removes teh now redundant geometry field.
         if populateAddress: # If this is true (default it is) this will populate addressess based of the lat and long. Although there is good data in OSM, I opted for losing some accuracy in the address and having a complete address dataset.
-            #print("Getting Addresses...")
             start_time = time.time()
             working = restaurants.to_dict("records")
             for index, row in tqdm(enumerate(working),total=len(working),colour="#328ba8",desc="Normalizing Addresses",bar_format=customBarFormatMS,leave=True, ncols=100):
                 lat = row['lat']
                 long = row['long']
-                # crs_wgs84 = CRS("EPSG:4326")
-                # crs_epsg31256 = CRS("EPSG:31256")
-                # transformer = Transformer.from_crs(crs_wgs84, crs_epsg31256, always_xy=True) # Converts Coordinate systems, from lat long, to vienna's own coordinate system, allows us to query their database for addresses.
-                # northing, easting = transformer.transform(lat, long)
-                #https://data.wien.gv.at/daten/OGDAddressService.svc/ReverseGeocode?location={easting},{northing}&crs=EPSG:31256&type=A3:8012
                 url = f"https://data.wien.gv.at/daten/OGDAddressService.svc/ReverseGeocode?location={row['long']},{row['lat']}&crs=WGS84"
-                
                 retries = 5
                 for attempt in range(retries):
                     try:
@@ -458,10 +444,10 @@ class Place(ABC):
         self.outdoor_seating = outdoor_seating # True, False, or None
         self.distanceFromUser = None
     @abstractmethod
-    def matches(self, criteria: dict[str, any]) -> bool:
+    def getSearchAttr(self):
         ...
     @abstractmethod
-    def get_field(self, field_name: str):
+    def isCurrentlyOpen(self):
         ...
     def getDisplayAttributes(self):
         open_status = self.hours.isCurrentlyOpen()
@@ -532,12 +518,6 @@ class Restaurant(Place):
         self.phone = phone
         self.website = website
         self.wheelchairAccessible = wheelchair # True, False, or None
-    def __getitem__(self, key):
-        if hasattr(self, key):
-            return getattr(self, key)
-        if self.hours and self.hours.hours:
-            return self.hours.hours.get(key)
-        raise KeyError(f"{key} not found in Restaurant or DataBase")
     def __str__(self):
         queryScore = getattr(self, "queryScore", None)
         if self.distanceFrom < 1:
@@ -601,10 +581,6 @@ class Restaurant(Place):
                 "district": self.location.district if self.location.district else None,
                 "wheelchairAssc": attrWheelchairAccessible
             }
-    def get_field(self, field_name):
-        if hasattr(self, field_name):
-            return getattr(self, field_name)
-        return None
     
     # def distanceFromCrow(self, userPoint):
         try:
@@ -613,50 +589,6 @@ class Restaurant(Place):
         except:
             print(self.name,self.location['lat'],self.location['long'])
         return self.distanceFrom
-    def distanceFromPT(self, address):
-        ...
-        # url = "http://www.wienerlinien.at/ogd_routing/XML_TRIP_REQUEST2"
-
-        # params = {
-        #     "sessionID": "0",
-        #     "type_origin": "stopID",
-        #     "name_origin": "60201468",         # Westbahnhof stop ID
-        #     "type_destination": "stopID",
-        #     "name_destination": "60201320",    # Stephansplatz stop ID
-        #     "itdDate": "20250418",             # Date in YYYYMMDD
-        #     "itdTime": "1030",                 # Time in HHMM
-        #     "itdTripDateTimeDepArr": "dep",    # dep or arr
-        #     "ptOptionsActive": "1",
-        #     "excludedMeans": "4",              # Exclude trams
-        #     "outputFormat": "XML"
-        # }
-
-        # response = requests.get(url, params=params)
-        # print("Status:", response.status_code)
-        # print(response.text)  # or write to file to examine more easily
-        # with open("response.xml", "w", encoding="utf-8") as f:
-        #     f.write(response.text)
-
-
-        # import xml.etree.ElementTree as ET
-
-        # # Load the XML file
-        # tree = ET.parse('response.xml')
-        # root = tree.getroot()
-
-        # # Namespace helper (some tags may include namespaces)
-        # ns = {'ns': root.tag.split('}')[0].strip('{')} if '}' in root.tag else {}
-
-        # # Find all routes
-        # routes = root.findall(".//itdRoute")
-
-        # # Loop through routes and extract info
-        # for i, route in enumerate(routes, 1):
-        #     print(f"\n=== 🚆 Route Option {i} ===")
-            
-        #     # Travel time
-        #     duration = route.attrib.get("publicDuration")
-        #     print(f"🕒 Duration: {duration}")
     def isCurrentlyOpen(self):
         now = dt.datetime.now()
         currentDay = now.strftime("%a")  # e.g. "Mon"
@@ -693,25 +625,7 @@ class Restaurant(Place):
             if start_time <= currentTime <= end_time:
                 return True
         return False
-    def selector(self):
-        status = True
-        while status == True:
-            count = 1
-            for k,i in self.__dict__.items():
-                print(f"{count}: {k}")
-                count +=1
-            choice = getInput("Enter your selection: ",str)
-            match choice:
-                case choice if choice == "":
-                    print("No choice made, please try again.")
-                case choice if int(choice) > count:
-                    print("Invalid choice, please try again. Or press 'm' to return to the menu.")
-                case choice if int(choice) > len(self.__dict__.keys() or choice < 1):
-                    print("Invalid choice, please try again")
-                case _:
-                    print(self.__dict__[list(self.__dict__.keys())[int(choice)-1]])
-                    print("===================")
-#['restaurant', 'pub', 'cafe', 'fast_food', 'bar', 'food_court', 'biergarten', 'ice_cream']
+    #['restaurant', 'pub', 'cafe', 'fast_food', 'bar', 'food_court', 'biergarten', 'ice_cream']
 class Chain(Place):
     def __init__(self, identity, name, location_obj, hours_obj, cuisine_list, amenity, outdoor_seating=None, phone=None, website=None, wheelchair=None,chain=None):
         super().__init__(identity, name, location_obj, hours_obj, cuisine_list, outdoor_seating)
@@ -781,10 +695,6 @@ class Chain(Place):
                 "district": self.location.district if self.location.district else None,
                 "wheelchairAssc": attrWheelchairAccessible
             }
-    def get_field(self, field_name):
-        if hasattr(self, field_name):
-            return getattr(self, field_name)
-        return None
     def isCurrentlyOpen(self):
         now = dt.datetime.now()
         currentDay = now.strftime("%a")  # e.g. "Mon"
@@ -821,24 +731,6 @@ class Chain(Place):
             if start_time <= currentTime <= end_time:
                 return True
         return False
-    def selector(self):
-        status = True
-        while status == True:
-            count = 1
-            for k,i in self.__dict__.items():
-                print(f"{count}: {k}")
-                count +=1
-            choice = getInput("Enter your selection: ",str)
-            match choice:
-                case choice if choice == "":
-                    print("No choice made, please try again.")
-                case choice if int(choice) > count:
-                    print("Invalid choice, please try again. Or press 'm' to return to the menu.")
-                case choice if int(choice) > len(self.__dict__.keys() or choice < 1):
-                    print("Invalid choice, please try again")
-                case _:
-                    print(self.__dict__[list(self.__dict__.keys())[int(choice)-1]])
-                    print("===================")
     def __str__(self):
         queryScore = getattr(self, "queryScore", None)
         if self.distanceFrom < 1:
@@ -889,20 +781,8 @@ class DataBase(DataObject):
                     allCuisines.add(c.strip().lower())
         return sorted(list(allCuisines))
     def loadFromDO(self):
-        with open('./catagories.json',"r") as file:
-            catagories = json.loads(file.read())
         records = self.dataPull.to_dict('records')
         for row in tqdm(records,desc="Adding Entities", bar_format=customBarFormatMS, colour="RED",leave=True, ncols=100):
-            #tqdm(,total=self.dataPull.__len__(),desc="Adding Entity")
-            data = {}
-            for newCol, mappedCols in catagories.items():
-                dict_ = {}
-                for item in mappedCols:
-                    if row.get(item) != None and pd.notna(row.get(item)) and row.get(item) != "":
-                        dict_[item] = row[item]
-                if dict_ != {}:
-                    data[newCol] = dict_
-
             cuisine = row['cuisine']
             if pd.notna(cuisine):# and cuisine != None:
                 if ";" in cuisine:
@@ -989,14 +869,6 @@ class DataBase(DataObject):
         elif self.custSearch == True:
             self.restaurants.sort(key=lambda x: x.distanceFrom)
             self.distanceSorted = True
-    def getClosestViaPublicTransport(self, address:str, n:int=5):
-        ...
-        # for i in self.restaurants:
-        #     # if i.get("distanceFrom") is None:
-        #     #     print("CALCULATING DISTANCE - REMOVE LATER")
-        #         i.distanceFromCrow(address)
-        self.restaurants.sort(key=lambda x: x.distanceFrom)
-        return [str(x) for x in self.restaurants[:n] if x.cuisine == "restaurant"]
     def usrGetCoords(self, address:str):
         try:
             self.addressCoords = ox.geocoder.geocode(address)
@@ -1037,8 +909,8 @@ class DataBase(DataObject):
         print(table)
     def showCuisines(self):
         print("\n--- Available Cuisines ---")
-        if self.uniqueCuisines:
-            for i, cuisine in enumerate(self.uniqueCuisines):
+        if self.cuisines:
+            for i, cuisine in enumerate(self.cuisines):
                 print(f"{i+1}. {cuisine.capitalize()}")
         else:
             print("No cuisine data available.")    
@@ -1072,11 +944,6 @@ class DataBase(DataObject):
             #self.distanceSorted = False
         if self.distanceSorted == False:
             self.getClosestList()
-    def breakInput(self, inpt):
-        if inpt == "q":
-            return True
-        else:
-            return False      
     def evalRes(self,restaurant:Place, criteria:dict, logicOperator:str) -> bool:
         #Takes restaurant and the criteria and returns bool if the restaurant meets that criteria
         attrs = restaurant.getSearchAttr()
@@ -1358,6 +1225,7 @@ class DataBase(DataObject):
 
         return
     def sortAlg(self, arr):
+        #Sorts based on the list of sort options.
         sortedOutput = None
         for i in self.defaultSort:
             if i == "1":#1. Bubble Sort\n2. Insert Sort\n3. Merge Sort
@@ -1368,6 +1236,7 @@ class DataBase(DataObject):
                 sortedOutput = self.sortMerge(arr)
         return sortedOutput
     def showClosestRest(self, top_n=10):
+        # This uses the sortAlg method to sort the restaurants, then uses displayRestaurants method to display them.
         # Ensure all restaurants have distance calculated
         for r in self.restaurants:
             r.distanceFromCrow((self.addressCoords[0], self.addressCoords[1]))
@@ -1411,7 +1280,8 @@ class DataBase(DataObject):
         except Exception as e:
             print(f"An unexpected error occurred while saving: {e}")
     def run(self):
-        print("Welcome to the Restaurant Finder!\n(At any point press 'q' to quit or 'm' to return to the menu.)")
+        printLogo()
+        print("Welcome to the DataDine Restaurant Finder!\n(At any point press 'q' to quit or 'm' to return to the menu.)")
         b = False
         while b == False:
             try:
@@ -1424,12 +1294,7 @@ class DataBase(DataObject):
                     self.checkUserAddr()                     
                     self.showClosestRest()
                 elif choice == "3":
-                    print("\n--- Available Cuisines ---")
-                    if self.unique_cuisines:
-                        for i, cuisine in enumerate(self.unique_cuisines):
-                            print(f"{i+1}. {cuisine.capitalize()}")
-                    else:
-                        print("No cuisine data available.")
+                    self.showCuisines()
                 elif choice == '4':
                     self.addrSet = False
                     self.distanceSorted = False
@@ -1447,11 +1312,12 @@ class DataBase(DataObject):
                     print("Invalid Input. Try agian or press 'q' to quit.")
             except MenuBreak as e:
                 if e.code == "q":
-                    b = True
+                    b = False
                 elif e.code == "m":
                     continue
             except Exception as e:
-                print(f"Something went wrong. Error: {e}") 
+                print(f"Something went wrong. Error: {e}")
+        print("Goodbye!")
     def display_menu(self):
         print("\nMENU:")
         print("1. Search Restaurants")
@@ -1462,26 +1328,7 @@ class DataBase(DataObject):
         print("6. Exit")
         return getInput("Enter choice: ",str)
 if __name__ == "__main__":
-    dbRun = True
-    while dbRun == True:
-        try:
-            inp = getInput("Yes to pull your own data or No to use the default? ",bool)
-            if inp:
-                city = getInput("Which district? ('Wien, Austria', or 'Wahring 1180 Wien, Austria') ",str)
-                saveName = getInput("Save it as? ", str)
-                rs = DataBase(name=f"./{saveName}",city=city, dataBrought=False)
-                rs.run()
-            else:
-                dp = DataBase(dataBrought=True, city="Wien, Austria", name="./Wien_Restaurants-Combined")
-                dp.run()
-        except TypeError as e:
-                print(f"City Name wasn't found: {e.args}")
-        except MenuBreak as e:
-            if e.code == "q":
-                b = True
-            elif e.code == "m":
-                continue
-        except Exception as e:
-            print(f"Something went wrong. Error: {e}") 
+    dp = DataBase(dataBrought=True, city="Wien, Austria", name="./Wien_Restaurants-Combined")
+    dp.run()
 
         

@@ -1,0 +1,8 @@
+osmnx
+pandas
+tqdm
+shapely
+geopy
+pyproj
+requests
+prettytable
